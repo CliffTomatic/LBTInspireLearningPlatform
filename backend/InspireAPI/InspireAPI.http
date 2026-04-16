@@ -1,0 +1,6 @@
+@InspireAPI_HostAddress = http://localhost:5053
+
+GET {{InspireAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
