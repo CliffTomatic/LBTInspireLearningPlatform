@@ -1,4 +1,5 @@
 // Objects for the app to use.
+namespace InspireAPI.Models;
 public class Video
 {
     public int Id { get; set; }

@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: #111;
+    color: white;
+    padding: 15px;
+}
+
+main {
+    padding: 20px;
+}
+
+footer {
+    background: #111;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Horizontal scroll row */
+#video-container {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 10px 0;
+}
+
+/* Video card */
+.video-card {
+    min-width: 250px;
+    cursor: pointer;
+}
+
+.video-card img {
+    width: 250px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.video-card h3 {
+    margin: 5px 0;
+    font-size: 16px;
+}

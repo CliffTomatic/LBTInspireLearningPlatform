@@ -32,3 +32,8 @@ C:\Users\Cliff\Documents\LearnBasicTech\LBTInspireLearningPlatform\backend\Inspi
 C:\Users\Cliff\Documents\LearnBasicTech\LBTInspireLearningPlatform\backend\InspireAPI\obj\Debug\net9.0\InspireAPI.pdb
 C:\Users\Cliff\Documents\LearnBasicTech\LBTInspireLearningPlatform\backend\InspireAPI\obj\Debug\net9.0\InspireAPI.genruntimeconfig.cache
 C:\Users\Cliff\Documents\LearnBasicTech\LBTInspireLearningPlatform\backend\InspireAPI\obj\Debug\net9.0\ref\InspireAPI.dll
+C:\Users\Cliff\Documents\LearnBasicTech\LBTInspireLearningPlatform\backend\InspireAPI\bin\Debug\net9.0\InspireAPI.staticwebassets.runtime.json
+C:\Users\Cliff\Documents\LearnBasicTech\LBTInspireLearningPlatform\backend\InspireAPI\obj\Debug\net9.0\compressed\qfn0mmmqbp-5ipweew5fc.gz
+C:\Users\Cliff\Documents\LearnBasicTech\LBTInspireLearningPlatform\backend\InspireAPI\obj\Debug\net9.0\compressed\3ppsjcoyth-nk6sj8x8yk.gz
+C:\Users\Cliff\Documents\LearnBasicTech\LBTInspireLearningPlatform\backend\InspireAPI\obj\Debug\net9.0\compressed\vqynue9cxf-5jaai1rbhi.gz
+C:\Users\Cliff\Documents\LearnBasicTech\LBTInspireLearningPlatform\backend\InspireAPI\obj\Debug\net9.0\compressed\tgg47yru23-nyhcyc8xzo.gz
