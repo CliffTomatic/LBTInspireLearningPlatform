@@ -1,0 +1,115 @@
+<!-- TODO, create a good working dashboard -> api has been setup, Github has
+     been updated till this note, file logging as been added, video works,
+     sessions work, 15 sec heartbeats work. TODO: make a more responsive
+     heartbeat monitor so it sends a full appended list logged into the
+     sessions json file so we can see the timestamps and cross check it for
+     auditing purposes. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Inspire</title>
+    <link rel="stylesheet" href="/css/admindashboard.css">
+</head>
+<body>
+    <header class="topbar">
+        <div>
+            <h1>Inspire Admin Dashboard</h1>
+            <p class="subtitle">Training sessions, watch time, and session detail logs</p>
+        </div>
+    </header>
+
+    <main class="dashboard-layout">
+        <section class="summary-section" aria-labelledby="summary-heading">
+            <h2 id="summary-heading">Overview</h2>
+            <div class="summary-grid">
+                <article class="summary-card" tabindex="0">
+                    <h3>Total Sessions</h3>
+                    <p id="totalSessions">0</p>
+                </article>
+
+                <article class="summary-card" tabindex="0">
+                    <h3>Active Sessions</h3>
+                    <p id="activeSessions">0</p>
+                </article>
+
+                <article class="summary-card" tabindex="0">
+                    <h3>Total Watch Time</h3>
+                    <p id="totalWatchTime">0s</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="table-section" aria-labelledby="sessions-heading">
+            <div class="section-header">
+                <h2 id="sessions-heading">Session Logs</h2>
+                <div class="table-controls">
+                    <div class="control-group">
+                        <label for="searchInput">Search</label>
+                        <input
+                            id="searchInput"
+                            type="text"
+                            placeholder="Search sessions..."
+                            aria-describedby="searchHelp"
+                        >
+                        <small id="searchHelp">Filter rows by the selected column.</small>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="columnFilter">Column</label>
+                        <select id="columnFilter">
+                            <option value="all">All Columns</option>
+                            <option value="id">Session ID</option>
+                            <option value="videoId">Video ID</option>
+                            <option value="userName">User Name</option>
+                            <option value="startedAt">Started At</option>
+                            <option value="endedAt">Ended At</option>
+                            <option value="totalWatchedSeconds">Watch Seconds</option>
+                            <option value="lastKnownVideoTimeSeconds">Last Video Time</option>
+                            <option value="isActive">Active</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table aria-describedby="tableDescription">
+                    <caption id="tableDescription">
+                        Session log table. Click a row to inspect the full session detail panel.
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Session ID</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Video ID</th>
+                            <th scope="col">Started</th>
+                            <th scope="col">Ended</th>
+                            <th scope="col">Watch Time</th>
+                            <th scope="col">Active</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sessionsTableBody">
+                        <tr>
+                            <td colspan="7">Loading sessions...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <aside class="detail-panel" aria-labelledby="detail-heading">
+            <h2 id="detail-heading">Session Details</h2>
+            <div id="detailContent" class="detail-content">
+                <p>Select a session row to inspect the full details.</p>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 Inspire Training Dashboard</p>
+    </footer>
+
+    <script src="/js/admin-dashboard.js"></script>
+</body>
+</html>

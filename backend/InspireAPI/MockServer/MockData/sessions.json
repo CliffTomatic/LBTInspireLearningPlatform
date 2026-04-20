@@ -1,32 +1,22 @@
 [
   {
-    "Id": 1,
+    "SessionId": 1,
     "VideoId": 1,
     "UserName": "Demo User",
-    "StartedAt": "2026-04-20T06:50:34.1079392Z",
-    "EndedAt": null,
-    "TotalWatchedSeconds": 0,
-    "LastKnownVideoTimeSeconds": 0,
-    "IsActive": true
-  },
-  {
-    "Id": 2,
-    "VideoId": 1,
-    "UserName": "Demo User",
-    "StartedAt": "2026-04-20T06:51:04.2185641Z",
-    "EndedAt": "2026-04-20T06:52:41.17391Z",
-    "TotalWatchedSeconds": 0,
-    "LastKnownVideoTimeSeconds": 0,
+    "StartedAt": "2026-04-20T20:05:58.0324632Z",
+    "EndedAt": "2026-04-20T20:06:53.2942904Z",
+    "TotalWatchedSeconds": 45,
+    "LastKnownVideoTimeSeconds": 44,
     "IsActive": false
   },
   {
-    "Id": 3,
+    "SessionId": 2,
     "VideoId": 1,
     "UserName": "Demo User",
-    "StartedAt": "2026-04-20T06:52:41.2757204Z",
+    "StartedAt": "2026-04-20T20:06:53.3842529Z",
     "EndedAt": null,
-    "TotalWatchedSeconds": 0,
-    "LastKnownVideoTimeSeconds": 0,
+    "TotalWatchedSeconds": 15,
+    "LastKnownVideoTimeSeconds": 14,
     "IsActive": true
   }
 ]

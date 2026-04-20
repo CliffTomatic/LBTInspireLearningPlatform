@@ -1,0 +1,45 @@
+# ===== .NET / C# =====
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider / VS Code / Visual Studio
+.vscode/
+.idea/
+*.csproj.user
+
+
+# ===== OS files =====
+.DS_Store
+Thumbs.db
+
+# ===== Logs =====
+logs/
+*.log
+
+# ===== Build output =====
+dist/
+build/
+
+# ===== Environment / secrets =====
+.env
+.env.*
+appsettings.Development.json
+secrets.json
+
+# ===== Azure / publish =====
+publish/
+*.publishsettings
+
+# ===== Temporary files =====
+*.tmp
+*.cache
+
+# ===== Coverage / test =====
+coverage/
+*.coverage

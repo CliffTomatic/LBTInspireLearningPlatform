@@ -1,8 +1,8 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\adminDashboard.html",
-      "PackagePath": "staticwebassets\\adminDashboard.html"
+      "Id": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\admin.html",
+      "PackagePath": "staticwebassets\\admin.html"
     },
     {
       "Id": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\assets\\thumbnails\\Video_1_Thumbnail.png",
@@ -13,12 +13,20 @@
       "PackagePath": "staticwebassets\\assets\\videos\\Video_1.mp4"
     },
     {
+      "Id": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\css\\admindashboard.css",
+      "PackagePath": "staticwebassets\\css\\admindashboard.css"
+    },
+    {
       "Id": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\css\\styles.css",
       "PackagePath": "staticwebassets\\css\\styles.css"
     },
     {
       "Id": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\js\\admin-dashboard.js",
+      "PackagePath": "staticwebassets\\js\\admin-dashboard.js"
     },
     {
       "Id": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\js\\api.js",
@@ -29,8 +37,8 @@
       "PackagePath": "staticwebassets\\js\\home.js"
     },
     {
-      "Id": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\js\\videoplayer.js",
-      "PackagePath": "staticwebassets\\js\\videoplayer.js"
+      "Id": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\js\\video-player.js",
+      "PackagePath": "staticwebassets\\js\\video-player.js"
     },
     {
       "Id": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\videoplayer.html",
