@@ -1,7 +1,9 @@
+using InspireAPI.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddSingleton<InspireAPI.Services.VideoService>();
+builder.Services.AddSingleton<VideoService>();
+builder.Services.AddSingleton<SessionFileService>();
 
 var app = builder.Build();
 
@@ -10,5 +12,6 @@ app.UseStaticFiles();
 
 app.UseAuthorization();
 app.MapControllers();
+
 
 app.Run();

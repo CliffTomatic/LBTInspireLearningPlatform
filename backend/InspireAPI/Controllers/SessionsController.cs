@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using InspireAPI.Models;
 using InspireAPI.MockData;
+using InspireAPI.Services;
 
 namespace InspireAPI.Controllers
 {
@@ -8,12 +9,19 @@ namespace InspireAPI.Controllers
     [Route("api/[controller]")]
     public class SessionsController : ControllerBase
     {
-        [HttpPost("start")] // TODO Change name
+         private readonly SessionFileService _sessionFileService;
+
+        public SessionsController(SessionFileService sessionFileService)
+        {
+            _sessionFileService = sessionFileService;
+        }
+
+        [HttpPost("startSession")] // TODO Change name
         public IActionResult StartSession([FromBody] SessionStartRequest request)
         {
             var session = new ViewSession
             {
-                Id = MockSessionData.NextSessionId++,
+                SessionId = MockSessionData.NextSessionId++,
                 VideoId = request.VideoId,
                 UserName = request.UserName,
                 StartedAt = DateTime.UtcNow,
@@ -22,15 +30,15 @@ namespace InspireAPI.Controllers
                 LastKnownVideoTimeSeconds = 0
             };
 
-            MockSessionData.Sessions.Add(session);
+            session = _sessionFileService.AddSession(session);
 
-            return Ok(new { sessionId = session.Id });
+            return Ok(new { sessionId = session.SessionId });
         }
 
         [HttpPost("heartbeat")]
         public IActionResult Heartbeat([FromBody] HeartbeatRequest request)
         {
-            var session = MockSessionData.Sessions.FirstOrDefault(s => s.Id == request.SessionId);
+            var session = _sessionFileService.GetSessionById(request.SessionId);
 
             if (session == null)
                 return NotFound(new { message = "Session not found" });
@@ -40,6 +48,11 @@ namespace InspireAPI.Controllers
 
             session.TotalWatchedSeconds += request.WatchedSeconds;
             session.LastKnownVideoTimeSeconds = request.CurrentTimeSeconds;
+
+            bool updated = _sessionFileService.UpdateSession(session);
+
+            if (!updated)
+                return StatusCode(500, new { message = "Failed to update session" });
 
             return Ok(new
             {
@@ -51,13 +64,18 @@ namespace InspireAPI.Controllers
         [HttpPost("end")]
         public IActionResult EndSession([FromBody] SessionEndRequest request)
         {
-            var session = MockSessionData.Sessions.FirstOrDefault(s => s.Id == request.SessionId);
+            var session = _sessionFileService.GetSessionById(request.SessionId);
 
             if (session == null)
                 return NotFound(new { message = "Session not found" });
 
             session.IsActive = false;
             session.EndedAt = DateTime.UtcNow;
+
+            bool updated = _sessionFileService.UpdateSession(session);
+
+            if (!updated)
+                return StatusCode(500, new { message = "Failed to end session" });
 
             return Ok(new { message = "Session ended" });
         }

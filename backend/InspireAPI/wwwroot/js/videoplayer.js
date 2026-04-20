@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Called when user first atarts their video watching session
 async function startSession() {
-    const response = await fetch("/api/sessions/start", {
+    const response = await fetch("/api/sessions/startSession", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

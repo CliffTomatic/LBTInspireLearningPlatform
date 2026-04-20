@@ -84,17 +84,17 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"o91ic41fso"},{"Name":"integrity","Value":"sha256-7MLrWJn5S90iJCNrOWzsVia2PrffEYUwfBntlFLEQC4="},{"Name":"label","Value":"_content/InspireAPI/js/home.js"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"950"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u00227MLrWJn5S90iJCNrOWzsVia2PrffEYUwfBntlFLEQC4=\u0022"},{"Name":"Last-Modified","Value":"Mon, 20 Apr 2026 04:37:30 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/InspireAPI/js/videoplayer.iv4hzhqsh8.js">
+    <StaticWebAssetEndpoint Include="_content/InspireAPI/js/videoplayer.hxouji19u0.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\videoplayer.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"iv4hzhqsh8"},{"Name":"integrity","Value":"sha256-EkYmL9wyAf7j2RkJ7nZaaEDmhCtVaxfnoVqpMYyMDmY="},{"Name":"label","Value":"_content/InspireAPI/js/videoplayer.js"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"4031"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022EkYmL9wyAf7j2RkJ7nZaaEDmhCtVaxfnoVqpMYyMDmY=\u0022"},{"Name":"Last-Modified","Value":"Mon, 20 Apr 2026 06:01:05 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"hxouji19u0"},{"Name":"integrity","Value":"sha256-S1vGJaFjylSr1iXOqrM9GTnqRPiK89tvtRguhdJsXVI="},{"Name":"label","Value":"_content/InspireAPI/js/videoplayer.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"4038"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022S1vGJaFjylSr1iXOqrM9GTnqRPiK89tvtRguhdJsXVI=\u0022"},{"Name":"Last-Modified","Value":"Mon, 20 Apr 2026 06:26:44 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/InspireAPI/js/videoplayer.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\videoplayer.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-EkYmL9wyAf7j2RkJ7nZaaEDmhCtVaxfnoVqpMYyMDmY="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"4031"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022EkYmL9wyAf7j2RkJ7nZaaEDmhCtVaxfnoVqpMYyMDmY=\u0022"},{"Name":"Last-Modified","Value":"Mon, 20 Apr 2026 06:01:05 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-S1vGJaFjylSr1iXOqrM9GTnqRPiK89tvtRguhdJsXVI="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"4038"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022S1vGJaFjylSr1iXOqrM9GTnqRPiK89tvtRguhdJsXVI=\u0022"},{"Name":"Last-Modified","Value":"Mon, 20 Apr 2026 06:26:44 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/InspireAPI/videoplayer.1jcvk4h84y.html">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\videoplayer.html'))</AssetFile>

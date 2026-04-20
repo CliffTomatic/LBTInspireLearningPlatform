@@ -39,4 +39,5 @@ C:\Users\Cliff\Documents\LearnBasicTech\LBTInspireLearningPlatform\backend\Inspi
 C:\Users\Cliff\Documents\LearnBasicTech\LBTInspireLearningPlatform\backend\InspireAPI\obj\Debug\net9.0\compressed\awgyyaln0k-1jcvk4h84y.gz
 C:\Users\Cliff\Documents\LearnBasicTech\LBTInspireLearningPlatform\backend\InspireAPI\obj\Debug\net9.0\compressed\tgg47yru23-ceijz4zue7.gz
 C:\Users\Cliff\Documents\LearnBasicTech\LBTInspireLearningPlatform\backend\InspireAPI\obj\Debug\net9.0\compressed\3ppsjcoyth-5ipweew5fc.gz
-C:\Users\Cliff\Documents\LearnBasicTech\LBTInspireLearningPlatform\backend\InspireAPI\obj\Debug\net9.0\compressed\sztj8pjhup-iv4hzhqsh8.gz
+C:\Users\Cliff\Documents\LearnBasicTech\LBTInspireLearningPlatform\backend\InspireAPI\bin\Debug\net9.0\MockServer\MockData\sessions.json
+C:\Users\Cliff\Documents\LearnBasicTech\LBTInspireLearningPlatform\backend\InspireAPI\obj\Debug\net9.0\compressed\sztj8pjhup-hxouji19u0.gz

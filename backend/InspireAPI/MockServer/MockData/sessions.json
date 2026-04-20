@@ -1,0 +1,32 @@
+[
+  {
+    "Id": 1,
+    "VideoId": 1,
+    "UserName": "Demo User",
+    "StartedAt": "2026-04-20T06:50:34.1079392Z",
+    "EndedAt": null,
+    "TotalWatchedSeconds": 0,
+    "LastKnownVideoTimeSeconds": 0,
+    "IsActive": true
+  },
+  {
+    "Id": 2,
+    "VideoId": 1,
+    "UserName": "Demo User",
+    "StartedAt": "2026-04-20T06:51:04.2185641Z",
+    "EndedAt": "2026-04-20T06:52:41.17391Z",
+    "TotalWatchedSeconds": 0,
+    "LastKnownVideoTimeSeconds": 0,
+    "IsActive": false
+  },
+  {
+    "Id": 3,
+    "VideoId": 1,
+    "UserName": "Demo User",
+    "StartedAt": "2026-04-20T06:52:41.2757204Z",
+    "EndedAt": null,
+    "TotalWatchedSeconds": 0,
+    "LastKnownVideoTimeSeconds": 0,
+    "IsActive": true
+  }
+]

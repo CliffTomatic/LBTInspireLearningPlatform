@@ -138,8 +138,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>iv4hzhqsh8</Fingerprint>
-      <Integrity>EkYmL9wyAf7j2RkJ7nZaaEDmhCtVaxfnoVqpMYyMDmY=</Integrity>
+      <Fingerprint>hxouji19u0</Fingerprint>
+      <Integrity>S1vGJaFjylSr1iXOqrM9GTnqRPiK89tvtRguhdJsXVI=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\videoplayer.js'))</OriginalItemSpec>

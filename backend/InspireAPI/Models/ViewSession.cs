@@ -2,7 +2,7 @@ namespace InspireAPI.Models
 {
     public class ViewSession
     {
-        public int Id { get; set; }
+        public int SessionId { get; set; }
         public int VideoId { get; set; }
         public string UserName { get; set; } = "";
         public DateTime StartedAt { get; set; }
