@@ -12,7 +12,7 @@ namespace InspireAPI.MockData
                 Title = "LearnBasicTech's Review",
                 Description = "LearnBasicTech's Youtube Video Review",
                 ThumbnailUrl = "/Assets/Thumbnails/Video_1_Thumbnail.png",
-                VideoUrl = "/Assets/Videos/Video_1.mp4",
+                VideoUrl = "assets/videos/Video_1.mp4",
                 DurationSeconds = 511,
             },
             new Video

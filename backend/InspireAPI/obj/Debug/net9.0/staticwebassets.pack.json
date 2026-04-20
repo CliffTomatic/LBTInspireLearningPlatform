@@ -25,6 +25,18 @@
       "PackagePath": "staticwebassets\\js\\api.js"
     },
     {
+      "Id": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\js\\home.js",
+      "PackagePath": "staticwebassets\\js\\home.js"
+    },
+    {
+      "Id": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\js\\videoplayer.js",
+      "PackagePath": "staticwebassets\\js\\videoplayer.js"
+    },
+    {
+      "Id": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\videoplayer.html",
+      "PackagePath": "staticwebassets\\videoplayer.html"
+    },
+    {
       "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.InspireAPI.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
