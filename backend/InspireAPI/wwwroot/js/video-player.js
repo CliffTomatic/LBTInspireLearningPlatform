@@ -1,4 +1,3 @@
-
 // Get URL ID
 const params = new URLSearchParams(window.location.search);
 const videoId = params.get("id");
@@ -7,12 +6,14 @@ let sessionId = null;
 let heartbeatInterval = null;
 let player = null;
 let source = null;
+let userName = null;
+let userId = null;
 // Populate video with URL ID once HTML is done loading
 document.addEventListener("DOMContentLoaded", () => {
-    player = document.getElementById("videoPlayer"); //TODO move into DOMCLoaded for saftey
+    player = document.getElementById("videoPlayer");
     source = document.getElementById("videoSource");
     loadVideo(videoId);
-    player.addEventListener("play", () => {
+    player.addEventListener("play", () => { // Add all messy code to func.
         startHeartbeatLoop();
     });
     
@@ -30,9 +31,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// On-Click event when updating MOCK User
+// Saves userId & Name in client local storage.
+function saveUser() {
+    const name = document.getElementById("userNameInput").value;
+    const id = document.getElementById("userIdInput").value;
+
+    if (!name || !id) {
+        alert("Enter both name and ID");
+        return;
+    }
+
+    localStorage.setItem("demoUserName", name);
+    localStorage.setItem("demoUserId", id);
+
+    console.log("Saved user:", name, id);
+}
 
 // Called when user first atarts their video watching session
 async function startSession() {
+    const userName = localStorage.getItem("demoUserName") || "Demo User";
+    const userId = localStorage.getItem("demoUserId") || "u001";
+
     const response = await fetch("/api/sessions/startSession", {
         method: "POST",
         headers: {
@@ -40,13 +60,15 @@ async function startSession() {
         },
         body: JSON.stringify({
             videoId: Number(videoId),
-            userName: "Demo User"
+            userName: userName,
+            userId: userId
         })
     });
 
     const data = await response.json();
     sessionId = data.sessionId;
-    console.log("[DEVELOPER]: Session Started:", sessionId);
+
+    console.log("[DEVELOPER]: Session Started:", sessionId, userId);
 }
 
 // Send Heartbeat through POST to backend
@@ -61,6 +83,7 @@ async function sendHeartbeat() {
             },
             body: JSON.stringify({
                 sessionId: sessionId,
+                userId: Number(userId),
                 videoId: Number(videoId),
                 currentTimeSeconds: Math.floor(player.currentTime),
                 watchedSeconds: 15 

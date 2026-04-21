@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "stl4L/hKdTVYnvXm+EDYhfJu4nYogUOT07M34kH3Gpc=",
+  "Hash": "BfrWumWes17fhuunq/iCFkGIsubaZ99Ss8+/KOU7B0A=",
   "Source": "InspireAPI",
   "BasePath": "_content/InspireAPI",
   "Mode": "Default",
@@ -16,6 +16,27 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\2xk793v2wm-5ipweew5fc.gz",
+      "SourceId": "InspireAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/InspireAPI",
+      "RelativePath": "css/videoplayer#[.{fingerprint=5ipweew5fc}]?.css.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\css\\videoplayer.css",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "5ipweew5fc",
+      "Integrity": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\css\\videoplayer.css"
+    },
     {
       "Identity": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\3ppsjcoyth-5ipweew5fc.gz",
       "SourceId": "InspireAPI",
@@ -59,12 +80,12 @@
       "OriginalItemSpec": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\js\\home.js"
     },
     {
-      "Identity": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\awgyyaln0k-4obiqnwil6.gz",
+      "Identity": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\awgyyaln0k-r60ss0h0uu.gz",
       "SourceId": "InspireAPI",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/InspireAPI",
-      "RelativePath": "videoplayer#[.{fingerprint=4obiqnwil6}]?.html.gz",
+      "RelativePath": "videoplayer#[.{fingerprint=r60ss0h0uu}]?.html.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -73,19 +94,19 @@
       "RelatedAsset": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\videoplayer.html",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "9au9bty84x",
-      "Integrity": "b19AT4ue5Nff78Iym79tFpcXsSXvYkhYR/0tl012Cgc=",
+      "Fingerprint": "hodxvis1wl",
+      "Integrity": "fzXWBZ28LhWU54vEi4CMEKJaqOyyQrPrRjuPkJ0LvyM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\videoplayer.html"
     },
     {
-      "Identity": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\b79vkkjbrn-s1os6z839u.gz",
+      "Identity": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\b79vkkjbrn-h937dq4qjw.gz",
       "SourceId": "InspireAPI",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/InspireAPI",
-      "RelativePath": "js/admin-dashboard#[.{fingerprint=s1os6z839u}]?.js.gz",
+      "RelativePath": "js/admin-dashboard#[.{fingerprint=h937dq4qjw}]?.js.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -94,8 +115,8 @@
       "RelatedAsset": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\js\\admin-dashboard.js",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "0191m4mzgj",
-      "Integrity": "DJYWZSiytJu6ck8SUN+3sds0OM/7bsqjpiQHu9EgMqI=",
+      "Fingerprint": "hcpbzdfzs5",
+      "Integrity": "EVzopJO2jzglc2Pps29C2vhjVkPFmDa8UQHNt9rAGS0=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\js\\admin-dashboard.js"
@@ -164,12 +185,12 @@
       "OriginalItemSpec": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\css\\admindashboard.css"
     },
     {
-      "Identity": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\w6jzekolyg-hxouji19u0.gz",
+      "Identity": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\w6jzekolyg-4u7mbt3klh.gz",
       "SourceId": "InspireAPI",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/InspireAPI",
-      "RelativePath": "js/video-player#[.{fingerprint=hxouji19u0}]?.js.gz",
+      "RelativePath": "js/video-player#[.{fingerprint=4u7mbt3klh}]?.js.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -178,19 +199,19 @@
       "RelatedAsset": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\js\\video-player.js",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "21v7e5yno3",
-      "Integrity": "KoUCataQElmLmbIPBosIyHsViMOBg0ziEPWBcZxVlTM=",
+      "Fingerprint": "kwzl1tww5z",
+      "Integrity": "BN7I/t/svANqV/OJk5TkSLi9h22RbEb/xgCyA5wzMHo=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\js\\video-player.js"
     },
     {
-      "Identity": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\x2b0659tds-1c8bgo7og2.gz",
+      "Identity": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\x2b0659tds-0qkq7cfabc.gz",
       "SourceId": "InspireAPI",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/InspireAPI",
-      "RelativePath": "admin#[.{fingerprint=1c8bgo7og2}]?.html.gz",
+      "RelativePath": "admin#[.{fingerprint=0qkq7cfabc}]?.html.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -199,8 +220,8 @@
       "RelatedAsset": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\admin.html",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "8e21kd09u7",
-      "Integrity": "YOo1vTQkliMhLNORC7PU/L1oGnUuQ44wAMMMJUB1GDw=",
+      "Fingerprint": "o7vgfn5kli",
+      "Integrity": "BH1mjunjpdNdAcFpMjXgeqt/+gYJMA/hfSSDb3kJPxA=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\admin.html"
@@ -220,8 +241,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "1c8bgo7og2",
-      "Integrity": "DyG36NUWhJ6e+mvg7riz9WLENxcScpKhFVzt7CC5z/o=",
+      "Fingerprint": "0qkq7cfabc",
+      "Integrity": "mI1eYvDl5sDCP3gjNtxf6GTan85dyBUUN+udnBpVL5s=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\admin.html"
@@ -311,6 +332,27 @@
       "OriginalItemSpec": "wwwroot\\css\\styles.css"
     },
     {
+      "Identity": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\css\\videoplayer.css",
+      "SourceId": "InspireAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\",
+      "BasePath": "_content/InspireAPI",
+      "RelativePath": "css/videoplayer#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5ipweew5fc",
+      "Integrity": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\videoplayer.css"
+    },
+    {
       "Identity": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\index.html",
       "SourceId": "InspireAPI",
       "SourceType": "Discovered",
@@ -346,8 +388,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "s1os6z839u",
-      "Integrity": "QCVJ39hXQ9DtDXBhqcxSrsJPeBhBdU0oGTFB97bmYEY=",
+      "Fingerprint": "h937dq4qjw",
+      "Integrity": "u143sUUgM6TK+QN1VMpaUqwLEq4S6W2QmD8bu21+6T4=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\admin-dashboard.js"
@@ -409,8 +451,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "hxouji19u0",
-      "Integrity": "S1vGJaFjylSr1iXOqrM9GTnqRPiK89tvtRguhdJsXVI=",
+      "Fingerprint": "4u7mbt3klh",
+      "Integrity": "1H9OmrakN63oAi8L2iHo9kea9esbcud6OrEUISlVlMo=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\video-player.js"
@@ -430,8 +472,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "4obiqnwil6",
-      "Integrity": "lKGLQLFbjBh3SyyKoVfJVjvcuFTffNpV5falJT6i07A=",
+      "Fingerprint": "r60ss0h0uu",
+      "Integrity": "DWQocJZXGt7rrX232zfIp9YjiKcHRKzqEwMtlP5iN+M=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\videoplayer.html"
@@ -439,13 +481,13 @@
   ],
   "Endpoints": [
     {
-      "Route": "admin.1c8bgo7og2.html",
-      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\x2b0659tds-1c8bgo7og2.gz",
+      "Route": "admin.0qkq7cfabc.html",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\x2b0659tds-0qkq7cfabc.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000735294118"
+          "Quality": "0.000730460190"
         }
       ],
       "ResponseHeaders": [
@@ -455,15 +497,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1359"
+          "Value": "1368"
         },
         {
           "Name": "ETag",
-          "Value": "\"YOo1vTQkliMhLNORC7PU/L1oGnUuQ44wAMMMJUB1GDw=\""
+          "Value": "\"BH1mjunjpdNdAcFpMjXgeqt/+gYJMA/hfSSDb3kJPxA=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 20:02:26 GMT"
+          "Value": "Mon, 20 Apr 2026 21:59:35 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -483,13 +525,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"DyG36NUWhJ6e+mvg7riz9WLENxcScpKhFVzt7CC5z/o=\""
+          "Value": "W/\"mI1eYvDl5sDCP3gjNtxf6GTan85dyBUUN+udnBpVL5s=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "1c8bgo7og2"
+          "Value": "0qkq7cfabc"
         },
         {
           "Name": "label",
@@ -497,12 +539,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-DyG36NUWhJ6e+mvg7riz9WLENxcScpKhFVzt7CC5z/o="
+          "Value": "sha256-mI1eYvDl5sDCP3gjNtxf6GTan85dyBUUN+udnBpVL5s="
         }
       ]
     },
     {
-      "Route": "admin.1c8bgo7og2.html",
+      "Route": "admin.0qkq7cfabc.html",
       "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\admin.html",
       "Selectors": [],
       "ResponseHeaders": [
@@ -512,7 +554,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4960"
+          "Value": "5092"
         },
         {
           "Name": "Content-Type",
@@ -520,11 +562,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"DyG36NUWhJ6e+mvg7riz9WLENxcScpKhFVzt7CC5z/o=\""
+          "Value": "\"mI1eYvDl5sDCP3gjNtxf6GTan85dyBUUN+udnBpVL5s=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 20:02:26 GMT"
+          "Value": "Mon, 20 Apr 2026 21:59:35 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -534,7 +576,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "1c8bgo7og2"
+          "Value": "0qkq7cfabc"
         },
         {
           "Name": "label",
@@ -542,13 +584,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-DyG36NUWhJ6e+mvg7riz9WLENxcScpKhFVzt7CC5z/o="
+          "Value": "sha256-mI1eYvDl5sDCP3gjNtxf6GTan85dyBUUN+udnBpVL5s="
         }
       ]
     },
     {
-      "Route": "admin.1c8bgo7og2.html.gz",
-      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\x2b0659tds-1c8bgo7og2.gz",
+      "Route": "admin.0qkq7cfabc.html.gz",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\x2b0659tds-0qkq7cfabc.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -557,7 +599,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1359"
+          "Value": "1368"
         },
         {
           "Name": "Content-Type",
@@ -565,11 +607,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"YOo1vTQkliMhLNORC7PU/L1oGnUuQ44wAMMMJUB1GDw=\""
+          "Value": "\"BH1mjunjpdNdAcFpMjXgeqt/+gYJMA/hfSSDb3kJPxA=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 20:02:26 GMT"
+          "Value": "Mon, 20 Apr 2026 21:59:35 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -587,7 +629,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "1c8bgo7og2"
+          "Value": "0qkq7cfabc"
         },
         {
           "Name": "label",
@@ -595,18 +637,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-YOo1vTQkliMhLNORC7PU/L1oGnUuQ44wAMMMJUB1GDw="
+          "Value": "sha256-BH1mjunjpdNdAcFpMjXgeqt/+gYJMA/hfSSDb3kJPxA="
         }
       ]
     },
     {
       "Route": "admin.html",
-      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\x2b0659tds-1c8bgo7og2.gz",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\x2b0659tds-0qkq7cfabc.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000735294118"
+          "Quality": "0.000730460190"
         }
       ],
       "ResponseHeaders": [
@@ -616,15 +658,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1359"
+          "Value": "1368"
         },
         {
           "Name": "ETag",
-          "Value": "\"YOo1vTQkliMhLNORC7PU/L1oGnUuQ44wAMMMJUB1GDw=\""
+          "Value": "\"BH1mjunjpdNdAcFpMjXgeqt/+gYJMA/hfSSDb3kJPxA=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 20:02:26 GMT"
+          "Value": "Mon, 20 Apr 2026 21:59:35 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -644,13 +686,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"DyG36NUWhJ6e+mvg7riz9WLENxcScpKhFVzt7CC5z/o=\""
+          "Value": "W/\"mI1eYvDl5sDCP3gjNtxf6GTan85dyBUUN+udnBpVL5s=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-DyG36NUWhJ6e+mvg7riz9WLENxcScpKhFVzt7CC5z/o="
+          "Value": "sha256-mI1eYvDl5sDCP3gjNtxf6GTan85dyBUUN+udnBpVL5s="
         }
       ]
     },
@@ -665,7 +707,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4960"
+          "Value": "5092"
         },
         {
           "Name": "Content-Type",
@@ -673,11 +715,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"DyG36NUWhJ6e+mvg7riz9WLENxcScpKhFVzt7CC5z/o=\""
+          "Value": "\"mI1eYvDl5sDCP3gjNtxf6GTan85dyBUUN+udnBpVL5s=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 20:02:26 GMT"
+          "Value": "Mon, 20 Apr 2026 21:59:35 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -687,13 +729,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-DyG36NUWhJ6e+mvg7riz9WLENxcScpKhFVzt7CC5z/o="
+          "Value": "sha256-mI1eYvDl5sDCP3gjNtxf6GTan85dyBUUN+udnBpVL5s="
         }
       ]
     },
     {
       "Route": "admin.html.gz",
-      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\x2b0659tds-1c8bgo7og2.gz",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\x2b0659tds-0qkq7cfabc.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -702,7 +744,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1359"
+          "Value": "1368"
         },
         {
           "Name": "Content-Type",
@@ -710,11 +752,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"YOo1vTQkliMhLNORC7PU/L1oGnUuQ44wAMMMJUB1GDw=\""
+          "Value": "\"BH1mjunjpdNdAcFpMjXgeqt/+gYJMA/hfSSDb3kJPxA=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 20:02:26 GMT"
+          "Value": "Mon, 20 Apr 2026 21:59:35 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -732,7 +774,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-YOo1vTQkliMhLNORC7PU/L1oGnUuQ44wAMMMJUB1GDw="
+          "Value": "sha256-BH1mjunjpdNdAcFpMjXgeqt/+gYJMA/hfSSDb3kJPxA="
         }
       ]
     },
@@ -1497,6 +1539,304 @@
       ]
     },
     {
+      "Route": "css/videoplayer.5ipweew5fc.css",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\2xk793v2wm-5ipweew5fc.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "1.000000000000"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 20 Apr 2026 21:28:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "css/videoplayer.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "css/videoplayer.5ipweew5fc.css",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\css\\videoplayer.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 20 Apr 2026 21:28:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "css/videoplayer.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "css/videoplayer.5ipweew5fc.css.gz",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\2xk793v2wm-5ipweew5fc.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 20 Apr 2026 21:28:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "css/videoplayer.css.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "css/videoplayer.css",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\2xk793v2wm-5ipweew5fc.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "1.000000000000"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 20 Apr 2026 21:28:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "css/videoplayer.css",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\css\\videoplayer.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 20 Apr 2026 21:28:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "css/videoplayer.css.gz",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\2xk793v2wm-5ipweew5fc.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 20 Apr 2026 21:28:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
       "Route": "index.ceijz4zue7.html",
       "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\tgg47yru23-ceijz4zue7.gz",
       "Selectors": [
@@ -1795,13 +2135,13 @@
       ]
     },
     {
-      "Route": "js/admin-dashboard.js",
-      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\b79vkkjbrn-s1os6z839u.gz",
+      "Route": "js/admin-dashboard.h937dq4qjw.js",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\b79vkkjbrn-h937dq4qjw.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000687757909"
+          "Quality": "0.000678426052"
         }
       ],
       "ResponseHeaders": [
@@ -1811,19 +2151,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1453"
+          "Value": "1473"
         },
         {
           "Name": "ETag",
-          "Value": "\"DJYWZSiytJu6ck8SUN+3sds0OM/7bsqjpiQHu9EgMqI=\""
+          "Value": "\"EVzopJO2jzglc2Pps29C2vhjVkPFmDa8UQHNt9rAGS0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 20:03:25 GMT"
+          "Value": "Mon, 20 Apr 2026 22:00:01 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "no-cache"
+          "Value": "max-age=31536000, immutable"
         },
         {
           "Name": "Content-Encoding",
@@ -1839,18 +2179,26 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"QCVJ39hXQ9DtDXBhqcxSrsJPeBhBdU0oGTFB97bmYEY=\""
+          "Value": "W/\"u143sUUgM6TK+QN1VMpaUqwLEq4S6W2QmD8bu21+6T4=\""
         }
       ],
       "EndpointProperties": [
         {
+          "Name": "fingerprint",
+          "Value": "h937dq4qjw"
+        },
+        {
+          "Name": "label",
+          "Value": "js/admin-dashboard.js"
+        },
+        {
           "Name": "integrity",
-          "Value": "sha256-QCVJ39hXQ9DtDXBhqcxSrsJPeBhBdU0oGTFB97bmYEY="
+          "Value": "sha256-u143sUUgM6TK+QN1VMpaUqwLEq4S6W2QmD8bu21+6T4="
         }
       ]
     },
     {
-      "Route": "js/admin-dashboard.js",
+      "Route": "js/admin-dashboard.h937dq4qjw.js",
       "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\js\\admin-dashboard.js",
       "Selectors": [],
       "ResponseHeaders": [
@@ -1860,7 +2208,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "5530"
+          "Value": "5763"
         },
         {
           "Name": "Content-Type",
@@ -1868,121 +2216,21 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"QCVJ39hXQ9DtDXBhqcxSrsJPeBhBdU0oGTFB97bmYEY=\""
+          "Value": "\"u143sUUgM6TK+QN1VMpaUqwLEq4S6W2QmD8bu21+6T4=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 20:03:25 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-QCVJ39hXQ9DtDXBhqcxSrsJPeBhBdU0oGTFB97bmYEY="
-        }
-      ]
-    },
-    {
-      "Route": "js/admin-dashboard.js.gz",
-      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\b79vkkjbrn-s1os6z839u.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1453"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"DJYWZSiytJu6ck8SUN+3sds0OM/7bsqjpiQHu9EgMqI=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 20:03:25 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-DJYWZSiytJu6ck8SUN+3sds0OM/7bsqjpiQHu9EgMqI="
-        }
-      ]
-    },
-    {
-      "Route": "js/admin-dashboard.s1os6z839u.js",
-      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\b79vkkjbrn-s1os6z839u.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000687757909"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1453"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"DJYWZSiytJu6ck8SUN+3sds0OM/7bsqjpiQHu9EgMqI=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 20:03:25 GMT"
+          "Value": "Mon, 20 Apr 2026 22:00:01 GMT"
         },
         {
           "Name": "Cache-Control",
           "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"QCVJ39hXQ9DtDXBhqcxSrsJPeBhBdU0oGTFB97bmYEY=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "s1os6z839u"
+          "Value": "h937dq4qjw"
         },
         {
           "Name": "label",
@@ -1990,13 +2238,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-QCVJ39hXQ9DtDXBhqcxSrsJPeBhBdU0oGTFB97bmYEY="
+          "Value": "sha256-u143sUUgM6TK+QN1VMpaUqwLEq4S6W2QmD8bu21+6T4="
         }
       ]
     },
     {
-      "Route": "js/admin-dashboard.s1os6z839u.js",
-      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\js\\admin-dashboard.js",
+      "Route": "js/admin-dashboard.h937dq4qjw.js.gz",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\b79vkkjbrn-h937dq4qjw.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2005,7 +2253,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "5530"
+          "Value": "1473"
         },
         {
           "Name": "Content-Type",
@@ -2013,56 +2261,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"QCVJ39hXQ9DtDXBhqcxSrsJPeBhBdU0oGTFB97bmYEY=\""
+          "Value": "\"EVzopJO2jzglc2Pps29C2vhjVkPFmDa8UQHNt9rAGS0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 20:03:25 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "s1os6z839u"
-        },
-        {
-          "Name": "label",
-          "Value": "js/admin-dashboard.js"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-QCVJ39hXQ9DtDXBhqcxSrsJPeBhBdU0oGTFB97bmYEY="
-        }
-      ]
-    },
-    {
-      "Route": "js/admin-dashboard.s1os6z839u.js.gz",
-      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\b79vkkjbrn-s1os6z839u.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1453"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"DJYWZSiytJu6ck8SUN+3sds0OM/7bsqjpiQHu9EgMqI=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 20:03:25 GMT"
+          "Value": "Mon, 20 Apr 2026 22:00:01 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2080,7 +2283,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "s1os6z839u"
+          "Value": "h937dq4qjw"
         },
         {
           "Name": "label",
@@ -2088,7 +2291,144 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-DJYWZSiytJu6ck8SUN+3sds0OM/7bsqjpiQHu9EgMqI="
+          "Value": "sha256-EVzopJO2jzglc2Pps29C2vhjVkPFmDa8UQHNt9rAGS0="
+        }
+      ]
+    },
+    {
+      "Route": "js/admin-dashboard.js",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\b79vkkjbrn-h937dq4qjw.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000678426052"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1473"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"EVzopJO2jzglc2Pps29C2vhjVkPFmDa8UQHNt9rAGS0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 20 Apr 2026 22:00:01 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"u143sUUgM6TK+QN1VMpaUqwLEq4S6W2QmD8bu21+6T4=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-u143sUUgM6TK+QN1VMpaUqwLEq4S6W2QmD8bu21+6T4="
+        }
+      ]
+    },
+    {
+      "Route": "js/admin-dashboard.js",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\js\\admin-dashboard.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5763"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"u143sUUgM6TK+QN1VMpaUqwLEq4S6W2QmD8bu21+6T4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 20 Apr 2026 22:00:01 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-u143sUUgM6TK+QN1VMpaUqwLEq4S6W2QmD8bu21+6T4="
+        }
+      ]
+    },
+    {
+      "Route": "js/admin-dashboard.js.gz",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\b79vkkjbrn-h937dq4qjw.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1473"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"EVzopJO2jzglc2Pps29C2vhjVkPFmDa8UQHNt9rAGS0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 20 Apr 2026 22:00:01 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-EVzopJO2jzglc2Pps29C2vhjVkPFmDa8UQHNt9rAGS0="
         }
       ]
     },
@@ -2689,13 +3029,13 @@
       ]
     },
     {
-      "Route": "js/video-player.hxouji19u0.js",
-      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\w6jzekolyg-hxouji19u0.gz",
+      "Route": "js/video-player.4u7mbt3klh.js",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\w6jzekolyg-4u7mbt3klh.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000832639467"
+          "Quality": "0.000704721635"
         }
       ],
       "ResponseHeaders": [
@@ -2705,15 +3045,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1200"
+          "Value": "1418"
         },
         {
           "Name": "ETag",
-          "Value": "\"KoUCataQElmLmbIPBosIyHsViMOBg0ziEPWBcZxVlTM=\""
+          "Value": "\"BN7I/t/svANqV/OJk5TkSLi9h22RbEb/xgCyA5wzMHo=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 18:50:01 GMT"
+          "Value": "Mon, 20 Apr 2026 21:54:21 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2733,13 +3073,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"S1vGJaFjylSr1iXOqrM9GTnqRPiK89tvtRguhdJsXVI=\""
+          "Value": "W/\"1H9OmrakN63oAi8L2iHo9kea9esbcud6OrEUISlVlMo=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "hxouji19u0"
+          "Value": "4u7mbt3klh"
         },
         {
           "Name": "label",
@@ -2747,12 +3087,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-S1vGJaFjylSr1iXOqrM9GTnqRPiK89tvtRguhdJsXVI="
+          "Value": "sha256-1H9OmrakN63oAi8L2iHo9kea9esbcud6OrEUISlVlMo="
         }
       ]
     },
     {
-      "Route": "js/video-player.hxouji19u0.js",
+      "Route": "js/video-player.4u7mbt3klh.js",
       "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\js\\video-player.js",
       "Selectors": [],
       "ResponseHeaders": [
@@ -2762,7 +3102,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4038"
+          "Value": "4770"
         },
         {
           "Name": "Content-Type",
@@ -2770,11 +3110,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"S1vGJaFjylSr1iXOqrM9GTnqRPiK89tvtRguhdJsXVI=\""
+          "Value": "\"1H9OmrakN63oAi8L2iHo9kea9esbcud6OrEUISlVlMo=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 18:50:01 GMT"
+          "Value": "Mon, 20 Apr 2026 21:54:21 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2784,7 +3124,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "hxouji19u0"
+          "Value": "4u7mbt3klh"
         },
         {
           "Name": "label",
@@ -2792,13 +3132,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-S1vGJaFjylSr1iXOqrM9GTnqRPiK89tvtRguhdJsXVI="
+          "Value": "sha256-1H9OmrakN63oAi8L2iHo9kea9esbcud6OrEUISlVlMo="
         }
       ]
     },
     {
-      "Route": "js/video-player.hxouji19u0.js.gz",
-      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\w6jzekolyg-hxouji19u0.gz",
+      "Route": "js/video-player.4u7mbt3klh.js.gz",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\w6jzekolyg-4u7mbt3klh.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2807,7 +3147,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1200"
+          "Value": "1418"
         },
         {
           "Name": "Content-Type",
@@ -2815,11 +3155,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"KoUCataQElmLmbIPBosIyHsViMOBg0ziEPWBcZxVlTM=\""
+          "Value": "\"BN7I/t/svANqV/OJk5TkSLi9h22RbEb/xgCyA5wzMHo=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 18:50:01 GMT"
+          "Value": "Mon, 20 Apr 2026 21:54:21 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2837,7 +3177,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "hxouji19u0"
+          "Value": "4u7mbt3klh"
         },
         {
           "Name": "label",
@@ -2845,18 +3185,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-KoUCataQElmLmbIPBosIyHsViMOBg0ziEPWBcZxVlTM="
+          "Value": "sha256-BN7I/t/svANqV/OJk5TkSLi9h22RbEb/xgCyA5wzMHo="
         }
       ]
     },
     {
       "Route": "js/video-player.js",
-      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\w6jzekolyg-hxouji19u0.gz",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\w6jzekolyg-4u7mbt3klh.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000832639467"
+          "Quality": "0.000704721635"
         }
       ],
       "ResponseHeaders": [
@@ -2866,15 +3206,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1200"
+          "Value": "1418"
         },
         {
           "Name": "ETag",
-          "Value": "\"KoUCataQElmLmbIPBosIyHsViMOBg0ziEPWBcZxVlTM=\""
+          "Value": "\"BN7I/t/svANqV/OJk5TkSLi9h22RbEb/xgCyA5wzMHo=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 18:50:01 GMT"
+          "Value": "Mon, 20 Apr 2026 21:54:21 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2894,13 +3234,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"S1vGJaFjylSr1iXOqrM9GTnqRPiK89tvtRguhdJsXVI=\""
+          "Value": "W/\"1H9OmrakN63oAi8L2iHo9kea9esbcud6OrEUISlVlMo=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-S1vGJaFjylSr1iXOqrM9GTnqRPiK89tvtRguhdJsXVI="
+          "Value": "sha256-1H9OmrakN63oAi8L2iHo9kea9esbcud6OrEUISlVlMo="
         }
       ]
     },
@@ -2915,7 +3255,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4038"
+          "Value": "4770"
         },
         {
           "Name": "Content-Type",
@@ -2923,11 +3263,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"S1vGJaFjylSr1iXOqrM9GTnqRPiK89tvtRguhdJsXVI=\""
+          "Value": "\"1H9OmrakN63oAi8L2iHo9kea9esbcud6OrEUISlVlMo=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 18:50:01 GMT"
+          "Value": "Mon, 20 Apr 2026 21:54:21 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2937,13 +3277,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-S1vGJaFjylSr1iXOqrM9GTnqRPiK89tvtRguhdJsXVI="
+          "Value": "sha256-1H9OmrakN63oAi8L2iHo9kea9esbcud6OrEUISlVlMo="
         }
       ]
     },
     {
       "Route": "js/video-player.js.gz",
-      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\w6jzekolyg-hxouji19u0.gz",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\w6jzekolyg-4u7mbt3klh.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2952,7 +3292,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1200"
+          "Value": "1418"
         },
         {
           "Name": "Content-Type",
@@ -2960,11 +3300,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"KoUCataQElmLmbIPBosIyHsViMOBg0ziEPWBcZxVlTM=\""
+          "Value": "\"BN7I/t/svANqV/OJk5TkSLi9h22RbEb/xgCyA5wzMHo=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 18:50:01 GMT"
+          "Value": "Mon, 20 Apr 2026 21:54:21 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2982,18 +3322,18 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-KoUCataQElmLmbIPBosIyHsViMOBg0ziEPWBcZxVlTM="
+          "Value": "sha256-BN7I/t/svANqV/OJk5TkSLi9h22RbEb/xgCyA5wzMHo="
         }
       ]
     },
     {
-      "Route": "videoplayer.4obiqnwil6.html",
-      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\awgyyaln0k-4obiqnwil6.gz",
+      "Route": "videoplayer.html",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\awgyyaln0k-r60ss0h0uu.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.003225806452"
+          "Quality": "0.002415458937"
         }
       ],
       "ResponseHeaders": [
@@ -3003,19 +3343,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "309"
+          "Value": "413"
         },
         {
           "Name": "ETag",
-          "Value": "\"b19AT4ue5Nff78Iym79tFpcXsSXvYkhYR/0tl012Cgc=\""
+          "Value": "\"fzXWBZ28LhWU54vEi4CMEKJaqOyyQrPrRjuPkJ0LvyM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 20:01:04 GMT"
+          "Value": "Tue, 21 Apr 2026 00:14:18 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Encoding",
@@ -3031,26 +3371,18 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"lKGLQLFbjBh3SyyKoVfJVjvcuFTffNpV5falJT6i07A=\""
+          "Value": "W/\"DWQocJZXGt7rrX232zfIp9YjiKcHRKzqEwMtlP5iN+M=\""
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "4obiqnwil6"
-        },
-        {
-          "Name": "label",
-          "Value": "videoplayer.html"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-lKGLQLFbjBh3SyyKoVfJVjvcuFTffNpV5falJT6i07A="
+          "Value": "sha256-DWQocJZXGt7rrX232zfIp9YjiKcHRKzqEwMtlP5iN+M="
         }
       ]
     },
     {
-      "Route": "videoplayer.4obiqnwil6.html",
+      "Route": "videoplayer.html",
       "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\videoplayer.html",
       "Selectors": [],
       "ResponseHeaders": [
@@ -3060,7 +3392,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "518"
+          "Value": "770"
         },
         {
           "Name": "Content-Type",
@@ -3068,11 +3400,156 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"lKGLQLFbjBh3SyyKoVfJVjvcuFTffNpV5falJT6i07A=\""
+          "Value": "\"DWQocJZXGt7rrX232zfIp9YjiKcHRKzqEwMtlP5iN+M=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 20:01:04 GMT"
+          "Value": "Tue, 21 Apr 2026 00:14:18 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-DWQocJZXGt7rrX232zfIp9YjiKcHRKzqEwMtlP5iN+M="
+        }
+      ]
+    },
+    {
+      "Route": "videoplayer.html.gz",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\awgyyaln0k-r60ss0h0uu.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "413"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"fzXWBZ28LhWU54vEi4CMEKJaqOyyQrPrRjuPkJ0LvyM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 21 Apr 2026 00:14:18 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-fzXWBZ28LhWU54vEi4CMEKJaqOyyQrPrRjuPkJ0LvyM="
+        }
+      ]
+    },
+    {
+      "Route": "videoplayer.r60ss0h0uu.html",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\awgyyaln0k-r60ss0h0uu.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.002415458937"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "413"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"fzXWBZ28LhWU54vEi4CMEKJaqOyyQrPrRjuPkJ0LvyM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 21 Apr 2026 00:14:18 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"DWQocJZXGt7rrX232zfIp9YjiKcHRKzqEwMtlP5iN+M=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "r60ss0h0uu"
+        },
+        {
+          "Name": "label",
+          "Value": "videoplayer.html"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-DWQocJZXGt7rrX232zfIp9YjiKcHRKzqEwMtlP5iN+M="
+        }
+      ]
+    },
+    {
+      "Route": "videoplayer.r60ss0h0uu.html",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\videoplayer.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "770"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"DWQocJZXGt7rrX232zfIp9YjiKcHRKzqEwMtlP5iN+M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 21 Apr 2026 00:14:18 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3082,7 +3559,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "4obiqnwil6"
+          "Value": "r60ss0h0uu"
         },
         {
           "Name": "label",
@@ -3090,13 +3567,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-lKGLQLFbjBh3SyyKoVfJVjvcuFTffNpV5falJT6i07A="
+          "Value": "sha256-DWQocJZXGt7rrX232zfIp9YjiKcHRKzqEwMtlP5iN+M="
         }
       ]
     },
     {
-      "Route": "videoplayer.4obiqnwil6.html.gz",
-      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\awgyyaln0k-4obiqnwil6.gz",
+      "Route": "videoplayer.r60ss0h0uu.html.gz",
+      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\awgyyaln0k-r60ss0h0uu.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3105,7 +3582,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "309"
+          "Value": "413"
         },
         {
           "Name": "Content-Type",
@@ -3113,11 +3590,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"b19AT4ue5Nff78Iym79tFpcXsSXvYkhYR/0tl012Cgc=\""
+          "Value": "\"fzXWBZ28LhWU54vEi4CMEKJaqOyyQrPrRjuPkJ0LvyM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 20:01:04 GMT"
+          "Value": "Tue, 21 Apr 2026 00:14:18 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3135,7 +3612,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "4obiqnwil6"
+          "Value": "r60ss0h0uu"
         },
         {
           "Name": "label",
@@ -3143,144 +3620,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-b19AT4ue5Nff78Iym79tFpcXsSXvYkhYR/0tl012Cgc="
-        }
-      ]
-    },
-    {
-      "Route": "videoplayer.html",
-      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\awgyyaln0k-4obiqnwil6.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.003225806452"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "309"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"b19AT4ue5Nff78Iym79tFpcXsSXvYkhYR/0tl012Cgc=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 20:01:04 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/html"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"lKGLQLFbjBh3SyyKoVfJVjvcuFTffNpV5falJT6i07A=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-lKGLQLFbjBh3SyyKoVfJVjvcuFTffNpV5falJT6i07A="
-        }
-      ]
-    },
-    {
-      "Route": "videoplayer.html",
-      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\videoplayer.html",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "518"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/html"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"lKGLQLFbjBh3SyyKoVfJVjvcuFTffNpV5falJT6i07A=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 20:01:04 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-lKGLQLFbjBh3SyyKoVfJVjvcuFTffNpV5falJT6i07A="
-        }
-      ]
-    },
-    {
-      "Route": "videoplayer.html.gz",
-      "AssetFile": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\obj\\Debug\\net9.0\\compressed\\awgyyaln0k-4obiqnwil6.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "309"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/html"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"b19AT4ue5Nff78Iym79tFpcXsSXvYkhYR/0tl012Cgc=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 20 Apr 2026 20:01:04 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-b19AT4ue5Nff78Iym79tFpcXsSXvYkhYR/0tl012Cgc="
+          "Value": "sha256-fzXWBZ28LhWU54vEi4CMEKJaqOyyQrPrRjuPkJ0LvyM="
         }
       ]
     }

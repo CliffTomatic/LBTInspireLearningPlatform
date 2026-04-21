@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\css\\styles.css"
     },
     {
+      "Id": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\css\\videoplayer.css",
+      "PackagePath": "staticwebassets\\css\\videoplayer.css"
+    },
+    {
       "Id": "C:\\Users\\Cliff\\Documents\\LearnBasicTech\\LBTInspireLearningPlatform\\backend\\InspireAPI\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },

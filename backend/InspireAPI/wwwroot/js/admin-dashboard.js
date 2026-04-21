@@ -71,6 +71,7 @@ function renderTable(sessions) {
         row.innerHTML = `
             <td>${session.sessionId}</td>
             <td>${escapeHtml(session.userName ?? "")}</td>
+            <td>${escapeHtml(session.userId ?? "")}</td>
             <td>${session.videoId}</td>
             <td>${formatDate(session.startedAt)}</td>
             <td>${formatDate(session.endedAt)}</td>
@@ -117,6 +118,11 @@ function renderDetails(session) {
             <span>${escapeHtml(session.userName ?? "")}</span>
         </div>
 
+        <div class="detail-item">
+            <strong>User Id</strong>
+            <span>${escapeHtml(session.userId ?? "")}</span>
+        </div>
+        
         <div class="detail-item">
             <strong>Video ID</strong>
             <span>${session.videoId}</span>

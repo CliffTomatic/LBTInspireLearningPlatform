@@ -16,14 +16,14 @@ namespace InspireAPI.Controllers
             _sessionFileService = sessionFileService;
         }
 
-        [HttpPost("startSession")] // TODO Change name
+        [HttpPost("startSession")]
         public IActionResult StartSession([FromBody] SessionStartRequest request)
         {
             var session = new ViewSession
             {
-                SessionId = MockSessionData.NextSessionId++,
                 VideoId = request.VideoId,
                 UserName = request.UserName,
+                UserId = request.UserId,
                 StartedAt = DateTime.UtcNow,
                 IsActive = true,
                 TotalWatchedSeconds = 0,
