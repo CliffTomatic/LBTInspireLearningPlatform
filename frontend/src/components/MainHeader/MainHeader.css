@@ -1,0 +1,10 @@
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0 32px 0;
+}
+
+.site-header__subtitle {
+  font-size: 18px;
+}

@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#root {
+  max-width: 1200px;   /* stops it from getting too wide */
+  margin: 0 auto;      /* centers it horizontally */
+  padding: 0 20px;     /* spacing on left/right */
+  
+}
+header {
+    background: #111;
+    color: white;
+    padding: 15px 0 35px 0;
+}
+body {
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background-color: #121212;
+    color: white;
+}

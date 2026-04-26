@@ -1,0 +1,9 @@
+.video-carousel__track {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding-top: 16px;
+    padding-bottom: 16px;
+
+}

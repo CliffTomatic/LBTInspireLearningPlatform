@@ -1,4 +1,4 @@
-# ===== .NET / C# =====
+# .NET / C#
 bin/
 obj/
 
@@ -8,38 +8,77 @@ obj/
 *.userosscache
 *.sln.docstates
 
-# Rider / VS Code / Visual Studio
+# Rider / VS Code
 .vscode/
 .idea/
 *.csproj.user
 
 
-# ===== OS files =====
+# OS files
 .DS_Store
 Thumbs.db
 
-# ===== Logs =====
+# Logs
 logs/
 *.log
 
-# ===== Build output =====
+# Build output
 dist/
 build/
 
-# ===== Environment / secrets =====
+# Environment / secrets
 .env
 .env.*
 appsettings.Development.json
 secrets.json
 
-# ===== Azure / publish =====
+# Azure / publish
 publish/
 *.publishsettings
 
-# ===== Temporary files =====
+# Temporary files
 *.tmp
 *.cache
 
-# ===== Coverage / test =====
+# Coverage / test
 coverage/
 *.coverage
+
+# ===================
+# React / Vite / Node
+# ===================
+
+# Dependencies
+node_modules/
+
+# Production build output
+dist/
+build/
+
+# Vite cache
+.vite/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# TypeScript
+*.tsbuildinfo
+
+# Package manager caches
+.pnpm-store/
+
+# Optional editor/cache files
+.cache/
+
+# MISC
+PersonalEdits.txt
