@@ -13,25 +13,27 @@ async function loadVideos() {
     container.innerHTML = '';
 
     videos.forEach(video => {
-      const card = document.createElement('div');
-      card.className = 'video-card';
+        const card = document.createElement('div');
+        card.className = 'video-card';
 
-      card.innerHTML = `
+        card.innerHTML = `
         <img src="${video.thumbnailUrl}" alt="${video.title}" class="thumbnail">
-        <h3>${video.title}</h3>
-        <p>${video.description}</p>
+        <div class="video-card-content">
+        <h3 class="video-card-title">${video.title}</h3>
+        <p class="video-card-description">${video.description}</p>
         <button onclick="viewVideo(${video.id})">Watch</button>
-      `;
+        </div>
+        `;
 
-      container.appendChild(card);
+        container.appendChild(card);
     });
-  } catch (error) {
-    console.error('Failed to load videos:', error);
-  }
+    } catch (error) {
+        console.error('Failed to load videos:', error);
+    }
 }
 
 function viewVideo(videoId) {
-  window.location.href = `/videoplayer.html?id=${videoId}`;
+    window.location.href = `/videoplayer.html?id=${videoId}`;
 }
 
 loadVideos();

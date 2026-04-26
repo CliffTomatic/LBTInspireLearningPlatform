@@ -4,6 +4,14 @@ body {
     padding: 0;
 }
 
+.container {
+    max-width: 1200px;   /* stops it from getting too wide */
+    margin: 0 auto;      /* centers it horizontally */
+    padding: 0 20px;     /* spacing on left/right */
+
+}
+
+/* Header */
 header {
     background: #111;
     color: white;
@@ -12,6 +20,27 @@ header {
 
 main {
     padding: 20px;
+}
+
+.nav-buttons a {
+    font-size: 20px !important;
+    padding-right: 10px;
+}
+
+a {
+    color: #d6b3ff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+a:active {
+    opacity: 0.7;
 }
 
 footer {
@@ -24,27 +53,5 @@ footer {
     width: 100%;
 }
 
-/* Horizontal scroll row */
-#video-container {
-    display: flex;
-    gap: 15px;
-    overflow-x: auto;
-    padding: 10px 0;
-}
 
-/* Video card */
-.video-card {
-    min-width: 250px;
-    cursor: pointer;
-}
 
-.video-card img {
-    width: 250px;
-    height: auto;
-    border-radius: 5px;
-}
-
-.video-card h3 {
-    margin: 5px 0;
-    font-size: 16px;
-}

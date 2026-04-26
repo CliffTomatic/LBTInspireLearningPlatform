@@ -3,23 +3,28 @@
 <head>
     <title>Video Player</title>
     <link rel="stylesheet" href="/css/videoplayer.css">
-    <title>Video Player</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+    <div id="header-placeholder"></div>
+    <main class="container">
+    
+        <div style="position: absolute; top: 20px; right: 20px;">
+            <input id="userNameInput" placeholder="Enter Name">
+            <input id="userIdInput" placeholder="User ID">
+            <button onclick="saveUser()">Set User</button>
+        </div>
+        
+        <video id="videoPlayer" controls width="700" height="400" poster="">
+            <source id="videoSource" src="" type="video/mp4">
+            Your browser does not support video playback.
+        </video>
+        <h1 id="videoTitle">Loading...</h1>
+        <p id="videoDescription"></p>
 
-    <div style="position: absolute; top: 20px; right: 20px;">
-        <input id="userNameInput" placeholder="Enter Name">
-        <input id="userIdInput" placeholder="User ID">
-        <button onclick="saveUser()">Set User</button>
-    </div>
-
-    <h1 id="videoTitle">Loading...</h1>
-    <p id="videoDescription"></p>
-    <video id="videoPlayer" controls width="700" height="400" poster="">
-        <source id="videoSource" src="" type="video/mp4">
-        Your browser does not support video playback.
-    </video>
-
-    <script src="/js/video-player.js"></script>
+    </main>
+    <div id="footer-placeholder"></div>
+    <script src="/js/layout.js" defer></script>
+    <script src="/js/video-player.js" defer></script>
 </body>
 </html>

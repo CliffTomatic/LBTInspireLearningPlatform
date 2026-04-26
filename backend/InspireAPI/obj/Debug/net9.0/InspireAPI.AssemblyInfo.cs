@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InspireAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0456809f2cc0faa92ba0fae4c2d5df454c65a863")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+583b1935548cbc8571d2ddd30ea74fb11447f73a")]
 [assembly: System.Reflection.AssemblyProductAttribute("InspireAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InspireAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
