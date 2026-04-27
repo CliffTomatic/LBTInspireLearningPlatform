@@ -1,7 +1,15 @@
-export type Course = {
+export interface Course {
     id: number;
     slug: string;
     title: string;
     description: string;
-    thumbnailURL: string;
+    thumbnailUrl: string;
 }
+
+export type CourseCardProps = {
+    course: Course;
+};
+
+export type CourseGridProps = {
+    courses: Course[];
+};
