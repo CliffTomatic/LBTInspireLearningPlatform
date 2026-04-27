@@ -1,11 +1,11 @@
 import VideoCarousel from "../components/VideoCarousel/VideoCarousel";
 
 function HomePage() {
-  return (
-    <>
-      <VideoCarousel />
-    </>
-  );
+    return (
+        <>
+            <VideoCarousel />
+        </>
+    );
 }
 
 export default HomePage;

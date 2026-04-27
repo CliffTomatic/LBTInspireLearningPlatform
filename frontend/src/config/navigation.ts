@@ -4,7 +4,7 @@ export type NavLink = {
 }
 
 export const mainNavLinks: NavLink[] = [
-    {label: "Home", href: "/"},
-    {label: "Courses", href: "/courses"},
-    {label: "Admin", href: "/admin"}
+    { label: "Home", href: "/" },
+    { label: "Courses", href: "/courses" },
+    { label: "Admin", href: "/admin" }
 ];
