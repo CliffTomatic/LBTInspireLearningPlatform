@@ -1,5 +1,6 @@
 import type { CourseGridProps } from "../../../types/Course";
 import CourseCard from "../CourseCard/CourseCard";
+import './CourseGrid.css';
 
 function CourseGrid({ courses }: CourseGridProps) {
     return (
