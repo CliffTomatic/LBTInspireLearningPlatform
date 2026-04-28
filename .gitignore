@@ -82,3 +82,8 @@ pnpm-debug.log*
 
 # MISC
 PersonalEdits.txt
+
+# Database SQLite
+*.db
+*.db-shm
+*.db-wal
