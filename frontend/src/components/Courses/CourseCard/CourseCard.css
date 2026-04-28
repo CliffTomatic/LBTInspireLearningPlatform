@@ -1,6 +1,9 @@
-.video-card {
+.course-card {
     background: #1f1f2e;
-    padding: 12px 12px;
+    width: 100%;
+    height: 100%;
+    min-height: 250px;
+    padding: 15px 15px;
     border-radius: 12px;
     overflow: visible;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
@@ -8,31 +11,45 @@
     display: flex;
     flex-direction: column;
 }
-.video-card:hover {
+.course-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
 }
-.video-card__thumbnail {
-    width: 100%;
-    height: 120px;
-    border-radius: 10px;
-    object-fit: cover;
-    display: block;
-}
-.video-card__content {
+.course-card__content {
+    flex: 1;
+    flex-grow: 1;
     padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    flex-grow: 1;
 }
-.video-card__title {
+.course-card__thumbnail-wrapper {
+    padding-bottom: 8px;
+}
+.course-card__thumbnail {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: 160px;
+    border-radius: 10px;
+    object-fit: cover;
+    display: block;
+}
+.course-card__title {
+    padding-bottom: 3px;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
     font-size: 1.1rem;
     font-weight: 700;
     margin: 0;
     color: #ffffff;
 }
-.video-card__description {
+.course-card__description {
+    display: -webkit-box;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
     font-size: 0.95rem;
     line-height: 1.4;
     color: #d2d2e0;
@@ -40,7 +57,7 @@
     flex-grow: 1;
 }
 /* Watch Button */
-.video-card__button {
+.course-card__button {
     align-self: flex-start;
     background: #7b2cff;
     color: white;
@@ -51,9 +68,9 @@
     font-weight: 600;
     transition: background 0.2s ease, transform 0.2s ease;
 }
-.video-card button:hover {
+.course-card button:hover {
     background: #924dff;
 }
-.video-card button:active {
+.course-card button:active {
     transform: scale(0.98);
 }
