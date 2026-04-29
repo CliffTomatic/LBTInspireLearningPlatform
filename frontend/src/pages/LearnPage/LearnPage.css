@@ -1,6 +1,6 @@
 .learn-page {
   width: 100%;
-  padding: 2rem 0;
+  /* padding: 2rem 0; */
 }
 
 .learn-page__content {
@@ -12,7 +12,7 @@
 .learn-page__layout {
   display: grid;
   grid-template-columns: 320px minmax(0, 1fr);
-  gap: 1.5rem;
+  gap: .5rem;
   align-items: start;
 }
 
@@ -27,12 +27,6 @@
   justify-content: center;
 
   border-radius: 16px;
-}
-
-.learn-page__sidebar {
-  background-color: white;
-  border-radius: 16px;
-  padding: 1rem;
 }
 
 @media (max-width: 900px) {

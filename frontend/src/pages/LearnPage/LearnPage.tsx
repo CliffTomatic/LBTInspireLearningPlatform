@@ -1,4 +1,6 @@
 import { useParams } from "react-router-dom";
+
+import LearnSidebar from "../../components/Learn/LearnSidebar/LearnSidebar";
 import "./LearnPage.css";
 
 function LearnPage() {
@@ -6,16 +8,10 @@ function LearnPage() {
 
     return (
         <section className="learn-page">
-            <div className="learn-page__content page-container">
-                <div className="learn-page__header">
-                    <p className="learn-page__eyebrow">Now learning</p>
-                    <h1 className="learn-page__title">{courseSlug}</h1>
-                </div>
+            <div className="learn-page__content">
 
                 <div className="learn-page__layout">
-                    <aside className="learn-page__sidebar">
-                        Lesson Sidebar
-                    </aside>
+                    <LearnSidebar courseSlug={courseSlug} progressPercent={26} courseTitle="{courseSlug}" />
 
                     <div className="learn-page__main">
                         <div className="learn-page__video-placeholder">

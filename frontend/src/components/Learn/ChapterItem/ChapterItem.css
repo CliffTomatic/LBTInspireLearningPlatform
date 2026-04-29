@@ -1,0 +1,51 @@
+.chapter-item {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.chapter-item:last-child {
+  border-bottom: none;
+}
+
+.chapter-item__button {
+  width: 100%;
+  padding: 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  background: none;
+  border: none;
+
+  color: #111827;
+
+  font-size: 0.95rem;
+  font-weight: 700;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+
+.chapter-item__button:hover {
+  background-color: #f3f4f6;
+}
+
+.chapter-item__icon {
+  flex-shrink: 0;
+
+  font-size: 1.1rem;
+  color: #6b7280;
+}
+
+.chapter-item__sections {
+  display: flex;
+  flex-direction: column;
+
+  padding: 0 0 0.75rem;
+}

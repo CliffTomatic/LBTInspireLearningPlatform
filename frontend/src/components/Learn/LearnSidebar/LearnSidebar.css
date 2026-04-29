@@ -1,0 +1,73 @@
+.learn-sidebar {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: #ffffff;
+
+  border-right: 1px solid #e5e7eb;
+
+  overflow: hidden;
+}
+
+.learn-sidebar__header {
+  flex-shrink: 0;
+
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #ffffff;
+}
+
+.learn-sidebar__label {
+  margin: 0 0 0.25rem;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+
+  color: #6b7280;
+
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.learn-sidebar__title {
+  margin: 0 0 1rem;
+
+  font-size: 1.1rem;
+  font-weight: 700;
+
+  color: #111827;
+}
+
+.learn-sidebar__progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.learn-sidebar__progress-info {
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 0.85rem;
+  color: #374151;
+}
+
+.learn-sidebar__progress-track {
+  width: 100%;
+  height: 8px;
+
+  background-color: #e5e7eb;
+  border-radius: 999px;
+
+  overflow: hidden;
+}
+
+.learn-sidebar__progress-fill {
+  height: 100%;
+
+  background-color: #2563eb;
+  border-radius: 999px;
+}
