@@ -8,13 +8,13 @@ type NavBarProps = {
 
 function NavBar({ links }: NavBarProps) {
     return (
-        <div className="nav-bar">
+        <nav className="nav-bar">
             {links.map((link) => (
                 <Link className="nav-bar__link" key={link.href} to={link.href}>
                     {link.label}
                 </Link>
             ))}
-        </div>
+        </nav>
     );
 }
 export default NavBar;

@@ -25,22 +25,19 @@ const videos: Video[] = [
 
 function VideoCarousel() {
     return (
-        <>
+        <section className="video-carousel page-container">
             <h2 className="video-carousel__title">Recommended Courses</h2>
-
-            <section className="video-carousel">
-                <div className="video-carousel__track">
-                    {videos.map((video) => (
-                        <VideoCard
-                            id={video.id}
-                            title={video.title}
-                            description={video.description}
-                            thumbnailURL={video.thumbnailURL}
-                        />
-                    ))}
-                </div>
-            </section>
-        </>
+            <div className="video-carousel__track">
+                {videos.map((video) => (
+                    <VideoCard
+                        id={video.id}
+                        title={video.title}
+                        description={video.description}
+                        thumbnailURL={video.thumbnailURL}
+                    />
+                ))}
+            </div>
+        </section>
     );
 }
 

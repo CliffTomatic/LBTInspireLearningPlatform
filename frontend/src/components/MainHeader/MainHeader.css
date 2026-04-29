@@ -1,8 +1,11 @@
 .site-header {
+    padding: 20px 0 32px 0;
+}
+
+.site-header__content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0 32px 0;
 }
 
 .site-header__subtitle {
