@@ -1,9 +1,10 @@
-import type { LearnSection } from "../../../types/Learn";
+import type { CourseSection } from "../../../types/Course";
+// import type { LearnSection } from "../../../types/Learn";
 import { Link } from "react-router-dom";
 import './SectionCard.css';
 
 type SectionCardProps = {
-    section: LearnSection;
+    section: CourseSection;
     courseSlug: string;
 };
 

@@ -1,10 +1,11 @@
 import "./LearnSidebar.css";
 
 // Types
-import type { LearnChapter } from "../../../types/Learn";
+// import type { LearnChapter } from "../../../types/Learn";
+import type { CourseChapter } from "../../../types/Course";
 import ChapterList from "../ChapterList/ChapterList";
 
-const dummyChapters: LearnChapter[] = [
+const dummyChapters: CourseChapter[] = [
     {
         id: 1,
         title: "Getting Started",

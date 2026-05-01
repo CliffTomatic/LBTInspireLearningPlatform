@@ -1,6 +1,10 @@
-import type { CourseGridProps } from "../../../types/Course";
 import CourseCard from "../CourseCard/CourseCard";
+import type { Course } from "../../../types/Course";
 import './CourseGrid.css';
+
+export type CourseGridProps = {
+    courses: Course[];
+};
 
 function CourseGrid({ courses }: CourseGridProps) {
     return (

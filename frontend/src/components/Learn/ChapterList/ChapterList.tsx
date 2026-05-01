@@ -1,9 +1,11 @@
-import type { LearnChapter } from '../../../types/Learn';
+// import type { LearnChapter } from '../../../types/Learn';
+import type { CourseChapter } from "../../../types/Course";
+
 import './ChapterList.css';
 import ChapterItem from "../ChapterItem/ChapterItem";
 
 type ChapterListProps = {
-    chapters: LearnChapter[];
+    chapters: CourseChapter[];
     courseSlug: string;
 };
 

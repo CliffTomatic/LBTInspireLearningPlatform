@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
-import type { CourseCardProps } from "../../../types/Course";
+import type { Course } from "../../../types/Course";
 import './CourseCard.css'
 
+export type CourseCardProps = {
+    course: Course;
+};
 function CourseCard({ course }: CourseCardProps) {
     return (
         <Link to={`courses/${course.slug}`}>

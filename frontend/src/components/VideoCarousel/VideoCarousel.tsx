@@ -30,6 +30,7 @@ function VideoCarousel() {
             <div className="video-carousel__track">
                 {videos.map((video) => (
                     <VideoCard
+                        key={video.id}
                         id={video.id}
                         title={video.title}
                         description={video.description}

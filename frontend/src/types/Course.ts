@@ -1,10 +1,14 @@
+export type CourseSectionType = "video" | "ebook" | "quiz";
+
+export type CourseLevel = "Beginner" | "Intermediate" | "Advanced";
+
 export interface Course {
     id: number;
     slug: string;
     title: string;
     description: string;
     thumbnailUrl: string;
-    level: "Beginner" | "Intermediate" | "Advanced";
+    level: CourseLevel;
     estimatedHours: number;
     chapters: CourseChapter[];
 }
@@ -18,14 +22,11 @@ export type CourseChapter = {
 export type CourseSection = {
     id: number;
     title: string;
-    durationMinutes: number;
+    type: CourseSectionType;
+    slug: string;
+
+    durationMinutes?: number;
     isPreview?: boolean;
+    isCompleted?: boolean;
 };
 
-export type CourseCardProps = {
-    course: Course;
-};
-
-export type CourseGridProps = {
-    courses: Course[];
-};

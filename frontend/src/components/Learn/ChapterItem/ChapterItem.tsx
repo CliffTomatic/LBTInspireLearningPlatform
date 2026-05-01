@@ -1,11 +1,12 @@
 import { useState } from "react";
 
 import './ChapterItem.css';
-import type { LearnChapter } from "../../../types/Learn";
+import type { CourseChapter } from "../../../types/Course";
+// import type { LearnChapter } from "../../../types/Learn";
 import SectionCard from "../SectionCard/SectionCard";
 
 type ChapterItemProps = {
-    chapter: LearnChapter;
+    chapter: CourseChapter;
     courseSlug: string;
 };
 
