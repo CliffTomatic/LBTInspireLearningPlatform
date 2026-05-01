@@ -5,7 +5,7 @@ import HomePage from "../pages/HomePage";
 import CoursesPage from "../pages/CoursesPage";
 import AdminDashboardPage from "../pages/AdminDashboardPage";
 import CourseDetailsPage from "../pages/CourseDetailsPage";
-import LearningPage from "../pages/LearningPage";
+import LearnPage from "../pages/LearnPage/LearnPage";
 
 const router = createBrowserRouter([
     {
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     },
     {
         path: "learn/:courseSlug",
-        element: <LearningPage />,
+        element: <LearnPage />,
         loader: () => { },
     },
 ]);
