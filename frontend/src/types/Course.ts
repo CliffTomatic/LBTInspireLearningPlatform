@@ -30,3 +30,10 @@ export type CourseSection = {
     isCompleted?: boolean;
 };
 
+export type CourseCardProps = {
+    course: Course;
+};
+
+export type CourseGridProps = {
+    courses: Course[];
+};

@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import type { Course } from "../../../types/Course";
-import './CourseCard.css'
+import './CourseCard.css';
 
 export type CourseCardProps = {
     course: Course;
 };
 function CourseCard({ course }: CourseCardProps) {
     return (
-        <Link to={`courses/${course.slug}`}>
+        <Link to={`/courses/${course.slug}`}>
             <div className="course-card">
                 <div className="course-card__thumbnail-wrapper">
                     <img src={course.thumbnailUrl} alt="Course Thumbnail" className="course-card__thumbnail" />

@@ -1,0 +1,107 @@
+.course-details-hero {
+  display: grid;
+  grid-template-columns: 420px minmax(0, 1fr);
+  gap: 2rem;
+  align-items: center;
+  padding: 2.5rem;
+  border-radius: 24px;
+  /* background:
+    radial-gradient(circle at top left, rgba(105, 23, 248, 0.116), transparent 32%),
+    #ffffff; */
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+.course-details-hero__content {
+  max-width: 760px;
+}
+
+.course-details-hero__eyebrow {
+  margin: 0 0 0.75rem;
+  color: #7b2cff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.course-details-hero__title {
+  margin: 0;
+  color: #111827;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.05;
+  font-weight: 800;
+}
+
+.course-details-hero__description {
+  margin: 1rem 0 0;
+  max-width: 680px;
+  color: #4b5563;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.course-details-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.course-details-hero__meta span {
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  background-color: #f3f4f6;
+  color: #374151;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.course-details-hero__enroll-button {
+    display: inline-flex;
+    margin-top: 1.75rem;
+    padding: 0.9rem 1.35rem;
+    border: none;
+    border-radius: 999px;
+    background-color: #7b2cff;
+    color: #ffffff;
+    font-size: 0.98rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+    background-color 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.course-details-hero__enroll-button:hover {
+  background-color: #7424ff;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.25);
+}
+
+.course-details-hero__thumbnail-card {
+  overflow: hidden;
+  border-radius: 20px;
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+}
+
+.course-details-hero__thumbnail {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+@media (max-width: 900px) {
+  .course-details-hero {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
+
+  .course-details-hero__thumbnail-card {
+    max-width: 420px;
+  }
+}

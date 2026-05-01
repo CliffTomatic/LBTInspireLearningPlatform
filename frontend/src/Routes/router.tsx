@@ -4,7 +4,7 @@ import RootLayout from "./RootLayout";
 import HomePage from "../pages/HomePage";
 import CoursesPage from "../pages/CoursesPage";
 import AdminDashboardPage from "../pages/AdminDashboardPage";
-import CourseDetailsPage from "../pages/CourseDetailsPage";
+import CourseDetailsPage from "../pages/CourseDetailsPage/CourseDetailsPage";
 import LearnPage from "../pages/LearnPage/LearnPage";
 
 const router = createBrowserRouter([

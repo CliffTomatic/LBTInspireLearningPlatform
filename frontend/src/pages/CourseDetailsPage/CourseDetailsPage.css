@@ -1,0 +1,42 @@
+.course-details-page {
+  min-height: 100vh;
+  background-color: #f8fafc;
+  padding: 2rem 2.25rem 4rem;
+}
+
+.course-details-page__back-link {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  color: #7b2cff;
+  font-size:1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+  
+}
+
+.course-details-page__back-link:hover {
+  text-decoration: underline;
+  color: #6326cd;
+}
+
+.course-details-page__not-found {
+  max-width: 720px;
+  margin: 4rem auto;
+  padding: 2rem;
+  border-radius: 20px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  text-align: center;
+}
+
+.course-details-page__not-found h1 {
+  margin: 0;
+  color: #111827;
+  font-size: 2rem;
+}
+
+.course-details-page__not-found p {
+  margin: 0.75rem 0 1.5rem;
+  color: #6b7280;
+}
