@@ -11,7 +11,7 @@ function LearnPage() {
             <div className="learn-page__content">
 
                 <div className="learn-page__layout">
-                    <LearnSidebar courseSlug={courseSlug} progressPercent={26} courseTitle="{courseSlug}" />
+                    <LearnSidebar courseSlug={courseSlug} progressPercent={26} courseTitle={courseSlug} />
 
                     <div className="learn-page__main">
                         <div className="learn-page__video-placeholder">
