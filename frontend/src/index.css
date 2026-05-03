@@ -3,6 +3,23 @@
     padding: 0;
     box-sizing: border-box;
 }
+/* Display scrollbar 24/7 */
+html {
+  overflow-y: scroll;
+}
+
+body {
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    background-color: #121212;
+    color: white;
+}
 
 #root {
   min-height: 100vh;   /* Page takes full height even if small -> for footer */
@@ -18,17 +35,6 @@
   flex: 1;
 }
 
-body {
-    font-family:
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-
-    background-color: #121212;
-    color: white;
-}
 
 .page-container {
     max-width: 1200px;          /* stops it from getting too wide */

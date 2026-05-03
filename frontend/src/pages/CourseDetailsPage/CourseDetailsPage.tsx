@@ -12,7 +12,7 @@ function CourseDetailsPage() {
         return course.slug === courseSlug;
     });
 
-    if (!selectedCourse) { // TODO Change to Invalid Page.
+    if (!selectedCourse) { // TODO Change to Global Invalid Page.
         return (
             <main className="course-details-page">
                 <section className="course-details-page__not-found">
@@ -28,9 +28,8 @@ function CourseDetailsPage() {
     }
 
     return (
-        <div className="page-container">
-
-            <div className="course-details-page">
+        <div className="course-details-page">
+            <div className="page-container">
                 <Link className="course-details-page__back-link" to="/courses">
                     ← Back to Courses
                 </Link>
