@@ -1,0 +1,55 @@
+.learn-content-panel {
+    width: 100%;
+    min-height: 100%;
+    background: #ffffff;
+}
+
+.learn-content-panel__header {
+    border-bottom: 1px solid #e5e7eb;
+    padding: 1.5rem 2rem;
+}
+
+.learn-content-panel__course-title {
+    margin: 0 0 0.35rem;
+    color: #6b7280;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.learn-content-panel__section-title {
+    margin: 0;
+    color: #111827;
+    font-size: 1.8rem;
+    line-height: 1.2;
+}
+
+.learn-content-panel__meta {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.learn-content-panel__type {
+    text-transform: capitalize;
+    font-weight: 600;
+}
+
+.learn-content-panel__body {
+    padding: 2rem;
+}
+
+.learn-content-panel__empty,
+.learn-content-panel__placeholder {
+    border: 1px solid #e5e7eb;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    background: #f9fafb;
+    color: #4b5563;
+}
+
+.learn-content-panel__placeholder h2 {
+    margin-top: 0;
+    color: #111827;
+}

@@ -46,10 +46,55 @@ export const courses: Course[] = [
                         title: 'Recognizing safe websites',
                         type: 'ebook',
                         slug: 'recognizing-safe-websites',
-                        videoUrl: '/assets/videos/Video_1.mp4',
-                        thumbnailUrl:
-                            '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 12,
+                        ebookContent: [
+                            {
+                                type: 'heading',
+                                text: 'Recognizing Safe Websites',
+                            },
+                            {
+                                type: 'paragraph',
+                                text: 'A safe website is a website that protects your information and does not try to trick you into sharing passwords, payment information, or personal details.',
+                            },
+                            {
+                                type: 'paragraph',
+                                text: 'When using the internet, always slow down and check the website before typing anything important. Scammers often create fake websites that look similar to real ones.',
+                            },
+                            {
+                                type: 'heading',
+                                text: 'Signs of a Safer Website',
+                            },
+                            {
+                                type: 'list',
+                                items: [
+                                    'The website address starts with https.',
+                                    'The website name is spelled correctly.',
+                                    'The page does not pressure you to act immediately.',
+                                    'The website does not ask for personal information for no clear reason.',
+                                ],
+                            },
+                            {
+                                type: 'callout',
+                                text: 'A lock icon and https are good signs, but they do not automatically mean a website is trustworthy. You still need to check the website name and the situation.',
+                            },
+                            {
+                                type: 'heading',
+                                text: 'Common Warning Signs',
+                            },
+                            {
+                                type: 'list',
+                                items: [
+                                    'Misspelled website names.',
+                                    'Pop-ups saying you won a prize.',
+                                    'Messages saying your account will be deleted unless you act now.',
+                                    'Links from unknown emails or text messages.',
+                                ],
+                            },
+                            {
+                                type: 'paragraph',
+                                text: 'If something feels suspicious, do not click around to investigate. Close the page and go directly to the official website by typing the address yourself.',
+                            },
+                        ],
                     },
                     {
                         id: 4,

@@ -19,16 +19,36 @@ export type CourseChapter = {
     sections: CourseSection[];
 };
 
+export type EbookBlock =
+    | {
+          type: 'heading';
+          text: string;
+      }
+    | {
+          type: 'paragraph';
+          text: string;
+      }
+    | {
+          type: 'list';
+          items: string[];
+      }
+    | {
+          type: 'callout';
+          text: string;
+      };
+
 export type CourseSection = {
     id: number;
     title: string;
     type: CourseSectionType;
     slug: string;
 
-    videoUrl?: string;
-    thumbnailUrl?: string;
-
     durationMinutes?: number;
     isPreview?: boolean;
     isCompleted?: boolean;
+
+    videoUrl?: string;
+    thumbnailUrl?: string;
+
+    ebookContent?: EbookBlock[];
 };

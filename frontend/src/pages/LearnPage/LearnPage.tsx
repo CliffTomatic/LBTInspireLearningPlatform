@@ -1,13 +1,15 @@
 import { Navigate, useParams } from 'react-router-dom';
 
 import { courses } from '../../data/courses';
-import LearnPlayer from '../../components/Learn/Video/LearnPlayer/LearnPlayer';
+import LearnContentPanel from '../../components/Learn/Video/LearnContentPanel/LearnContentPanel';
 import LearnSidebar from '../../components/Learn/LearnSidebar/LearnSidebar';
+
 import './LearnPage.css';
 
 function LearnPage() {
     const { courseSlug, sectionSlug } = useParams();
 
+    // Type Handling (avoid TS Unknown Values)
     const selectedCourse = courses.find((course) => course.slug === courseSlug);
 
     if (!selectedCourse) {
@@ -48,12 +50,12 @@ function LearnPage() {
                         chapters={selectedCourse.chapters}
                     />
 
-                    <div className="learn-page__main">
-                        <LearnPlayer
+                    <main className="learn-page__main">
+                        <LearnContentPanel
                             course={selectedCourse}
                             section={selectedSection}
                         />
-                    </div>
+                    </main>
                 </div>
             </div>
         </section>

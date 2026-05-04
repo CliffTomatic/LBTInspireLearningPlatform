@@ -1,6 +1,6 @@
-import type { CourseSection } from "../../../types/Course";
+import type { CourseSection } from '../../../types/Course';
 // import type { LearnSection } from "../../../types/Learn";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import './SectionCard.css';
 
 type SectionCardProps = {
@@ -19,8 +19,12 @@ function SectionCard({ section, courseSlug }: SectionCardProps) {
                 <span className="section-card__type">{section.type}</span>
             </div>
 
+            {/*{
+                TODO: Disable Card if learner has not completed the previous
+                 one yet.
+            } */}
             <span className="section-card__status">
-                {section.isCompleted ? "✓" : ""}
+                {section.isCompleted ? '✓' : ''}
             </span>
         </Link>
     );
