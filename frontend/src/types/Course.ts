@@ -1,6 +1,6 @@
-export type CourseSectionType = "video" | "ebook" | "quiz";
+export type CourseSectionType = 'video' | 'ebook' | 'quiz';
 
-export type CourseLevel = "Beginner" | "Intermediate" | "Advanced";
+export type CourseLevel = 'Beginner' | 'Intermediate' | 'Advanced';
 
 export interface Course {
     id: number;
@@ -25,15 +25,10 @@ export type CourseSection = {
     type: CourseSectionType;
     slug: string;
 
+    videoUrl?: string;
+    thumbnailUrl?: string;
+
     durationMinutes?: number;
     isPreview?: boolean;
     isCompleted?: boolean;
-};
-
-export type CourseCardProps = {
-    course: Course;
-};
-
-export type CourseGridProps = {
-    courses: Course[];
 };

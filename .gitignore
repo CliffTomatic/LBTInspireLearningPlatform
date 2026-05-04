@@ -87,3 +87,6 @@ PersonalEdits.txt
 *.db
 *.db-shm
 *.db-wal
+
+# Prettier Extension
+.prettierrc/

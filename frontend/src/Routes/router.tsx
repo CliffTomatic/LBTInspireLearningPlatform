@@ -27,6 +27,10 @@ const router = createBrowserRouter([
         element: <LearnPage />,
         loader: () => { },
     },
+    {
+        path: "learn/:courseSlug/:sectionSlug",
+        element: <LearnPage />,
+    }
 ]);
 
 export default router;

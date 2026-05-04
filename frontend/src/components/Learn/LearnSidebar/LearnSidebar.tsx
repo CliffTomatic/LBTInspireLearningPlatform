@@ -1,66 +1,19 @@
-import "./LearnSidebar.css";
-
-// Types
-// import type { LearnChapter } from "../../../types/Learn";
-import type { CourseChapter } from "../../../types/Course";
-import ChapterList from "../ChapterList/ChapterList";
-
-const dummyChapters: CourseChapter[] = [
-    {
-        id: 1,
-        title: "Getting Started",
-        sections: [
-            {
-                id: 1,
-                title: "Welcome to App Basics",
-                type: "video",
-                slug: "welcome-to-app-basics",
-                isCompleted: true,
-            },
-            {
-                id: 2,
-                title: "What is an App?",
-                type: "ebook",
-                slug: "what-is-an-app",
-            },
-            {
-                id: 3,
-                title: "Getting Started Quiz",
-                type: "quiz",
-                slug: "getting-started-quiz",
-            },
-        ],
-    },
-    {
-        id: 2,
-        title: "Using Mobile Apps",
-        sections: [
-            {
-                id: 4,
-                title: "Opening and Closing Apps",
-                type: "video",
-                slug: "opening-and-closing-apps",
-            },
-            {
-                id: 5,
-                title: "Finding Settings",
-                type: "ebook",
-                slug: "finding-settings",
-            },
-        ],
-    },
-];
+import './LearnSidebar.css';
+import ChapterList from '../ChapterList/ChapterList';
+import type { CourseChapter } from '../../../types/Course';
 
 type LearnSidebarProps = {
-    courseTitle?: string;
-    courseSlug?: string;
+    courseTitle: string;
+    courseSlug: string;
     progressPercent?: number;
+    chapters: CourseChapter[];
 };
 
 export default function LearnSidebar({
-    courseTitle = "Course Dev Template",
-    courseSlug = "course-Dev",
+    courseTitle,
+    courseSlug,
     progressPercent = 55,
+    chapters,
 }: LearnSidebarProps) {
     return (
         <aside className="learn-sidebar">
@@ -83,7 +36,7 @@ export default function LearnSidebar({
                 </div>
             </div>
 
-            <ChapterList chapters={dummyChapters} courseSlug={courseSlug} />
+            <ChapterList chapters={chapters} courseSlug={courseSlug} />
         </aside>
     );
 }
