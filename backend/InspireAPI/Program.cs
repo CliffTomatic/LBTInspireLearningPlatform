@@ -11,7 +11,7 @@ builder.Services.AddSingleton<VideoService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// SQLite
+// SQLite - Register Database to be seen by controllers.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? "Data Source=MockServer/MockData/pulse.db";
 
