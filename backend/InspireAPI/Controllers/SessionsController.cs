@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using InspireAPI.Data;
 using InspireAPI.Models;
-using InspireAPI.MockData;
-using InspireAPI.Services;
 
 namespace InspireAPI.Controllers
 {
@@ -9,17 +9,17 @@ namespace InspireAPI.Controllers
     [Route("api/[controller]")]
     public class SessionsController : ControllerBase
     {
-         private readonly SessionFileService _sessionFileService;
+        private readonly AppDbContext _db;
 
-        public SessionsController(SessionFileService sessionFileService)
+        public SessionsController(AppDbContext db)
         {
-            _sessionFileService = sessionFileService;
+            _db = db;
         }
 
         [HttpPost("startSession")]
-        public IActionResult StartSession([FromBody] SessionStartRequest request)
+        public async Task<IActionResult> StartSession([FromBody] SessionStartRequest request)
         {
-            var session = new ViewSession
+            var session = new Session
             {
                 VideoId = request.VideoId,
                 UserName = request.UserName,
@@ -30,15 +30,16 @@ namespace InspireAPI.Controllers
                 LastKnownVideoTimeSeconds = 0
             };
 
-            session = _sessionFileService.AddSession(session);
+            _db.Sessions.Add(session);
+            await _db.SaveChangesAsync();
 
-            return Ok(new { sessionId = session.SessionId });
+            return Ok(new { sessionId = session.Id });
         }
 
         [HttpPost("heartbeat")]
-        public IActionResult Heartbeat([FromBody] HeartbeatRequest request)
+        public async Task<IActionResult> Heartbeat([FromBody] HeartbeatRequest request)
         {
-            var session = _sessionFileService.GetSessionById(request.SessionId);
+            var session = await _db.Sessions.FindAsync(request.SessionId);
 
             if (session == null)
                 return NotFound(new { message = "Session not found" });
@@ -49,10 +50,7 @@ namespace InspireAPI.Controllers
             session.TotalWatchedSeconds += request.WatchedSeconds;
             session.LastKnownVideoTimeSeconds = request.CurrentTimeSeconds;
 
-            bool updated = _sessionFileService.UpdateSession(session);
-
-            if (!updated)
-                return StatusCode(500, new { message = "Failed to update session" });
+            await _db.SaveChangesAsync();
 
             return Ok(new
             {
@@ -62,9 +60,9 @@ namespace InspireAPI.Controllers
         }
 
         [HttpPost("end")]
-        public IActionResult EndSession([FromBody] SessionEndRequest request)
+        public async Task<IActionResult> EndSession([FromBody] SessionEndRequest request)
         {
-            var session = _sessionFileService.GetSessionById(request.SessionId);
+            var session = await _db.Sessions.FindAsync(request.SessionId);
 
             if (session == null)
                 return NotFound(new { message = "Session not found" });
@@ -72,10 +70,7 @@ namespace InspireAPI.Controllers
             session.IsActive = false;
             session.EndedAt = DateTime.UtcNow;
 
-            bool updated = _sessionFileService.UpdateSession(session);
-
-            if (!updated)
-                return StatusCode(500, new { message = "Failed to end session" });
+            await _db.SaveChangesAsync();
 
             return Ok(new { message = "Session ended" });
         }

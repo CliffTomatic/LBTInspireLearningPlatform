@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using InspireAPI.Services;
+using Microsoft.EntityFrameworkCore;
+using InspireAPI.Data;
 
 namespace InspireAPI.Controllers
 {
@@ -7,30 +8,43 @@ namespace InspireAPI.Controllers
     [Route("api/[controller]")]
     public class AdminController : ControllerBase
     {
-        private readonly SessionFileService _sessionFileService;
+        private readonly AppDbContext _db;
 
-        public AdminController(SessionFileService sessionFileService)
+        public AdminController(AppDbContext db)
         {
-            _sessionFileService = sessionFileService;
+            _db = db;
         }
 
         [HttpGet("sessions")]
-        public IActionResult GetSessions()
+        public async Task<IActionResult> GetSessions()
         {
-            var sessions = _sessionFileService.GetSessions();
+            var sessions = await _db.Sessions
+                .OrderByDescending(s => s.StartedAt)
+                .Select(s => new
+                {
+                    sessionId = s.Id,
+                    s.UserId,
+                    s.UserName,
+                    s.VideoId,
+                    s.StartedAt,
+                    s.EndedAt,
+                    s.TotalWatchedSeconds,
+                    s.LastKnownVideoTimeSeconds,
+                    s.IsActive
+                })
+                .ToListAsync();
+
             return Ok(sessions);
         }
 
         [HttpGet("summary")]
-        public IActionResult GetSummary()
+        public async Task<IActionResult> GetSummary()
         {
-            var sessions = _sessionFileService.GetSessions();
-
             var summary = new
             {
-                totalSessions = sessions.Count,
-                activeSessions = sessions.Count(s => s.IsActive),
-                totalWatchSeconds = sessions.Sum(s => s.TotalWatchedSeconds)
+                totalSessions = await _db.Sessions.CountAsync(),
+                activeSessions = await _db.Sessions.CountAsync(s => s.IsActive),
+                totalWatchSeconds = await _db.Sessions.SumAsync(s => s.TotalWatchedSeconds)
             };
 
             return Ok(summary);
