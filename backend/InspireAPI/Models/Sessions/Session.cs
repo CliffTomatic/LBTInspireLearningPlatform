@@ -12,11 +12,12 @@ public class Session
 
     public DateTime LastHeartbeatAt { get; set; }
 
-    public int TotalActiveSeconds { get; set; }
-    public int TotalInactiveSeconds { get; set; }
+    // Stored so dashboard doesn't have to recount sessionlogs everytime
+    public double TotalActiveSeconds { get; set; }
+    public double TotalInactiveSeconds { get; set; }
 
     public bool IsActive { get; set; }
 
-    public List<SessionActivityLog> ActivityLogs { get; set; } = new();
+    public List<SectionLog> SectionLogs { get; set; } = new();
 
 }

@@ -3,6 +3,7 @@ using System;
 using InspireAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InspireAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260508025533_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.7");
@@ -38,7 +41,7 @@ namespace InspireAPI.Migrations
                     b.Property<double>("InactiveSeconds")
                         .HasColumnType("REAL");
 
-                    b.Property<DateTime>("LastHeartbeatAt")
+                    b.Property<DateTime>("LastLog")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("SectionId")
@@ -54,7 +57,7 @@ namespace InspireAPI.Migrations
 
                     b.HasIndex("SessionId");
 
-                    b.ToTable("SectionLogs");
+                    b.ToTable("SectionLog");
                 });
 
             modelBuilder.Entity("InspireAPI.Models.Session", b =>
@@ -78,11 +81,11 @@ namespace InspireAPI.Migrations
                     b.Property<DateTime>("StartedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("TotalActiveSeconds")
-                        .HasColumnType("REAL");
+                    b.Property<int>("TotalActiveSeconds")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<double>("TotalInactiveSeconds")
-                        .HasColumnType("REAL");
+                    b.Property<int>("TotalInactiveSeconds")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UserId")
                         .IsRequired()

@@ -23,13 +23,13 @@ namespace InspireAPI.Controllers
                 .Select(s => new
                 {
                     sessionId = s.Id,
-                    s.UserId,
-                    s.UserName,
-                    s.VideoId,
-                    s.StartedAt,
-                    s.EndedAt,
-                    s.TotalWatchedSeconds,
-                    s.LastKnownVideoTimeSeconds,
+                    // s.UserId,
+                    // s.UserName,
+                    // s.VideoId,
+                    // s.StartedAt,
+                    // s.EndedAt,
+                    // s.TotalWatchedSeconds,
+                    // s.LastKnownVideoTimeSeconds,
                     s.IsActive
                 })
                 .ToListAsync();
@@ -44,7 +44,7 @@ namespace InspireAPI.Controllers
             {
                 totalSessions = await _db.Sessions.CountAsync(),
                 activeSessions = await _db.Sessions.CountAsync(s => s.IsActive),
-                totalWatchSeconds = await _db.Sessions.SumAsync(s => s.TotalWatchedSeconds)
+                // totalWatchSeconds = await _db.Sessions.SumAsync(s => s.TotalWatchedSeconds)
             };
 
             return Ok(summary);

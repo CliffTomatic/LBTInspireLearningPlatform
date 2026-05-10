@@ -1,11 +1,20 @@
 using InspireAPI.Data;
+using InspireAPI.Settings;
 using InspireAPI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+// Services
 builder.Services.AddSingleton<VideoService>();
+// One instance per HTTP Request
+builder.Services.AddScoped<SessionService>();
+
+// Dynamic Session Tracking Settings
+builder.Services.Configure<SessionTrackingSettings>(
+    builder.Configuration.GetSection("SessionTracking"));
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();

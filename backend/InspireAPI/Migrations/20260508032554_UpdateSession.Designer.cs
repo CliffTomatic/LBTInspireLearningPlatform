@@ -3,6 +3,7 @@ using System;
 using InspireAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InspireAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260508032554_UpdateSession")]
+    partial class UpdateSession
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.7");
@@ -38,7 +41,7 @@ namespace InspireAPI.Migrations
                     b.Property<double>("InactiveSeconds")
                         .HasColumnType("REAL");
 
-                    b.Property<DateTime>("LastHeartbeatAt")
+                    b.Property<DateTime>("LastLog")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("SectionId")

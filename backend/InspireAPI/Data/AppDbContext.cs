@@ -11,4 +11,16 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Session> Sessions { get; set; }
+    public DbSet<SectionLog> SectionLogs { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Session>()
+            .HasMany(s => s.SectionLogs)
+            .WithOne(l => l.Session)
+            .HasForeignKey(l => l.SessionId)
+            .OnDelete(DeleteBehavior.Cascade);
+    }
 }
