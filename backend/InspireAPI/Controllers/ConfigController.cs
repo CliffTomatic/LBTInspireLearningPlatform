@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using InspireAPI.Settings;
+using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/config")]
+[Authorize]
 public class ConfigController : ControllerBase
 {
     private readonly SessionTrackingSettings _trackingSettings;

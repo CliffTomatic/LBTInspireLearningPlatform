@@ -29,7 +29,6 @@ build/
 # Environment / secrets
 .env
 .env.*
-appsettings.Development.json
 secrets.json
 
 # Azure / publish

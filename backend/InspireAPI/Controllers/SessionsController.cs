@@ -6,10 +6,15 @@ using InspireAPI.Models;
 using Microsoft.Extensions.Options;
 using InspireAPI.Settings;
 
+// Auth/Identity
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+
 namespace InspireAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class SessionsController : ControllerBase
     {
         private readonly AppDbContext _db;
