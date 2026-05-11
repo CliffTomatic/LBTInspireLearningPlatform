@@ -1,0 +1,111 @@
+.hero-banner {
+    position: relative;
+    height: 78vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background-image:
+        linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0.4),
+            rgba(0, 0, 0, 0.6),
+            rgba(0, 0, 0, 0.6),
+            rgba(0, 0, 0, 0.4)
+        ),
+        url('public/assets/images/LearnBasicTech_Homepage.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-banner__overlay {
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(1.5px);
+}
+
+.hero-banner__content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-banner__text-content {
+    color: #ffffff;
+    border-radius: 50px;
+    padding: 25px 50px 25px 50px;
+    background-color: rgba(0, 0, 0, 0.58);
+}
+
+.hero-banner__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45rem 0.8rem;
+    margin-bottom: 1.25rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.hero-banner__title {
+    margin: 0;
+    font-size: clamp(3rem, 6vw, 5rem);
+    line-height: 0.98;
+    font-weight: 900;
+}
+
+.hero-banner__description {
+    display: inline-flex;
+    margin-top: 1.5rem;
+    max-width: 560px;
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.84);
+}
+
+.hero-banner__actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-banner__primary-button {
+    color: white;
+    font-size: 1.05rem;
+    background-color: #7924da;
+
+    border: none;
+
+    padding: 1rem 1.5rem;
+
+    border-radius: 0.9rem;
+
+    cursor: pointer;
+
+    transition:
+        background-color 160ms ease,
+        transform 160ms ease,
+        box-shadow 160ms ease;
+}
+
+.hero-banner__primary-button:hover {
+    background-color: #8d3cff;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 10px 28px rgba(121, 36, 218, 0.35);
+}
+
+.hero-banner__primary-button:active {
+    transform: translateY(0);
+}

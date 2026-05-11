@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
-import CourseDetailsHero from '../../components/CourseDetailsHero/CourseDetailsHero';
+import CourseDetailsHero from '../../components/Courses/CourseDetailsHero/CourseDetailsHero';
 import { courses } from '../../data/courses';
-import CourseCurriculum from '../../components/CourseCurriculm/CourseCurriculum';
+import CourseCurriculum from '../../components/Courses/CourseCurriculm/CourseCurriculum';
 import './CourseDetailsPage.css';
 
 function CourseDetailsPage() {
