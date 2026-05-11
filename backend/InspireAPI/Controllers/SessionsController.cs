@@ -93,7 +93,7 @@ namespace InspireAPI.Controllers
                 return result.ErrorType switch
                 {
                     ServiceErrorType.BadRequest => BadRequestMessage(result.Message),
-                    ServiceErrorType.NotFound => NotFound(result.Message),
+                    ServiceErrorType.NotFound => NotFoundMessage(result.Message),
                     ServiceErrorType.Gone => GoneMessage(result.Message),
                     _ => StatusCode(500, new { message = result.Message })
                 };
@@ -127,7 +127,7 @@ namespace InspireAPI.Controllers
                 return result.ErrorType switch
                 {
                     ServiceErrorType.BadRequest => BadRequestMessage(result.Message),
-                    ServiceErrorType.NotFound => NotFound(result.Message),
+                    ServiceErrorType.NotFound => NotFoundMessage(result.Message),
                     ServiceErrorType.Gone => GoneMessage(result.Message),
                     _ => StatusCode(500, new { message = result.Message })
                 };
@@ -153,7 +153,7 @@ namespace InspireAPI.Controllers
                 return result.ErrorType switch
                 {
                     ServiceErrorType.BadRequest => BadRequestMessage(result.Message),
-                    ServiceErrorType.NotFound => NotFound(result.Message),
+                    ServiceErrorType.NotFound => NotFoundMessage(result.Message),
                     ServiceErrorType.Gone => GoneMessage(result.Message),
                     _ => StatusCode(500, new { message = result.Message })
                 };

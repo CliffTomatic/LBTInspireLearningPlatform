@@ -29,12 +29,11 @@ namespace InspireAPI.Services
             int courseId,
             int chapterId,
             int sectionId,
+            DateTime now,
             double activeSeconds = 0,
             double inactiveSeconds = 0
         )
         {
-            var now = DateTime.UtcNow;
-
             return new SectionLog
             {
                 SessionId = sessionId,
@@ -176,11 +175,13 @@ namespace InspireAPI.Services
 
             // Get current SectionLog
             var currSectionLog = await _db.SectionLogs
-                .FirstOrDefaultAsync(log =>
+                .Where(log =>
                     log.Id == request.SectionLogId &&
                     log.SessionId == request.SessionId &&
                     log.Session.UserId == userId &&
-                    log.EndedAt == null);
+                    log.EndedAt == null)
+                .OrderByDescending(log => log.Id)
+                .FirstOrDefaultAsync();
 
             if (currSectionLog == null)
             {
@@ -291,12 +292,13 @@ namespace InspireAPI.Services
 
             // End old SectionLog
             var oldSectionLog = await _db.SectionLogs
-                .FirstOrDefaultAsync(log =>
+                .Where(log =>
                     log.Id == request.OldSectionLogId &&
                     log.SessionId == request.SessionId &&
-                    log.Session.CourseId == request.CourseId &&
-                    log.Session.UserId == userId
-                );
+                    log.CourseId == request.CourseId &&
+                    log.Session.UserId == userId)
+                .OrderByDescending(log => log.Id)
+                .FirstOrDefaultAsync();
 
             if (oldSectionLog == null)
             {
@@ -338,7 +340,6 @@ namespace InspireAPI.Services
 
             var now = DateTime.UtcNow;
 
-            // Add remaining time to old SectionLog
             var elapsedSeconds = (now - oldSectionLog.LastHeartbeatAt).TotalSeconds;
             var cappedElapsedSeconds = Math.Min(elapsedSeconds, maxAllowedDelta);
 
@@ -370,7 +371,8 @@ namespace InspireAPI.Services
                 oldSectionLog.SessionId,
                 parentSession.CourseId,
                 request.NewChapterId,
-                request.NewSectionId
+                request.NewSectionId,
+                now
             );
             _db.SectionLogs.Add(sectionLog);
             await _db.SaveChangesAsync();
@@ -380,12 +382,14 @@ namespace InspireAPI.Services
                 Success = true,
                 Data = new
                 {
-                    SessionId = sectionLog.Session.Id,
+                    SessionId = sectionLog.SessionId,
                     SectionLogId = sectionLog.Id,
                 },
             };
 
         }
+
+        // TODO: Polish logic/organize conditions
         /// <summary>
         /// Caller: SessionController: End Session
         /// <para> Error Return Types: BadRequest, NotFound, Gone. </para>
@@ -408,14 +412,6 @@ namespace InspireAPI.Services
                 return ServiceResultMessage<object>(
                     ServiceErrorType.BadRequest,
                     "SessionId is required."
-                );
-            }
-
-            if (request.SectionLogId <= 0)
-            {
-                return ServiceResultMessage<object>(
-                    ServiceErrorType.BadRequest,
-                    "SectionLogId is required."
                 );
             }
 
@@ -445,55 +441,75 @@ namespace InspireAPI.Services
                 );
             }
 
-            var sectionLog = await _db.SectionLogs
-                .FirstOrDefaultAsync(s =>
-                    s.Id == request.SectionLogId &&
-                    s.SessionId == session.Id &&
-                    s.Session.UserId == userId);
-
-            if (sectionLog == null)
+            if (!session.IsActive || session.EndedAt != null)
             {
                 return ServiceResultMessage<object>(
-                    ServiceErrorType.NotFound,
-                    "Section log not found for this session."
+                    ServiceErrorType.Gone,
+                    "Session has already ended."
                 );
             }
+
+            // * Find most recent sectionLog based on recent ID
+            // * if client sent an already closed section.
+            var sectionLog = await _db.SectionLogs
+                    .Where(log =>
+                        log.SessionId == session.Id &&
+                        log.Session.UserId == userId &&
+                        log.EndedAt == null)
+                    .OrderByDescending(log => log.Id)
+                    .FirstOrDefaultAsync();
 
             var now = DateTime.UtcNow;
 
-            var elapsedSeconds = (now - sectionLog.LastHeartbeatAt).TotalSeconds;
-
-
-            if (elapsedSeconds < 0)
+            // Only change data to sectionLog if found.
+            // If not found, only edit Session
+            if (sectionLog != null)
             {
-                return ServiceResultMessage<object>(
-                    ServiceErrorType.BadRequest,
-                    "Elapsed seconds cannot be negative."
-                );
+                var elapsedSeconds = (now - sectionLog.LastHeartbeatAt).TotalSeconds;
+
+
+                if (elapsedSeconds < 0)
+                {
+                    return ServiceResultMessage<object>(
+                        ServiceErrorType.BadRequest,
+                        "Elapsed seconds cannot be negative."
+                    );
+                }
+
+                var cappedElapsedSeconds = Math.Min(elapsedSeconds, maxAllowedDelta);
+
+                if (request.InactiveSecondsDelta > cappedElapsedSeconds)
+                {
+                    return ServiceResultMessage<object>(
+                        ServiceErrorType.BadRequest,
+                        "Inactive seconds cannot exceed elapsed time."
+                    );
+                }
+
+                var activeSecondsDelta = cappedElapsedSeconds - request.InactiveSecondsDelta;
+
+                // Add time from last heartbeat before ending.
+                // End sectionLog before closing every open sectionLog
+                // so it doesn't add an extra cappedElapsedSeconds.
+
+                sectionLog.ActiveSeconds += activeSecondsDelta;
+                sectionLog.InactiveSeconds += request.InactiveSecondsDelta;
+                sectionLog.LastHeartbeatAt = now;
+                sectionLog.EndedAt = now;
+
+                session.TotalActiveSeconds += activeSecondsDelta;
+                session.TotalInactiveSeconds += request.InactiveSecondsDelta;
             }
 
-            var cappedElapsedSeconds = Math.Min(elapsedSeconds, maxAllowedDelta);
+            // Cleanup all unended SectionLogs
+            await EndOpenSectionLogsForSessionAsync(session, now, userId);
 
-            if (request.InactiveSecondsDelta > cappedElapsedSeconds)
+            if (session.EndedAt == null)
             {
-                return ServiceResultMessage<object>(
-                    ServiceErrorType.BadRequest,
-                    "Inactive seconds cannot exceed elapsed time."
-                );
+                session.EndedAt = now;
             }
-
-            var activeSecondsDelta = cappedElapsedSeconds - request.InactiveSecondsDelta;
-
-            sectionLog.ActiveSeconds += activeSecondsDelta;
-            sectionLog.InactiveSeconds += request.InactiveSecondsDelta;
-            sectionLog.LastHeartbeatAt = now;
-            sectionLog.EndedAt = now;
-
-            session.TotalActiveSeconds += activeSecondsDelta;
-            session.TotalInactiveSeconds += request.InactiveSecondsDelta;
-            session.LastHeartbeatAt = now;
-            session.EndedAt = now;
             session.IsActive = false;
+            session.LastHeartbeatAt = now;
 
             await _db.SaveChangesAsync();
 
@@ -503,7 +519,6 @@ namespace InspireAPI.Services
                 Data = new
                 {
                     EndedSessionId = session.Id,
-                    SectionLogId = sectionLog.Id
                 },
             };
         }
@@ -567,5 +582,42 @@ namespace InspireAPI.Services
 
             return updatedSections;
         }
+
+        /// <summary>
+        /// End all SectionLogs under Parent Session.
+        /// Add maximum inactive time to all EndOpen SectionLogs
+        /// </summary>
+        private async Task<List<SectionLog>> EndOpenSectionLogsForSessionAsync(
+            Session session,
+            DateTime now,
+            string userId
+        )
+        {
+            var maxAllowedDelta =
+                _trackingSettings.Value.HeartbeatIntervalSeconds *
+                _trackingSettings.Value.MaxMissedHeartbeatMultiplier;
+
+            var openSectionLogs = await _db.SectionLogs
+                .Where(log =>
+                    log.SessionId == session.Id &&
+                    log.EndedAt == null &&
+                    log.Session.UserId == userId)
+                .ToListAsync();
+
+            foreach (var log in openSectionLogs)
+            {
+                var elapsedSeconds = (now - log.LastHeartbeatAt).TotalSeconds;
+                var cappedElapsedSeconds = Math.Min(elapsedSeconds, maxAllowedDelta);
+
+                log.ActiveSeconds += cappedElapsedSeconds;
+                log.LastHeartbeatAt = now;
+                log.EndedAt = now;
+
+                session.TotalActiveSeconds += cappedElapsedSeconds;
+            }
+
+            return openSectionLogs;
+        }
+
     }
 }
