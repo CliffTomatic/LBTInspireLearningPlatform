@@ -21,19 +21,19 @@ export type RegisterRequest = {
 };
 
 export function login(request: LoginRequest) {
-    return apiFetch<AuthResponse>('/api/Auth/login', {
+    return apiFetch<AuthResponse>('api/Auth/login', {
         method: 'POST',
         body: JSON.stringify(request),
     });
 }
 
 export function register(request: RegisterRequest) {
-    return apiFetch<AuthResponse>('/api/Auth/register', {
+    return apiFetch<AuthResponse>('api/Auth/register', {
         method: 'POST',
         body: JSON.stringify(request),
     });
 }
 
 export function getMe() {
-    return apiFetch<AuthResponse>('/api/Auth/me');
+    return apiFetch<AuthResponse>('api/Auth/me');
 }

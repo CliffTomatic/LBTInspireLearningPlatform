@@ -1,6 +1,5 @@
-// RegisterModal.tsx
-
 import { useState } from 'react';
+import { register } from '../../../services/authApi';
 import './RegisterModal.css';
 
 type RegisterModalProps = {
@@ -23,7 +22,7 @@ export default function RegisterModal({
         return null;
     }
 
-    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
         console.log('Register attempt:', {
@@ -33,15 +32,14 @@ export default function RegisterModal({
             password,
         });
 
-        // Later:
-        // const response = await register({
-        //     email,
-        //     displayName,
-        //     userName,
-        //     password,
-        // });
-        // localStorage.setItem("token", response.token);
-        // onClose();
+        const response = await register({
+            email,
+            displayName,
+            userName,
+            password,
+        });
+        localStorage.setItem('token', response.token);
+        onClose();
     }
 
     return (
@@ -62,7 +60,7 @@ export default function RegisterModal({
                     <h2 className="register-modal__title">Create an account</h2>
 
                     <p className="register-modal__subtitle">
-                        Start tracking your progress through LearnBasicTech.
+                        Gain access to our teachnology based courses.
                     </p>
                 </div>
 
@@ -71,6 +69,9 @@ export default function RegisterModal({
                         <span>Email</span>
                         <input
                             type="email"
+                            id="email"
+                            name="email"
+                            autoComplete="email"
                             value={email}
                             placeholder="you@example.com"
                             onChange={(event) => setEmail(event.target.value)}
@@ -82,6 +83,9 @@ export default function RegisterModal({
                         <span>Display name</span>
                         <input
                             type="text"
+                            id="displayName"
+                            name="displayName"
+                            autoComplete="name"
                             value={displayName}
                             placeholder="John Doe"
                             onChange={(event) =>
@@ -95,6 +99,9 @@ export default function RegisterModal({
                         <span>Username</span>
                         <input
                             type="text"
+                            id="userName"
+                            name="userName"
+                            autoComplete="username"
                             value={userName}
                             placeholder="john_doe"
                             onChange={(event) =>
@@ -108,6 +115,9 @@ export default function RegisterModal({
                         <span>Password</span>
                         <input
                             type="password"
+                            id="password"
+                            name="password"
+                            autoComplete="new-password"
                             value={password}
                             placeholder="Create a password"
                             onChange={(event) =>

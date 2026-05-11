@@ -94,6 +94,17 @@ builder.Services
 
 builder.Services.AddAuthorization();
 
+// Allow preflight OPTION request from REACT URL
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ReactDev", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -124,17 +135,18 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors("ReactDev");
 }
 
 if (!app.Environment.IsDevelopment())
 {
     app.UseHttpsRedirection();
 }
+
 
 // Authentication must come before Authorization.
 app.UseAuthentication();

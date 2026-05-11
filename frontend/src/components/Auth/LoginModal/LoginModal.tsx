@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { login } from '../../../services/authApi';
 import './LoginModal.css';
 
 type LoginModalProps = {
@@ -19,7 +20,7 @@ export default function LoginModal({
         return null;
     }
 
-    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
         console.log('Login attempt:', {
@@ -27,10 +28,12 @@ export default function LoginModal({
             password,
         });
 
-        // Later:
-        // await login({ email, password });
-        // localStorage.setItem("token", response.token);
-        // onClose();
+        const response = await login({ email, password });
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('userId', response.userId);
+        localStorage.setItem('userName', response.userName);
+        localStorage.setItem('userDisplayName', response.displayName);
+        onClose();
     }
 
     return (
@@ -59,6 +62,9 @@ export default function LoginModal({
                         <span>Email</span>
                         <input
                             type="email"
+                            id="email"
+                            name="email"
+                            autoComplete="email"
                             value={email}
                             placeholder="you@example.com"
                             onChange={(event) => setEmail(event.target.value)}
@@ -70,6 +76,9 @@ export default function LoginModal({
                         <span>Password</span>
                         <input
                             type="password"
+                            id="password"
+                            name="password"
+                            autoComplete="password"
                             value={password}
                             placeholder="Enter your password"
                             onChange={(event) =>
