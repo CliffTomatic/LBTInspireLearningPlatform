@@ -156,7 +156,7 @@ backend\InspireAPI\MockServer\MockData\sessions.json
 
 Those files are currently tracked in this repo, so a fresh clone should receive them. Future generated SQLite files should generally stay out of commits unless the team intentionally updates seed data.
 
-## Contributor Workflow
+## Basic Contributor Workflow
 
 Before starting work:
 
@@ -179,4 +179,6 @@ npm.cmd run build
 ```
 
 Keep frontend changes with backend work when they are required to consume backend APIs, replace mocks, or align with backend contracts. Put unrelated UI cleanup or visual polish in a separate frontend-focused branch.
+
+Use [CONTRIBUTING.md](CONTRIBUTING.md) for more details about commit, push, and pull request best practices.
 
