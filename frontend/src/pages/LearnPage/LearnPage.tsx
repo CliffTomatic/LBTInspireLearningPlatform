@@ -1,18 +1,75 @@
+import { useEffect, useMemo, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 
-import { courses } from '../../data/courses';
 import LearnContentPanel from '../../components/Learn/Video/LearnContentPanel/LearnContentPanel';
 import LearnSidebar from '../../components/Learn/LearnSidebar/LearnSidebar';
+
+import { getCourseBySlug } from '../../services/courseService';
+
+import type { Course } from '../../types/Course';
+import type { CourseSection } from '../../types/Course';
 
 import './LearnPage.css';
 
 function LearnPage() {
     const { courseSlug, sectionSlug } = useParams();
 
-    // Type Handling (avoid TS Unknown Values)
-    const selectedCourse = courses.find((course) => course.slug === courseSlug);
+    const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
-    if (!selectedCourse) {
+    const [isLoading, setIsLoading] = useState(true);
+
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+    useEffect(() => {
+        async function loadCourse() {
+            if (!courseSlug) {
+                setErrorMessage('Missing course slug.');
+                setIsLoading(false);
+                return;
+            }
+
+            try {
+                setIsLoading(true);
+
+                const course = await getCourseBySlug(courseSlug);
+
+                setSelectedCourse(course);
+
+                setErrorMessage(null);
+            } catch {
+                setSelectedCourse(null);
+                setErrorMessage('Course not found.');
+            } finally {
+                setIsLoading(false);
+            }
+        }
+
+        loadCourse();
+    }, [courseSlug]);
+
+    const allSections = useMemo(() => {
+        if (!selectedCourse) {
+            return [];
+        }
+
+        return selectedCourse.chapters.flatMap((chapter) => chapter.sections);
+    }, [selectedCourse]);
+
+    const selectedSection = useMemo<CourseSection | null>(() => {
+        if (!sectionSlug) {
+            return null;
+        }
+
+        return (
+            allSections.find((section) => section.slug === sectionSlug) ?? null
+        );
+    }, [allSections, sectionSlug]);
+
+    if (isLoading) {
+        return <section className="learn-page">Loading course...</section>;
+    }
+
+    if (!selectedCourse || errorMessage) {
         return <section className="learn-page">Course not found.</section>;
     }
 
@@ -30,10 +87,6 @@ function LearnPage() {
             />
         );
     }
-
-    const selectedSection = selectedCourse.chapters
-        .flatMap((chapter) => chapter.sections)
-        .find((section) => section.slug === sectionSlug);
 
     if (!selectedSection) {
         return <section className="learn-page">Section not found.</section>;

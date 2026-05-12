@@ -13,6 +13,16 @@ export interface Course {
     chapters: CourseChapter[];
 }
 
+export type CourseSummary = {
+    id: number;
+    slug: string;
+    title: string;
+    description: string;
+    thumbnailUrl: string;
+    level: Course['level'];
+    estimatedHours: number;
+};
+
 export type CourseChapter = {
     id: number;
     title: string;

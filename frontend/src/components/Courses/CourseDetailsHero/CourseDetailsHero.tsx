@@ -13,7 +13,7 @@ export default function CourseDetailsHero({ course }: CourseDetailsHeroProps) {
 
     return (
         <>
-            <div className="page-containe">
+            <div className="page-container">
                 <section className="course-details-hero">
                     <div className="course-details-hero__content">
                         <p className="course-details-hero__eyebrow">

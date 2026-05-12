@@ -1,9 +1,9 @@
-import CourseCard from "../CourseCard/CourseCard";
-import type { Course } from "../../../types/Course";
+import CourseCard from '../CourseCard/CourseCard';
 import './CourseGrid.css';
+import type { CourseSummary } from '../../../types/Course';
 
 export type CourseGridProps = {
-    courses: Course[];
+    courses: CourseSummary[];
 };
 
 function CourseGrid({ courses }: CourseGridProps) {
