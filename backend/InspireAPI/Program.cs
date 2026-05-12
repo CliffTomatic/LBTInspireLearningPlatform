@@ -147,6 +147,14 @@ if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    db.Database.EnsureCreated();
+
+    DbSeeder.SeedCourses(db);
+}
 
 // Authentication must come before Authorization.
 app.UseAuthentication();
