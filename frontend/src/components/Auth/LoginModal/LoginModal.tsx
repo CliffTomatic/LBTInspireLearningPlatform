@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { login } from '../../../services/authApi';
+
+import { useAuth } from '../../../context/useAuth';
+import { loginUser } from '../../../services/authApi';
 import './LoginModal.css';
 
 type LoginModalProps = {
@@ -16,6 +18,8 @@ export default function LoginModal({
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const { login } = useAuth();
+
     if (!isOpen) {
         return null;
     }
@@ -23,17 +27,23 @@ export default function LoginModal({
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        console.log('Login attempt:', {
-            email,
-            password,
-        });
+        try {
+            const response = await loginUser({
+                email,
+                password,
+            });
 
-        const response = await login({ email, password });
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('userId', response.userId);
-        localStorage.setItem('userName', response.userName);
-        localStorage.setItem('userDisplayName', response.displayName);
-        onClose();
+            login(response.token, {
+                userId: response.userId,
+                email: response.email,
+                userName: response.userName,
+                displayName: response.displayName,
+            });
+
+            onClose();
+        } catch (error) {
+            console.error('Login failed:', error);
+        }
     }
 
     return (
@@ -78,7 +88,7 @@ export default function LoginModal({
                             type="password"
                             id="password"
                             name="password"
-                            autoComplete="password"
+                            autoComplete="current-password"
                             value={password}
                             placeholder="Enter your password"
                             onChange={(event) =>

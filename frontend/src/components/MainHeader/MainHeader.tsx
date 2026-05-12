@@ -1,8 +1,13 @@
-import NavBar from "../NavBar/NavBar";
-import { mainNavLinks } from "../../config/navigation";
-import "./MainHeader.css";
+import NavBar from '../NavBar/NavBar';
+import { mainNavLinks } from '../../config/navigation';
+import './MainHeader.css';
 
-function MainHeader() {
+type MainHeaderProps = {
+    onLoginClick: () => void;
+    onRegisterClick: () => void;
+};
+
+function MainHeader({ onLoginClick, onRegisterClick }: MainHeaderProps) {
     return (
         <header className="site-header">
             <div className="site-header__content page-container">
@@ -10,7 +15,11 @@ function MainHeader() {
                     <h1 className="site-header__title">Pulse</h1>
                     <h1 className="site-header__subtitle">by LearnBasicTech</h1>
                 </div>
-                <NavBar links={mainNavLinks} />
+                <NavBar
+                    links={mainNavLinks}
+                    onLoginClick={onLoginClick}
+                    onRegisterClick={onRegisterClick}
+                />
             </div>
         </header>
     );

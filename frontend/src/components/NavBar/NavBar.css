@@ -1,29 +1,198 @@
-.nav-bar__link {
-  font-size: 25px;
-  padding-right: 10px;
-  color: #d6b3ff;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-a {
-  color: #d6b3ff;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-a:hover {
-  color: #ffffff;
-  text-decoration: underline;
-}
-
-a:active {
-  opacity: 0.7;
-}
-
 .nav-bar {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Normal nav links */
+.nav-bar__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 2.65rem;
+    line-height: 1;
+
+    font-size: 1.35rem;
+    color: #d6b3ff;
+    text-decoration: none;
+    font-weight: 600;
+
+    transition:
+        color 160ms ease,
+        opacity 160ms ease,
+        transform 160ms ease;
+}
+
+.nav-bar__link:hover {
+    color: #ffffff;
+    text-decoration: underline;
+    transform: translateY(-1px);
+}
+
+.nav-bar__link:active {
+    opacity: 0.7;
+    transform: translateY(0);
+}
+
+/* Auth area */
+.nav-bar__auth {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* Buttons: Login, Register, Logout fallback */
+.nav-bar__button {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: #7924da;
+    border: none;
+    padding: 0.7rem 1rem;
+    border-radius: 0.9rem;
+    cursor: pointer;
+    transition:
+        background-color 160ms ease,
+        transform 160ms ease,
+        box-shadow 160ms ease;
+}
+
+.nav-bar__button:hover {
+    background-color: #8d3cff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(121, 36, 218, 0.35);
+}
+
+.nav-bar__button:active {
+    transform: translateY(0);
+}
+
+/* Stronger Register button */
+.nav-bar__button--primary {
+    background: linear-gradient(135deg, #7924da, #a855f7);
+    box-shadow: 0 10px 24px rgba(121, 36, 218, 0.25);
+}
+
+.nav-bar__button--primary:hover {
+    background: linear-gradient(135deg, #8d3cff, #c084fc);
+}
+
+/* Profile dropdown wrapper */
+.nav-bar__profile-menu {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Clickable user name */
+.nav-bar__profile-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+
+    min-height: 2.65rem;
+    line-height: 1;
+
+    padding: 0 1rem;
+    border-radius: 999px;
+
+    color: #f7f2ff;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 700;
+
+    background: rgba(121, 36, 218, 0.9);
+
+    transition:
+        background-color 160ms ease,
+        border-color 160ms ease,
+        transform 160ms ease,
+        box-shadow 160ms ease;
+}
+
+.nav-bar__profile-trigger:hover {
+    color: #ffffff;
+    text-decoration: none;
+    background: rgba(141, 60, 255, 0.35);
+    border-color: rgba(216, 180, 254, 0.75);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(121, 36, 218, 0.28);
+}
+
+.nav-bar__profile-trigger:active {
+    transform: translateY(0);
+}
+
+.nav-bar__profile-arrow {
+    font-size: 0.8rem;
+    line-height: 1;
+    transition: transform 160ms ease;
+}
+
+.nav-bar__profile-menu:hover .nav-bar__profile-arrow,
+.nav-bar__profile-menu:focus-within .nav-bar__profile-arrow {
+    transform: rotate(180deg);
+}
+
+/* Dropdown */
+.nav-bar__profile-dropdown {
+    position: absolute;
+    top: calc(100% + 0.6rem);
+    right: 0;
+    min-width: 155px;
+    padding: 0.45rem;
+    border-radius: 0.9rem;
+    background: #ffffff;
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.22);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-6px);
+    transition:
+        opacity 160ms ease,
+        transform 160ms ease;
+    z-index: 100;
+}
+
+.nav-bar__profile-menu:hover .nav-bar__profile-dropdown,
+.nav-bar__profile-menu:focus-within .nav-bar__profile-dropdown {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+/* Small invisible bridge so hover does not flicker */
+.nav-bar__profile-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -0.7rem;
+    right: 0;
+    width: 100%;
+    height: 0.7rem;
+}
+
+/* Dropdown logout button */
+.nav-bar__dropdown-button {
+    width: 100%;
+    padding: 0.7rem 0.85rem;
+    border: none;
+    border-radius: 0.65rem;
+    background: transparent;
+    color: #4c1d95;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-align: left;
+    cursor: pointer;
+    transition:
+        background-color 150ms ease,
+        color 150ms ease;
+}
+
+.nav-bar__dropdown-button:hover {
+    background: rgba(121, 36, 218, 0.1);
+    color: #7924da;
 }

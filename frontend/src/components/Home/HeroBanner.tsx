@@ -2,9 +2,13 @@ import './HeroBanner.css';
 
 type HeroBannerProps = {
     onLoginClick: () => void;
+    onRegisterClick: () => void;
 };
 
-export default function HeroBanner({ onLoginClick }: HeroBannerProps) {
+export default function HeroBanner({
+    onLoginClick,
+    onRegisterClick,
+}: HeroBannerProps) {
     return (
         <section className="hero-banner">
             <div className="hero-banner__overlay"></div>
@@ -30,7 +34,14 @@ export default function HeroBanner({ onLoginClick }: HeroBannerProps) {
                             className="hero-banner__primary-button"
                             onClick={onLoginClick}
                         >
-                            Sign in
+                            Login
+                        </button>
+                        <button
+                            type="button"
+                            className="hero-banner__primary-button"
+                            onClick={onRegisterClick}
+                        >
+                            Register
                         </button>
                     </div>
                 </div>

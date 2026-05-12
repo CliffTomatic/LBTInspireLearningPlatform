@@ -1,35 +1,21 @@
 import VideoCarousel from '../components/VideoCarousel/VideoCarousel';
 import HeroBanner from '../components/Home/HeroBanner';
-import LoginModal from '../components/Auth/LoginModal/LoginModal';
-import RegisterModal from '../components/Auth/RegisterModal/RegisterModal';
+// import LoginModal from '../components/Auth/LoginModal/LoginModal';
+// import RegisterModal from '../components/Auth/RegisterModal/RegisterModal';
 
-import { useState } from 'react';
+import { useOutletContext } from 'react-router-dom';
+import type { AuthModalContext } from '../routes/RootLayout';
 
 function HomePage() {
-    const [isLoginOpen, setIsLoginOpen] = useState(false);
-    const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+    const { openLogin, openRegister } = useOutletContext<AuthModalContext>();
 
     return (
         <>
-            <HeroBanner onLoginClick={() => setIsLoginOpen(true)} />
+            <HeroBanner
+                onLoginClick={openLogin}
+                onRegisterClick={openRegister}
+            />
             <VideoCarousel />
-            <LoginModal
-                isOpen={isLoginOpen}
-                onClose={() => setIsLoginOpen(false)}
-                onSwitchToRegister={() => {
-                    setIsLoginOpen(false);
-                    setIsRegisterOpen(true);
-                }}
-            />
-
-            <RegisterModal
-                isOpen={isRegisterOpen}
-                onClose={() => setIsRegisterOpen(false)}
-                onSwitchToLogin={() => {
-                    setIsRegisterOpen(false);
-                    setIsLoginOpen(true);
-                }}
-            />
         </>
     );
 }

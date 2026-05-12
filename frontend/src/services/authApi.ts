@@ -8,6 +8,13 @@ export type AuthResponse = {
     displayName: string;
 };
 
+export type CurrentUser = {
+    userId: string;
+    email: string;
+    userName: string;
+    displayName: string;
+};
+
 export type LoginRequest = {
     email: string;
     password: string;
@@ -20,20 +27,20 @@ export type RegisterRequest = {
     password: string;
 };
 
-export function login(request: LoginRequest) {
-    return apiFetch<AuthResponse>('api/Auth/login', {
+export function loginUser(data: LoginRequest) {
+    return apiFetch<AuthResponse>('/api/auth/login', {
         method: 'POST',
-        body: JSON.stringify(request),
+        body: JSON.stringify(data),
     });
 }
 
-export function register(request: RegisterRequest) {
-    return apiFetch<AuthResponse>('api/Auth/register', {
+export function registerUser(data: RegisterRequest) {
+    return apiFetch<AuthResponse>('/api/auth/register', {
         method: 'POST',
-        body: JSON.stringify(request),
+        body: JSON.stringify(data),
     });
 }
 
-export function getMe() {
-    return apiFetch<AuthResponse>('api/Auth/me');
+export function getCurrentUser() {
+    return apiFetch<CurrentUser>('/api/auth/me');
 }

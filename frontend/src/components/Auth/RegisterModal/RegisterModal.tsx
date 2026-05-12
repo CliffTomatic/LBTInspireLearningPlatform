@@ -1,5 +1,7 @@
-import { useState } from 'react';
-import { register } from '../../../services/authApi';
+import { useState, type SyntheticEvent } from 'react';
+
+import { useAuth } from '../../../context/useAuth';
+import { registerUser } from '../../../services/authApi';
 import './RegisterModal.css';
 
 type RegisterModalProps = {
@@ -18,28 +20,36 @@ export default function RegisterModal({
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
+    const { login } = useAuth();
+
     if (!isOpen) {
         return null;
     }
 
-    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(
+        event: SyntheticEvent<HTMLFormElement, SubmitEvent>,
+    ) {
         event.preventDefault();
 
-        console.log('Register attempt:', {
-            email,
-            displayName,
-            userName,
-            password,
-        });
+        try {
+            const response = await registerUser({
+                email,
+                userName,
+                displayName,
+                password,
+            });
 
-        const response = await register({
-            email,
-            displayName,
-            userName,
-            password,
-        });
-        localStorage.setItem('token', response.token);
-        onClose();
+            login(response.token, {
+                userId: response.userId,
+                email: response.email,
+                userName: response.userName,
+                displayName: response.displayName,
+            });
+
+            onClose();
+        } catch (error) {
+            console.error('Registration failed:', error);
+        }
     }
 
     return (
