@@ -5,11 +5,35 @@ export type InfoCardProps = {
     description?: string;
     imageUrl?: string;
     alt?: string;
+    imageMode?: 'default' | 'icon';
+    titleSize?: 'default' | 'large' | 'display';
+    showFrame?: boolean;
+    cardClassName?: string;
 };
 
-function InfoCard({ title, description, imageUrl, alt }: InfoCardProps) {
+function InfoCard({
+    title,
+    description,
+    imageUrl,
+    alt,
+    imageMode = 'default',
+    titleSize = 'default',
+    showFrame = true,
+    cardClassName,
+}: InfoCardProps) {
+    const cardClassNames = [
+        'info-card',
+        imageMode === 'icon' ? 'info-card--icon-image' : '',
+        titleSize === 'large' ? 'info-card--title-large' : '',
+        titleSize === 'display' ? 'info-card--title-display' : '',
+        !showFrame ? 'info-card--no-frame' : '',
+        cardClassName ?? '',
+    ]
+        .filter(Boolean)
+        .join(' ');
+
     return (
-        <article className="info-card">
+        <article className={cardClassNames}>
             {imageUrl && (
                 <img
                     className="info-card__image"
