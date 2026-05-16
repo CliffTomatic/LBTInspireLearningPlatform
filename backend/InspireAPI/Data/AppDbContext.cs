@@ -1,4 +1,5 @@
 using InspireAPI.Models;
+using InspireAPI.Models.Progress;
 using InspireAPI.Models.Courses;
 using System.Text.Json;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -21,6 +22,10 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<CourseChapter> CourseChapters => Set<CourseChapter>();
     public DbSet<CourseSection> CourseSections => Set<CourseSection>();
     public DbSet<EbookBlock> EbookBlocks => Set<EbookBlock>();
+
+    // User Progress
+    public DbSet<UserCourseProgress> UserCourseProgresses => Set<UserCourseProgress>();
+    public DbSet<UserSectionProgress> UserSectionProgresses => Set<UserSectionProgress>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -66,5 +71,14 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
             .WithOne(block => block.CourseSection)
             .HasForeignKey(block => block.CourseSectionId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        // User Progress
+        modelBuilder.Entity<UserCourseProgress>()
+            .HasIndex(p => new { p.UserId, p.CourseId })
+            .IsUnique();
+
+        modelBuilder.Entity<UserSectionProgress>()
+            .HasIndex(p => new { p.UserId, p.SectionId })
+            .IsUnique();
     }
 }

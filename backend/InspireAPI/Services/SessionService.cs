@@ -1,10 +1,10 @@
 using InspireAPI.Common;
 using InspireAPI.Models;
+using InspireAPI.Models.Progress;
 using InspireAPI.Data;
 using Microsoft.Extensions.Options;
 using InspireAPI.Settings;
 using Microsoft.EntityFrameworkCore;
-using System.Collections;
 
 
 // TODO: Add a CurrentSectionLogID to all Sessions. Change DB Relation and model.
@@ -257,6 +257,14 @@ namespace InspireAPI.Services
             currSectionLog.Session.TotalActiveSeconds += activeSecondsDelta;
             currSectionLog.Session.TotalInactiveSeconds += request.InactiveSecondsDelta;
             currSectionLog.Session.LastHeartbeatAt = now;
+
+            await UpdateProgressAsync(
+                userId,
+                currSectionLog.CourseId,
+                currSectionLog.SectionId,
+                activeSecondsDelta,
+                now
+            );
 
             await _db.SaveChangesAsync();
 
@@ -622,6 +630,63 @@ namespace InspireAPI.Services
             }
 
             return openSectionLogs;
+        }
+
+        private async Task UpdateProgressAsync(
+            string userId,
+            int courseId,
+            int sectionId,
+            double activeSecondsDelta,
+            DateTime now)
+        {
+            var courseProgress = await _db.UserCourseProgresses
+                .FirstOrDefaultAsync(p =>
+                    p.UserId == userId &&
+                    p.CourseId == courseId);
+
+            if (courseProgress == null)
+            {
+                courseProgress = new UserCourseProgress
+                {
+                    UserId = userId,
+                    CourseId = courseId,
+                    StartedAt = now,
+                    LastAccessedAt = now,
+                    LastSectionId = sectionId,
+                    TotalActiveSeconds = 0,
+                    ProgressPercent = 0
+                };
+
+                _db.UserCourseProgresses.Add(courseProgress);
+            }
+
+            var sectionProgress = await _db.UserSectionProgresses
+                .FirstOrDefaultAsync(p =>
+                    p.UserId == userId &&
+                    p.SectionId == sectionId);
+
+            if (sectionProgress == null)
+            {
+                sectionProgress = new UserSectionProgress
+                {
+                    UserId = userId,
+                    CourseId = courseId,
+                    SectionId = sectionId,
+                    StartedAt = now,
+                    LastAccessedAt = now,
+                    ActiveSecondsWatched = 0,
+                    IsCompleted = false
+                };
+
+                _db.UserSectionProgresses.Add(sectionProgress);
+            }
+
+            sectionProgress.ActiveSecondsWatched += activeSecondsDelta;
+            sectionProgress.LastAccessedAt = now;
+
+            courseProgress.TotalActiveSeconds += activeSecondsDelta;
+            courseProgress.LastAccessedAt = now;
+            courseProgress.LastSectionId = sectionId;
         }
 
     }
