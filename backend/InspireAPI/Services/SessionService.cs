@@ -175,6 +175,7 @@ namespace InspireAPI.Services
 
             // Get current SectionLog
             var currSectionLog = await _db.SectionLogs
+                .Include(log => log.Session)
                 .Where(log =>
                     log.Id == request.SectionLogId &&
                     log.SessionId == request.SessionId &&
@@ -292,6 +293,7 @@ namespace InspireAPI.Services
 
             // End old SectionLog
             var oldSectionLog = await _db.SectionLogs
+                .Include(log => log.Session)
                 .Where(log =>
                     log.Id == request.OldSectionLogId &&
                     log.SessionId == request.SessionId &&
@@ -429,6 +431,7 @@ namespace InspireAPI.Services
             }
 
             var session = await _db.Sessions
+                .OrderByDescending(s => s.Id)
                 .FirstOrDefaultAsync(s =>
                     s.Id == request.SessionId &&
                     s.UserId == userId);
@@ -452,6 +455,7 @@ namespace InspireAPI.Services
             // * Find most recent sectionLog based on recent ID
             // * if client sent an already closed section.
             var sectionLog = await _db.SectionLogs
+                    .Include(log => log.Session)
                     .Where(log =>
                         log.SessionId == session.Id &&
                         log.Session.UserId == userId &&
@@ -598,6 +602,7 @@ namespace InspireAPI.Services
                 _trackingSettings.Value.MaxMissedHeartbeatMultiplier;
 
             var openSectionLogs = await _db.SectionLogs
+                .Include(log => log.Session)
                 .Where(log =>
                     log.SessionId == session.Id &&
                     log.EndedAt == null &&
