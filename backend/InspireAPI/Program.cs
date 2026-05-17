@@ -147,13 +147,21 @@ if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
 }
 
+// Seed Database
 using (var scope = app.Services.CreateScope())
 {
+    var services = scope.ServiceProvider;
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
     db.Database.EnsureCreated();
 
+    var userManager =
+        services.GetRequiredService<
+            UserManager<ApplicationUser>
+        >();
+
     DbSeeder.SeedCourses(db);
+    await DbSeeder.SeedUsersAsync(userManager);
 }
 
 // Authentication must come before Authorization.

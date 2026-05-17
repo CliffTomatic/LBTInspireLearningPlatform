@@ -1,7 +1,10 @@
 using InspireAPI.Models.Courses;
 using System.Text.Json;
+using Microsoft.AspNetCore.Identity;
+using InspireAPI.Models;
 
 namespace InspireAPI.Data;
+
 
 public static class DbSeeder
 {
@@ -105,5 +108,38 @@ public static class DbSeeder
 
         db.Courses.Add(course);
         db.SaveChanges();
+    }
+    public static async Task SeedUsersAsync(
+        UserManager<ApplicationUser> userManager
+    )
+    {
+        if (userManager.Users.Any())
+        {
+            return;
+        }
+
+        var adminUser = new ApplicationUser
+        {
+            UserName = "admin_demo",
+            Email = "admin@learnbasictech.org",
+            DisplayName = "Admin Demo"
+        };
+
+        var studentUser = new ApplicationUser
+        {
+            UserName = "student_demo",
+            Email = "student@learnbasictech.org",
+            DisplayName = "Student Demo"
+        };
+
+        await userManager.CreateAsync(
+            adminUser,
+            "Admin123!"
+        );
+
+        await userManager.CreateAsync(
+            studentUser,
+            "Student123!"
+        );
     }
 }
