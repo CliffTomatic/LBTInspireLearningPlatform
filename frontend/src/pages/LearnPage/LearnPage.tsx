@@ -1,25 +1,33 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 
+import { useSectionSessionTracking } from '../../hooks/useSectionSessionTracking';
+
 import LearnContentPanel from '../../components/Learn/Video/LearnContentPanel/LearnContentPanel';
 import LearnSidebar from '../../components/Learn/LearnSidebar/LearnSidebar';
 
-import { getCourseBySlug } from '../../services/courseService';
+import {
+    getCourseBySlug,
+    getChapterBySectionSlug,
+    getAllSections,
+    getSectionBySlugFromSections,
+} from '../../utils/courseSelection';
 
 import type { Course } from '../../types/Course';
-import type { CourseSection } from '../../types/Course';
 
 import './LearnPage.css';
+
+// TODO: Send client to course details page of the course they're trying to view
+//       if they are not enrolled. (Check with backend)
 
 function LearnPage() {
     const { courseSlug, sectionSlug } = useParams();
 
+    const [isLoading, setIsLoading] = useState(true);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
-    const [isLoading, setIsLoading] = useState(true);
-
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
+    // Load Course Data
     useEffect(() => {
         async function loadCourse() {
             if (!courseSlug) {
@@ -34,7 +42,6 @@ function LearnPage() {
                 const course = await getCourseBySlug(courseSlug);
 
                 setSelectedCourse(course);
-
                 setErrorMessage(null);
             } catch {
                 setSelectedCourse(null);
@@ -47,24 +54,59 @@ function LearnPage() {
         loadCourse();
     }, [courseSlug]);
 
-    const allSections = useMemo(() => {
-        if (!selectedCourse) {
-            return [];
-        }
+    // Memos
+    const allSections = useMemo(
+        () => getAllSections(selectedCourse),
+        [selectedCourse],
+    );
 
-        return selectedCourse.chapters.flatMap((chapter) => chapter.sections);
-    }, [selectedCourse]);
+    const selectedChapter = useMemo(
+        () => getChapterBySectionSlug(selectedCourse, sectionSlug),
+        [selectedCourse, sectionSlug],
+    );
 
-    const selectedSection = useMemo<CourseSection | null>(() => {
-        if (!sectionSlug) {
+    const selectedSection = useMemo(
+        () => getSectionBySlugFromSections(allSections, sectionSlug),
+        [allSections, sectionSlug],
+    );
+
+    // Hook - StartSession/Heartbeat
+    const sessionTarget = useMemo(() => {
+        if (
+            isLoading ||
+            errorMessage ||
+            !sectionSlug ||
+            !selectedCourse ||
+            !selectedChapter ||
+            !selectedSection
+        ) {
             return null;
         }
 
-        return (
-            allSections.find((section) => section.slug === sectionSlug) ?? null
-        );
-    }, [allSections, sectionSlug]);
+        return {
+            courseId: selectedCourse.id,
+            chapterId: selectedChapter.id,
+            sectionId: selectedSection.id,
+        };
+    }, [
+        isLoading,
+        errorMessage,
+        sectionSlug,
+        selectedCourse,
+        selectedChapter,
+        selectedSection,
+    ]);
 
+    const { sessionInfo, isSessionStarting, sessionError } =
+        useSectionSessionTracking({
+            sessionTarget,
+            heartbeatMs: 15000,
+        });
+
+    console.debug(sessionInfo, isSessionStarting, sessionError);
+
+    // DOM
+    // TODO: Create default error page.
     if (isLoading) {
         return <section className="learn-page">Loading course...</section>;
     }

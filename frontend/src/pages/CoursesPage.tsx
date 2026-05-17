@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { testAdvCourses } from '../data/courses';
 
 import type { CourseSummary } from '../types/Course';
-import { getCourses } from '../services/courseService';
+import { getCourses } from '../utils/courseSelection';
 export default function CoursesPage() {
     const [courses, setCourses] = useState<CourseSummary[]>([]);
 

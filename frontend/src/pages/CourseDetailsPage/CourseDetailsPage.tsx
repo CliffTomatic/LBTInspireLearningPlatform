@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import CourseDetailsHero from '../../components/Courses/CourseDetailsHero/CourseDetailsHero';
 import CourseCurriculum from '../../components/Courses/CourseCurriculm/CourseCurriculum';
-import { getCourseBySlug } from '../../services/courseService';
+import { getCourseBySlug } from '../../utils/courseSelection';
 import type { Course } from '../../types/Course';
 
 import './CourseDetailsPage.css';
