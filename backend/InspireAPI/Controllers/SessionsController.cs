@@ -50,8 +50,8 @@ namespace InspireAPI.Controllers
         Create a new Session and SectionLog.
         Called when learner first starts learning 
         */
-        [HttpPost("start")]
-        public async Task<IActionResult> Create([FromBody] SessionStartRequest request)
+        [HttpPost("activate")]
+        public async Task<IActionResult> Activate([FromBody] ActivateSectionRequest request)
         {
             var userId = GetUserId();
             var userName = GetUserName();
@@ -62,7 +62,7 @@ namespace InspireAPI.Controllers
             }
 
             // Handoff to service
-            var result = await _sessionService.StartSessionAsync(request, userId, userName);
+            var result = await _sessionService.ActiveSectionAsync(request, userId, userName);
 
             if (!result.Success)
             {
@@ -87,40 +87,6 @@ namespace InspireAPI.Controllers
             }
 
             var result = await _sessionService.HeartbeatAsync(request, userId);
-
-            if (!result.Success)
-            {
-                return result.ErrorType switch
-                {
-                    ServiceErrorType.BadRequest => BadRequestMessage(result.Message),
-                    ServiceErrorType.NotFound => NotFoundMessage(result.Message),
-                    ServiceErrorType.Gone => GoneMessage(result.Message),
-                    _ => StatusCode(500, new { message = result.Message })
-                };
-            }
-
-            return Ok();
-        }
-
-        /// <summary>
-        /// Create new SectionLog when client moves to a new section.
-        /// <para>
-        /// Overview: 
-        /// Ends old SectionLog.
-        /// Creates new SectionLog.
-        /// </para>
-        /// </summary>
-        [HttpPost("section-log")]
-        public async Task<IActionResult> CreateSectionLog([FromBody] NewSectionLogRequest request)
-        {
-            var userId = GetUserId();
-
-            if (userId == null)
-            {
-                return UnauthorizedMessage();
-            }
-
-            var result = await _sessionService.NewSectionLogAsync(request, userId);
 
             if (!result.Success)
             {

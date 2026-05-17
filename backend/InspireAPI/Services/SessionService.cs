@@ -22,40 +22,11 @@ namespace InspireAPI.Services
         }
 
         /// <summary>
-        /// Create a default SectionLog
-        /// </summary>
-        public SectionLog CreateDefaultSectionLog(
-            int sessionId,
-            int courseId,
-            int chapterId,
-            int sectionId,
-            DateTime now,
-            double activeSeconds = 0,
-            double inactiveSeconds = 0
-        )
-        {
-            return new SectionLog
-            {
-                SessionId = sessionId,
-                CourseId = courseId,
-                ChapterId = chapterId,
-                SectionId = sectionId,
-
-                StartedAt = now,
-                EndedAt = null,
-                LastHeartbeatAt = now,
-
-                ActiveSeconds = activeSeconds,
-                InactiveSeconds = inactiveSeconds
-            };
-        }
-
-        /// <summary>
         /// Caller: SessionController: Heartbeat
         /// Error Return Types: BadRequest, NotFound, Gone.
         /// </summary>
-        public async Task<ServiceResult<object>> StartSessionAsync(
-            SessionStartRequest request,
+        public async Task<ServiceResult<object>> ActiveSectionAsync(
+            ActivateSectionRequest request,
             string userId,
             string userName)
         {
@@ -101,50 +72,145 @@ namespace InspireAPI.Services
 
             var now = DateTime.UtcNow;
 
-            var session = new Session
+            var sessionIdleTimeout = now
+                .AddSeconds(-_trackingSettings.Value.IdleTimeoutSeconds);
+
+            // Find last active Session
+            var activeSession = await _db.Sessions
+                .Where(s => s.UserId == userId &&
+                            s.CourseId == request.CourseId &&
+                            s.EndedAt == null &&
+                            s.IsActive &&
+                            s.LastHeartbeatAt > sessionIdleTimeout)
+                .OrderByDescending(s => s.LastHeartbeatAt)
+                .FirstOrDefaultAsync();
+
+            if (activeSession == null)
             {
-                CourseId = request.CourseId,
-                UserId = userId,
-                UserName = userName,
+                var created = await CreateSessionWithSectionLogAsync(
+                    userId,
+                    userName,
+                    request,
+                    now
+                );
 
-                StartedAt = now,
-                EndedAt = null,
-                LastHeartbeatAt = now,
+                return new ServiceResult<object>
+                {
+                    Success = true,
+                    Data = new
+                    {
+                        SessionId = created.session.Id,
+                        SectionLogId = created.sectionLog.Id
+                    }
+                };
+            }
 
-                TotalActiveSeconds = 0,
-                TotalInactiveSeconds = 0,
+            var activeSectionLog = await _db.SectionLogs
+                .Where(sl =>
+                    sl.SessionId == activeSession.Id &&
+                    sl.EndedAt == null
+                )
+                .OrderByDescending(sl => sl.LastHeartbeatAt)
+                .FirstOrDefaultAsync();
 
-                IsActive = true
-            };
-
-            var sectionLog = new SectionLog
+            if (activeSectionLog == null)
             {
-                CourseId = request.CourseId,
-                ChapterId = request.ChapterId,
-                SectionId = request.SectionId,
+                var sectionLog = await CreateSectionLogForSessionAsync(
+                    activeSession,
+                    request,
+                    now
+                );
 
-                StartedAt = now,
-                LastHeartbeatAt = now,
+                return new ServiceResult<object>
+                {
+                    Success = true,
+                    Data = new
+                    {
+                        SessionId = activeSession.Id,
+                        SectionLogId = sectionLog.Id
+                    }
+                };
+            }
 
-                ActiveSeconds = 0,
-                InactiveSeconds = 0
-            };
+            // User has not switched sections, no new data to update
+            if (activeSectionLog.SectionId == request.SectionId)
+            {
+                return new ServiceResult<object>
+                {
+                    Success = true,
+                    Data = new
+                    {
+                        SessionId = activeSession.Id,
+                        SectionLogId = activeSectionLog.Id
+                    }
+                };
+            }
 
-            _db.Sessions.Add(session);
-            session.SectionLogs.Add(sectionLog);
+            // User switched sections
+            var maxAllowedDelta =
+                _trackingSettings.Value.HeartbeatIntervalSeconds *
+                _trackingSettings.Value.MaxMissedHeartbeatMultiplier;
 
-            await _db.SaveChangesAsync();
+            var elapsedSeconds = (now - activeSectionLog.LastHeartbeatAt).TotalSeconds;
+            var cappedElapsedSeconds = Math.Min(elapsedSeconds, maxAllowedDelta);
+
+            var activeSecondsDelta = cappedElapsedSeconds - request.InactiveSecondsDelta;
+
+            // Verify seconds are not fake
+            if (request.InactiveSecondsDelta < 0)
+            {
+                return new ServiceResult<object>
+                {
+                    Success = false,
+                    Message = "Inactive seconds delta cannot be negative.",
+                    ErrorType = ServiceErrorType.BadRequest
+                };
+            }
+            if (request.InactiveSecondsDelta > maxAllowedDelta)
+            {
+                return new ServiceResult<object>
+                {
+                    Success = false,
+                    Message = "Inactive seconds delta too large.",
+                    ErrorType = ServiceErrorType.BadRequest
+                };
+            }
+
+            if (request.InactiveSecondsDelta > cappedElapsedSeconds)
+            {
+                return new ServiceResult<object>
+                {
+                    Success = false,
+                    Message = "Inactive seconds cannot exceed elapsed time.",
+                    ErrorType = ServiceErrorType.BadRequest
+                };
+            }
+
+            ApplyActivityDelta(
+                activeSession,
+                activeSectionLog,
+                activeSecondsDelta,
+                request.InactiveSecondsDelta,
+                now
+            );
+
+            var newSectionLog = await CreateSectionLogForSessionAsync(
+                activeSession,
+                request,
+                now
+            );
 
             return new ServiceResult<object>
             {
                 Success = true,
                 Data = new
                 {
-                    SessionId = session.Id,
-                    SectionLogId = sectionLog.Id
+                    SessionId = activeSession.Id,
+                    SectionLogId = newSectionLog.Id
                 }
             };
         }
+
         /// <summary>
         /// Caller: SessionController: Heartbeat
         /// <para> Error Return Types: BadRequest, NotFound, Gone. </para>
@@ -280,125 +346,6 @@ namespace InspireAPI.Services
             };
         }
 
-        /// <summary>
-        /// Caller: SessionController -> CreateSectionLog
-        /// <para>Error Return Types: BadRequest, NotFound, Gone.</para>
-        /// </summary>
-        public async Task<ServiceResult<object>> NewSectionLogAsync(
-            NewSectionLogRequest request,
-            string userId
-        )
-        {
-            if (request == null)
-            {
-                return new ServiceResult<object>
-                {
-                    Success = false,
-                    Message = "Body cannot be null.",
-                    ErrorType = ServiceErrorType.BadRequest
-                };
-            }
-
-            // End old SectionLog
-            var oldSectionLog = await _db.SectionLogs
-                .Include(log => log.Session)
-                .Where(log =>
-                    log.Id == request.OldSectionLogId &&
-                    log.SessionId == request.SessionId &&
-                    log.CourseId == request.CourseId &&
-                    log.Session.UserId == userId)
-                .OrderByDescending(log => log.Id)
-                .FirstOrDefaultAsync();
-
-            if (oldSectionLog == null)
-            {
-                return new ServiceResult<object>
-                {
-                    Success = false,
-                    Message = "SectionLog not found.",
-                    ErrorType = ServiceErrorType.NotFound
-                };
-            }
-
-            // TODO: Add the database function that cleans up stale/invalid sections 
-            if (oldSectionLog.EndedAt != null)
-            {
-                return new ServiceResult<object>
-                {
-                    Success = false,
-                    Message = "SectionLog has already ended",
-                    ErrorType = ServiceErrorType.Gone
-                };
-            }
-
-            if (request.OldInactiveSecondsDelta < 0)
-            {
-                return new ServiceResult<object>
-                {
-                    Success = false,
-                    Message = "Inactive seconds cannot be negative.",
-                    ErrorType = ServiceErrorType.BadRequest
-                };
-            }
-
-            var parentSession = oldSectionLog.Session;
-
-            // Calculate Dynamic Heartbeat Interval
-            var maxAllowedDelta =
-                _trackingSettings.Value.HeartbeatIntervalSeconds *
-                _trackingSettings.Value.MaxMissedHeartbeatMultiplier;
-
-            var now = DateTime.UtcNow;
-
-            var elapsedSeconds = (now - oldSectionLog.LastHeartbeatAt).TotalSeconds;
-            var cappedElapsedSeconds = Math.Min(elapsedSeconds, maxAllowedDelta);
-
-            if (request.OldInactiveSecondsDelta > cappedElapsedSeconds)
-            {
-                return new ServiceResult<object>
-                {
-                    Success = false,
-                    Message = "Inactive seconds cannot exceed elapsed time.",
-                    ErrorType = ServiceErrorType.BadRequest
-                };
-            }
-
-            var activeSecondsDelta = cappedElapsedSeconds - request.OldInactiveSecondsDelta;
-
-            // Update SectionLog's tracking data and end log
-            oldSectionLog.ActiveSeconds += activeSecondsDelta;
-            oldSectionLog.InactiveSeconds += request.OldInactiveSecondsDelta;
-            oldSectionLog.LastHeartbeatAt = now;
-            oldSectionLog.EndedAt = now;
-
-            // Update Parent Session's tracking data
-            parentSession.TotalActiveSeconds += activeSecondsDelta;
-            parentSession.TotalInactiveSeconds += request.OldInactiveSecondsDelta;
-            parentSession.LastHeartbeatAt = now;
-
-            // Create new SectionLog
-            var sectionLog = CreateDefaultSectionLog(
-                oldSectionLog.SessionId,
-                parentSession.CourseId,
-                request.NewChapterId,
-                request.NewSectionId,
-                now
-            );
-            _db.SectionLogs.Add(sectionLog);
-            await _db.SaveChangesAsync();
-
-            return new ServiceResult<object>
-            {
-                Success = true,
-                Data = new
-                {
-                    SessionId = sectionLog.SessionId,
-                    SectionLogId = sectionLog.Id,
-                },
-            };
-
-        }
-
         // TODO: Polish logic/organize conditions
         /// <summary>
         /// Caller: SessionController: End Session
@@ -504,6 +451,14 @@ namespace InspireAPI.Services
                 // End sectionLog before closing every open sectionLog
                 // so it doesn't add an extra cappedElapsedSeconds.
 
+                ApplyActivityDelta(
+                    session,
+                    sectionLog,
+                    activeSecondsDelta,
+                    request.InactiveSecondsDelta,
+                    now
+                );
+
                 sectionLog.ActiveSeconds += activeSecondsDelta;
                 sectionLog.InactiveSeconds += request.InactiveSecondsDelta;
                 sectionLog.LastHeartbeatAt = now;
@@ -536,6 +491,126 @@ namespace InspireAPI.Services
         }
 
         // Helper Return Function
+
+        /// <summary>
+        /// Create a default SectionLog
+        /// </summary>
+        private static Session CreateSession(
+            int courseId,
+            string userId,
+            string userName,
+            DateTime now
+        )
+        {
+            return new Session
+            {
+                CourseId = courseId,
+                UserId = userId,
+                UserName = userName,
+
+                StartedAt = now,
+                EndedAt = null,
+                LastHeartbeatAt = now,
+
+                TotalActiveSeconds = 0,
+                TotalInactiveSeconds = 0,
+
+                IsActive = true
+            };
+        }
+
+        private static SectionLog CreateSectionLog(
+            int courseId,
+            int chapterId,
+            int sectionId,
+            DateTime now
+        )
+        {
+            return new SectionLog
+            {
+                CourseId = courseId,
+                ChapterId = chapterId,
+                SectionId = sectionId,
+
+                StartedAt = now,
+                EndedAt = null,
+                LastHeartbeatAt = now,
+
+                ActiveSeconds = 0,
+                InactiveSeconds = 0
+            };
+        }
+
+        private async Task<(Session session, SectionLog sectionLog)>
+            CreateSessionWithSectionLogAsync(
+                string userId,
+                string userName,
+                ActivateSectionRequest request,
+                DateTime now
+            )
+        {
+            var session = CreateSession(
+                request.CourseId,
+                userId,
+                userName,
+                now
+            );
+
+            var sectionLog = CreateSectionLog(
+                request.CourseId,
+                request.ChapterId,
+                request.SectionId,
+                now
+            );
+
+            session.SectionLogs.Add(sectionLog);
+
+            _db.Sessions.Add(session);
+
+            await _db.SaveChangesAsync();
+
+            return (session, sectionLog);
+        }
+
+        private async Task<SectionLog> CreateSectionLogForSessionAsync(
+            Session session,
+            ActivateSectionRequest request,
+            DateTime now
+        )
+        {
+            var sectionLog = CreateSectionLog(
+                request.CourseId,
+                request.ChapterId,
+                request.SectionId,
+                now
+            );
+
+            session.LastHeartbeatAt = now;
+
+            session.SectionLogs.Add(sectionLog);
+
+            await _db.SaveChangesAsync();
+
+            return sectionLog;
+        }
+
+        public void ApplyActivityDelta(
+            Session session,
+            SectionLog sectionLog,
+            double activeSecondsDelta,
+            double inactiveSecondsDelta,
+            DateTime now
+        )
+        {
+            session.TotalActiveSeconds += activeSecondsDelta;
+            session.TotalInactiveSeconds += inactiveSecondsDelta;
+            session.LastHeartbeatAt = now;
+
+            sectionLog.ActiveSeconds += activeSecondsDelta;
+            sectionLog.InactiveSeconds += inactiveSecondsDelta;
+            sectionLog.LastHeartbeatAt = now;
+            return;
+        }
 
         // ! Generic for future models
         /// <summary>
