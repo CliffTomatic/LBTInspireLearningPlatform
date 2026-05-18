@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, type SyntheticEvent } from 'react';
 
 import { useAuth } from '../../../context/useAuth';
 import { loginUser } from '../../../services/authApi';
 import './LoginModal.css';
+import { ApiError } from '../../../types/Api/Auth';
 
 type LoginModalProps = {
     isOpen: boolean;
@@ -20,18 +21,43 @@ export default function LoginModal({
 
     const { login } = useAuth();
 
+    const [formError, setFormError] = useState<string | null>(null);
+
     if (!isOpen) {
         return null;
     }
 
-    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(
+        event: SyntheticEvent<HTMLFormElement, SubmitEvent>,
+    ) {
         event.preventDefault();
+
+        setFormError(null);
+
+        const nextFieldErrors: Record<string, string[]> = {};
+
+        if (!email.trim()) {
+            nextFieldErrors.email = ['Email is required.'];
+        }
+
+        if (!password.trim()) {
+            nextFieldErrors.password = ['Password is required.'];
+        }
+
+        if (Object.keys(nextFieldErrors).length > 0) {
+            setFormError('Please fix the highlighted fields.');
+            return;
+        }
 
         try {
             const response = await loginUser({
                 email,
                 password,
             });
+
+            if (response == null) {
+                return;
+            }
 
             login(response.token, {
                 userId: response.userId,
@@ -42,7 +68,12 @@ export default function LoginModal({
 
             onClose();
         } catch (error) {
-            console.error('Login failed:', error);
+            if (error instanceof ApiError) {
+                setFormError(error.message);
+                return;
+            }
+
+            setFormError('Something went wrong. Please try again.');
         }
     }
 
@@ -101,6 +132,9 @@ export default function LoginModal({
                     <button className="login-modal__submit" type="submit">
                         Log in
                     </button>
+                    {formError && (
+                        <p className="auth-form-error">{formError}</p>
+                    )}
                 </form>
 
                 <p className="login-modal__footer">

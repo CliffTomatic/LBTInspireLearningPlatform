@@ -1,3 +1,5 @@
+import { ApiError, type ApiErrorResponse } from '../types/Api/Auth';
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL.replace(/\/$/, '');
 
 export async function apiFetch<T>(
@@ -22,14 +24,24 @@ export async function apiFetch<T>(
         },
     });
 
-    if (!response.ok) {
-        const message = await response.text();
-
-        throw new Error(message || `API error: ${response.status}`);
-    }
-
     if (response.status === 204) {
         return null;
+    }
+
+    if (!response.ok) {
+        try {
+            const errorBody = (await response.json()) as ApiErrorResponse;
+
+            throw new ApiError(errorBody);
+        } catch (error) {
+            if (error instanceof ApiError) {
+                throw error;
+            }
+
+            throw new Error(`API error: ${response.status}`, {
+                cause: error,
+            });
+        }
     }
 
     const text = await response.text();
