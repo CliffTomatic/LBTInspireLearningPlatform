@@ -119,6 +119,8 @@ README.md                 Project overview and roadmap
 
 Use [QUICK_START.md](QUICK_START.md) for the full setup and run instructions.
 
+Use [CONTRIBUTING.md](CONTRIBUTING.md) for commit, push, and pull request best practices.
+
 Common commands:
 
 ```powershell
