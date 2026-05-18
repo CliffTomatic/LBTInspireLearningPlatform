@@ -1,6 +1,6 @@
 .about-page {
-    background: #f8fafc;
-    color: #0f172a;
+    background: #000000;
+    color: #e8ecf8;
 }
 
 .about-page__hero {
@@ -9,8 +9,8 @@
     background-image:
         linear-gradient(
             180deg,
-            rgba(15, 23, 42, 0.2) 0%,
-            rgba(15, 23, 42, 0.55) 100%
+            rgba(6, 10, 22, 0.32) 0%,
+            rgba(6, 10, 22, 0.8) 100%
         ),
         url('/assets/thumbnails/placeholder.png');
     background-size: cover;
@@ -90,7 +90,7 @@
 .about-page__description {
     font-size: 1.1rem;
     line-height: 1.8;
-    color: #334155;
+    color: #b5bfd7;
     max-width: 65ch;
     padding-top: 0.5rem;
 }
@@ -102,7 +102,7 @@
 .about-page__separator-line {
     width: 100%;
     height: 8px;
-    background: #000000;
+    background: rgba(255, 255, 255, 0.18);
     border-radius: 999px;
 }
 
@@ -110,7 +110,7 @@
     font-size: 0.95rem;
     line-height: 1.5;
     font-style: italic;
-    color: #475569;
+    color: #9aa6c4;
     text-align: center;
 }
 
@@ -134,7 +134,7 @@
     margin: 0;
     font-size: 1.05rem;
     line-height: 1.7;
-    color: #334155;
+    color: #b5bfd7;
     max-width: 60ch;
 }
 
@@ -142,8 +142,8 @@
     display: inline-block;
     padding: 0.85rem 1.35rem;
     border-radius: 10px;
-    background-color: #0f172a;
-    color: #ffffff;
+    background-color: #f5c800;
+    color: #111111;
     font-weight: 700;
     text-decoration: none;
     white-space: nowrap;
@@ -153,7 +153,7 @@
 }
 
 .about-page__button:hover {
-    background-color: #1e293b;
+    background-color: #e0b800;
     text-decoration: none;
     transform: translateY(-1px);
 }
@@ -172,7 +172,7 @@
 .about-page__dtd-text {
     font-size: 1.05rem;
     line-height: 1.8;
-    color: #334155;
+    color: #b5bfd7;
     margin-bottom: 1rem;
 }
 
@@ -185,7 +185,33 @@
     height: 300px;
     object-fit: cover;
     border-radius: 18px;
-    box-shadow: 0 18px 35px -24px rgba(15, 23, 42, 0.5);
+    box-shadow: 0 24px 40px -28px rgba(0, 0, 0, 0.8);
+}
+
+.about-page .info-card {
+    background: #1f1f2e;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    box-shadow: 0 18px 30px -22px rgba(0, 0, 0, 0.7);
+}
+
+.about-page .info-card__image {
+    background: #151a2f;
+}
+
+.about-page .info-card__title {
+    color: #ffffff;
+}
+
+.about-page .info-card__description {
+    color: #b8c1d8;
+}
+
+.about-page .info-card--no-frame .info-card__title {
+    color: #f5c800;
+}
+
+.about-page .info-card--no-frame .info-card__description {
+    color: #b8c1d8;
 }
 
 @media (max-width: 1000px) {
