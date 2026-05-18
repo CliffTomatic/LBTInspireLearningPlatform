@@ -1,0 +1,133 @@
+.event-card {
+    display: flex;
+    flex-direction: row;
+    background: #1f1f2e;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* ---- Left: Image ---- */
+.event-card__image-wrapper {
+    flex: 0 0 280px;
+    max-width: 280px;
+}
+
+.event-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ---- Right: Details ---- */
+.event-card__details {
+    flex: 1;
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.event-card__title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+.event-card__dates {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #7b2cff;
+    margin: 0 0 16px 0;
+}
+
+.event-card__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.event-card__meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    color: #a8a8c0;
+}
+
+.event-card__meta-item--time {
+    font-size: 1.25rem;
+}
+
+.event-card__meta-item--location {
+    font-weight: 700;
+}
+
+.event-card__meta-icon {
+    font-size: 1rem;
+}
+
+.event-card__button {
+    align-self: flex-start;
+    background: #7b2cff;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 11px 22px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.15s ease;
+    display: inline-block;
+}
+
+.event-card__button:hover {
+    background: #924dff;
+}
+
+.event-card__button:active {
+    transform: scale(0.97);
+}
+
+/* ---- Status tag in action area ---- */
+.event-card__status-tag {
+    align-self: flex-start;
+    padding: 9px 16px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.event-card__status-tag--canceled {
+    background: rgba(220, 38, 38, 0.25);
+    border: 1px solid rgba(220, 38, 38, 0.55);
+    color: #ffffff;
+}
+
+.event-card__status-tag--postponed {
+    background: rgba(217, 119, 6, 0.25);
+    border: 1px solid rgba(217, 119, 6, 0.55);
+    color: #ffffff;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 700px) {
+    .event-card {
+        flex-direction: column;
+    }
+
+    .event-card__image-wrapper {
+        flex: none;
+        max-width: 100%;
+        height: 200px;
+    }
+
+    .event-card__details {
+        padding: 20px;
+    }
+}
