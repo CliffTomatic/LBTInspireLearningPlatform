@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type {
     ActivateSectionRequest,
     ActivateSectionResponse,
@@ -11,6 +11,7 @@ import {
 } from '../services/sessionService';
 
 // TODO: Have HeartbeatMs stored as a global state from API/config.
+// TODO: Update activity tracking to work with videos.
 
 type UseSectionSessionTrackingOptions = {
     sessionTarget: ActivateSectionRequest | null;
@@ -50,9 +51,104 @@ export function useSectionSessionTracking({
 
     const sessionInfoRef = useRef<ActivateSectionResponse | null>(null);
 
+    // User activity
+    const IDLE_TIMEOUT_MS = 60_000;
+
+    const inactiveMsBufferRef = useRef(0);
+    const lastAccountedAtRef = useRef<number | null>(null);
+    const lastActivityAtRef = useRef<number | null>(null);
+    const isWindowInactiveRef = useRef(false);
+
+    useEffect(() => {
+        const now = Date.now();
+
+        lastAccountedAtRef.current = now;
+        lastActivityAtRef.current = now;
+
+        isWindowInactiveRef.current =
+            document.visibilityState !== 'visible' || !document.hasFocus();
+    }, []);
+
     useEffect(() => {
         sessionInfoRef.current = sessionInfo;
     }, [sessionInfo]);
+
+    // Helper Functions
+
+    // Calculate active/inactivity of client
+    const commitActivityTime = useCallback(() => {
+        const now = Date.now();
+
+        if (
+            lastAccountedAtRef.current === null ||
+            lastActivityAtRef.current === null
+        ) {
+            lastAccountedAtRef.current = now;
+            lastActivityAtRef.current = now;
+            return;
+        }
+
+        const from = lastAccountedAtRef.current;
+
+        if (now <= from) {
+            return;
+        }
+
+        if (isWindowInactiveRef.current) {
+            inactiveMsBufferRef.current += now - from;
+        } else {
+            const idleStartedAt = lastActivityAtRef.current + IDLE_TIMEOUT_MS;
+
+            if (now > idleStartedAt) {
+                const inactiveStartedAt = Math.max(from, idleStartedAt);
+
+                inactiveMsBufferRef.current += now - inactiveStartedAt;
+            }
+        }
+
+        lastAccountedAtRef.current = now;
+    }, []);
+
+    // Calculate inactive seconds
+    const getActivityDelta = useCallback(() => {
+        commitActivityTime();
+
+        const inactiveSecondsDelta = Math.floor(
+            inactiveMsBufferRef.current / 1000,
+        );
+
+        inactiveMsBufferRef.current -= inactiveSecondsDelta * 1000;
+
+        console.log('Activity delta:', {
+            inactiveSecondsDelta,
+            visibility: document.visibilityState,
+            hasFocus: document.hasFocus(),
+            isWindowInactive: isWindowInactiveRef.current,
+            lastActivityAt: lastActivityAtRef.current,
+        });
+
+        return {
+            inactiveSecondsDelta,
+        };
+    }, [commitActivityTime]);
+
+    /**
+     * Update user's window state
+     */
+    const updateWindowInactiveStatus = useCallback(() => {
+        commitActivityTime();
+
+        const isInactive =
+            document.visibilityState !== 'visible' || !document.hasFocus();
+
+        isWindowInactiveRef.current = isInactive;
+
+        if (!isInactive) {
+            lastActivityAtRef.current = Date.now();
+        }
+    }, [commitActivityTime]);
+
+    // * Effects
 
     /**
      * Starts and ends the session.
@@ -76,9 +172,11 @@ export function useSectionSessionTracking({
                 setIsSessionStarting(true);
                 setSessionError(null);
 
+                const { inactiveSecondsDelta } = getActivityDelta();
+
                 const activeSession = await activateSession({
                     ...sessionTarget,
-                    inactiveSecondsDelta: 0,
+                    inactiveSecondsDelta: inactiveSecondsDelta,
                 });
 
                 if (didCancel) {
@@ -103,7 +201,55 @@ export function useSectionSessionTracking({
         return () => {
             didCancel = true;
         };
-    }, [sessionTarget]);
+    }, [sessionTarget, getActivityDelta]);
+
+    /**
+     * Track user activity.
+     */
+    useEffect(() => {
+        function markActive() {
+            commitActivityTime();
+
+            lastActivityAtRef.current = Date.now();
+
+            if (document.visibilityState === 'visible' && document.hasFocus()) {
+                isWindowInactiveRef.current = false;
+            }
+        }
+
+        window.addEventListener('mousemove', markActive);
+        window.addEventListener('keydown', markActive);
+        window.addEventListener('click', markActive);
+        window.addEventListener('scroll', markActive);
+        window.addEventListener('touchstart', markActive);
+
+        return () => {
+            window.removeEventListener('mousemove', markActive);
+            window.removeEventListener('keydown', markActive);
+            window.removeEventListener('click', markActive);
+            window.removeEventListener('scroll', markActive);
+            window.removeEventListener('touchstart', markActive);
+        };
+    }, [commitActivityTime]);
+
+    // blur/focus/visibility
+    useEffect(() => {
+        window.addEventListener('blur', updateWindowInactiveStatus);
+        window.addEventListener('focus', updateWindowInactiveStatus);
+        document.addEventListener(
+            'visibilitychange',
+            updateWindowInactiveStatus,
+        );
+
+        return () => {
+            window.removeEventListener('blur', updateWindowInactiveStatus);
+            window.removeEventListener('focus', updateWindowInactiveStatus);
+            document.removeEventListener(
+                'visibilitychange',
+                updateWindowInactiveStatus,
+            );
+        };
+    }, [updateWindowInactiveStatus]);
 
     /**
      * Sends heartbeat requests while a session is active.
@@ -115,14 +261,17 @@ export function useSectionSessionTracking({
         if (!sessionInfo) {
             return;
         }
-
         const currentSession = sessionInfo;
 
         const intervalId = window.setInterval(() => {
+            const { inactiveSecondsDelta } = getActivityDelta();
+
             sendHeartbeat({
                 sessionId: currentSession.sessionId,
                 sectionLogId: currentSession.sectionLogId,
-                inactiveSecondsDelta: 0, // TODO: Pass in Actual Delta
+                inactiveSecondsDelta: inactiveSecondsDelta,
+            }).catch(() => {
+                setSessionError('Could not send heartbeat.');
             });
         }, heartbeatMs);
 
@@ -130,7 +279,7 @@ export function useSectionSessionTracking({
         return () => {
             window.clearInterval(intervalId);
         };
-    }, [sessionInfo, heartbeatMs]);
+    }, [sessionInfo, heartbeatMs, getActivityDelta]);
 
     /**
      * End session only when the page/hook truly unmounts.
@@ -142,6 +291,8 @@ export function useSectionSessionTracking({
         return () => {
             const currentSession = sessionInfoRef.current;
 
+            const { inactiveSecondsDelta } = getActivityDelta();
+
             if (!currentSession) {
                 return;
             }
@@ -149,12 +300,12 @@ export function useSectionSessionTracking({
             endSession({
                 sessionId: currentSession.sessionId,
                 sectionLogId: currentSession.sectionLogId,
-                inactiveSecondsDelta: 0,
+                inactiveSecondsDelta: inactiveSecondsDelta,
             }).catch(() => {
                 // Best-effort cleanup.
             });
         };
-    }, []);
+    }, [getActivityDelta]);
 
     return {
         sessionInfo,

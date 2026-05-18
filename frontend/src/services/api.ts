@@ -3,7 +3,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL.replace(/\/$/, '');
 export async function apiFetch<T>(
     path: string,
     options: RequestInit = {},
-): Promise<T> {
+): Promise<T | null> {
     // Prevent double // in path. Ex: localhost:0000//api
     const normalizedPath = path.startsWith('/') ? path : `/${path}`;
 
@@ -28,5 +28,15 @@ export async function apiFetch<T>(
         throw new Error(message || `API error: ${response.status}`);
     }
 
-    return response.json();
+    if (response.status === 204) {
+        return null;
+    }
+
+    const text = await response.text();
+
+    if (!text) {
+        return null;
+    }
+
+    return JSON.parse(text) as T;
 }
