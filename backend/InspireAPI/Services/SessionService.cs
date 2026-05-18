@@ -146,15 +146,19 @@ namespace InspireAPI.Services
                 };
             }
 
-            // User switched sections
+            // Allow small timing drift from setInterval/network/browser delay
+            var apiBufferSeconds = 2;
+
             var maxAllowedDelta =
                 _trackingSettings.Value.HeartbeatIntervalSeconds *
-                _trackingSettings.Value.MaxMissedHeartbeatMultiplier;
+                _trackingSettings.Value.MaxMissedHeartbeatMultiplier +
+                apiBufferSeconds;
 
-            var elapsedSeconds = (now - activeSectionLog.LastHeartbeatAt).TotalSeconds;
-            var cappedElapsedSeconds = Math.Min(elapsedSeconds, maxAllowedDelta);
+            var elapsedSeconds = (now - activeSectionLog.LastHeartbeatAt)
+                .TotalSeconds;
 
-            var activeSecondsDelta = cappedElapsedSeconds - request.InactiveSecondsDelta;
+            // Also allow elapsed comparison to have the same buffer
+            var maxElapsedWithBuffer = elapsedSeconds + apiBufferSeconds;
 
             // Verify seconds are not fake
             if (request.InactiveSecondsDelta < 0)
@@ -166,6 +170,7 @@ namespace InspireAPI.Services
                     ErrorType = ServiceErrorType.BadRequest
                 };
             }
+
             if (request.InactiveSecondsDelta > maxAllowedDelta)
             {
                 return new ServiceResult<object>
@@ -176,7 +181,7 @@ namespace InspireAPI.Services
                 };
             }
 
-            if (request.InactiveSecondsDelta > cappedElapsedSeconds)
+            if (request.InactiveSecondsDelta > maxElapsedWithBuffer)
             {
                 return new ServiceResult<object>
                 {
@@ -186,6 +191,17 @@ namespace InspireAPI.Services
                 };
             }
 
+            // Cap for storage/calculation
+            var cappedElapsedSeconds = Math.Min(elapsedSeconds, maxAllowedDelta);
+
+            var acceptedInactiveSeconds = Math.Min(
+                request.InactiveSecondsDelta,
+                cappedElapsedSeconds
+            );
+
+            var activeSecondsDelta = cappedElapsedSeconds - acceptedInactiveSeconds;
+
+            // Update old SectionLog's time
             ApplyActivityDelta(
                 activeSession,
                 activeSectionLog,
@@ -194,6 +210,11 @@ namespace InspireAPI.Services
                 now
             );
 
+            // End old sectionLog
+            activeSectionLog.EndedAt = now;
+            activeSectionLog.LastHeartbeatAt = now;
+
+            // Create new sectionLog
             var newSectionLog = await CreateSectionLogForSessionAsync(
                 activeSession,
                 request,
@@ -259,16 +280,21 @@ namespace InspireAPI.Services
                     ErrorType = ServiceErrorType.NotFound
                 };
             }
-            // Calculate Dynamic Heartbeat Interval
+            // Calculate dynamic heartbeat interval
+            var apiBufferSeconds = 2;
+
             var maxAllowedDelta =
                 _trackingSettings.Value.HeartbeatIntervalSeconds *
-                _trackingSettings.Value.MaxMissedHeartbeatMultiplier;
+                _trackingSettings.Value.MaxMissedHeartbeatMultiplier +
+                apiBufferSeconds;
 
             var now = DateTime.UtcNow;
 
-            // Let the server calculate how many seconds the client has been active
+            // Let the server calculate how many seconds passed since the last heartbeat
             var elapsedSeconds = (now - currSectionLog.LastHeartbeatAt).TotalSeconds;
-            var cappedElapsedSeconds = Math.Min(elapsedSeconds, maxAllowedDelta);
+
+            // Allow tiny timing drift before rejecting the request
+            var maxElapsedWithBuffer = elapsedSeconds + apiBufferSeconds;
 
             if (currSectionLog.EndedAt != null)
             {
@@ -283,6 +309,7 @@ namespace InspireAPI.Services
                     ErrorType = ServiceErrorType.Gone
                 };
             }
+
             if (request.InactiveSecondsDelta < 0)
             {
                 return new ServiceResult<object>
@@ -292,6 +319,7 @@ namespace InspireAPI.Services
                     ErrorType = ServiceErrorType.BadRequest
                 };
             }
+
             if (request.InactiveSecondsDelta > maxAllowedDelta)
             {
                 return new ServiceResult<object>
@@ -302,7 +330,7 @@ namespace InspireAPI.Services
                 };
             }
 
-            if (request.InactiveSecondsDelta > cappedElapsedSeconds)
+            if (request.InactiveSecondsDelta > maxElapsedWithBuffer)
             {
                 return new ServiceResult<object>
                 {
@@ -312,7 +340,16 @@ namespace InspireAPI.Services
                 };
             }
 
-            var activeSecondsDelta = cappedElapsedSeconds - request.InactiveSecondsDelta;
+            // Cap for storage/calculation
+            var cappedElapsedSeconds = Math.Min(elapsedSeconds, maxAllowedDelta);
+
+            var acceptedInactiveSeconds = Math.Min(
+                request.InactiveSecondsDelta,
+                cappedElapsedSeconds
+            );
+
+            var activeSecondsDelta =
+                cappedElapsedSeconds - acceptedInactiveSeconds;
 
             // Update Section Log total seconds
             currSectionLog.ActiveSeconds += activeSecondsDelta;
@@ -372,9 +409,13 @@ namespace InspireAPI.Services
                 );
             }
 
+            // Calculate dynamic heartbeat interval
+            var apiBufferSeconds = 2;
+
             var maxAllowedDelta =
                 _trackingSettings.Value.HeartbeatIntervalSeconds *
-                _trackingSettings.Value.MaxMissedHeartbeatMultiplier;
+                _trackingSettings.Value.MaxMissedHeartbeatMultiplier +
+                apiBufferSeconds;
 
             if (request.InactiveSecondsDelta < 0 ||
                 request.InactiveSecondsDelta > maxAllowedDelta)
@@ -424,8 +465,8 @@ namespace InspireAPI.Services
             // If not found, only edit Session
             if (sectionLog != null)
             {
+                // Let the server calculate how many seconds passed since the last heartbeat
                 var elapsedSeconds = (now - sectionLog.LastHeartbeatAt).TotalSeconds;
-
 
                 if (elapsedSeconds < 0)
                 {
@@ -435,9 +476,9 @@ namespace InspireAPI.Services
                     );
                 }
 
-                var cappedElapsedSeconds = Math.Min(elapsedSeconds, maxAllowedDelta);
+                var maxElapsedWithBuffer = elapsedSeconds + apiBufferSeconds;
 
-                if (request.InactiveSecondsDelta > cappedElapsedSeconds)
+                if (request.InactiveSecondsDelta > maxElapsedWithBuffer)
                 {
                     return ServiceResultMessage<object>(
                         ServiceErrorType.BadRequest,
@@ -445,7 +486,14 @@ namespace InspireAPI.Services
                     );
                 }
 
-                var activeSecondsDelta = cappedElapsedSeconds - request.InactiveSecondsDelta;
+                var cappedElapsedSeconds = Math.Min(elapsedSeconds, maxAllowedDelta);
+
+                var acceptedInactiveSeconds = Math.Min(
+                    request.InactiveSecondsDelta,
+                    cappedElapsedSeconds
+                );
+
+                var activeSecondsDelta = cappedElapsedSeconds - acceptedInactiveSeconds;
 
                 // Add time from last heartbeat before ending.
                 // End sectionLog before closing every open sectionLog
