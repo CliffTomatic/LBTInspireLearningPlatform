@@ -68,7 +68,7 @@ namespace InspireAPI.Controllers
             {
                 return result.ErrorType switch
                 {
-                    ServiceErrorType.BadRequest => BadRequest(new { message = result.Message }),
+                    ServiceErrorType.BadRequest => BadRequestMessage(result.Message),
                     _ => StatusCode(500, new { message = result.Message })
                 };
             }

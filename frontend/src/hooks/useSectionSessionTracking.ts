@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type {
-    StartSessionRequest,
-    StartSessionResponse,
+    ActivateSectionRequest,
+    ActivateSectionResponse,
 } from '../types/Api/Session';
 
 import {
-    startSession,
+    activateSession,
     sendHeartbeat,
     endSession,
 } from '../services/sessionService';
@@ -13,12 +13,12 @@ import {
 // TODO: Have HeartbeatMs stored as a global state from API/config.
 
 type UseSectionSessionTrackingOptions = {
-    sessionTarget: StartSessionRequest | null;
+    sessionTarget: ActivateSectionRequest | null;
     heartbeatMs?: number;
 };
 
 type UseSectionSessionTrackingResult = {
-    sessionInfo: StartSessionResponse | null;
+    sessionInfo: ActivateSectionResponse | null;
     isSessionStarting: boolean;
     sessionError: string | null;
 };
@@ -42,32 +42,32 @@ export function useSectionSessionTracking({
     heartbeatMs = 15000,
 }: UseSectionSessionTrackingOptions): UseSectionSessionTrackingResult {
     // Backend Response
-    const [sessionInfo, setSessionInfo] = useState<StartSessionResponse | null>(
-        null,
-    );
+    const [sessionInfo, setSessionInfo] =
+        useState<ActivateSectionResponse | null>(null);
 
     const [isSessionStarting, setIsSessionStarting] = useState(false);
-
     const [sessionError, setSessionError] = useState<string | null>(null);
+
+    const sessionInfoRef = useRef<ActivateSectionResponse | null>(null);
+
+    useEffect(() => {
+        sessionInfoRef.current = sessionInfo;
+    }, [sessionInfo]);
 
     /**
      * Starts and ends the session.
+     * Creates new sectionLog.
      *
      * This runs whenever sessionTarget changes.
-     * Example:
-     * /learn/wifi-basics/what-is-wifi
-     * -> starts session for section 1
      *
-     * Then user clicks another section:
-     * /learn/wifi-basics/fix-slow-wifi
-     * -> cleanup ends old session
-     * -> effect starts new session
+     * Important:
+     * This should NOT end the session in cleanup.
+     * Cleanup runs on section/course changes too.
      */
     useEffect(() => {
-        let activeSession: StartSessionResponse | null = null;
         let didCancel = false;
 
-        async function beginSession() {
+        async function activateCurrentSection() {
             try {
                 if (!sessionTarget) {
                     return;
@@ -76,22 +76,21 @@ export function useSectionSessionTracking({
                 setIsSessionStarting(true);
                 setSessionError(null);
 
-                const newSession = await startSession(sessionTarget);
+                const activeSession = await activateSession({
+                    ...sessionTarget,
+                    inactiveSecondsDelta: 0,
+                });
 
-                // Prevents Async Overlap
                 if (didCancel) {
-                    await endSession({
-                        sessionId: newSession.sessionId,
-                        sectionLogId: newSession.sectionLogId,
-                        inactiveSecondsDelta: 0, // TODO: Pass in Actual Delta
-                    });
                     return;
                 }
-                activeSession = newSession;
-                setSessionInfo(newSession);
+
+                setSessionInfo(activeSession);
             } catch {
-                setSessionInfo(null);
-                setSessionError('Could not start learning session.');
+                if (!didCancel) {
+                    setSessionInfo(null);
+                    setSessionError('Could not activate section.');
+                }
             } finally {
                 if (!didCancel) {
                     setIsSessionStarting(false);
@@ -99,21 +98,10 @@ export function useSectionSessionTracking({
             }
         }
 
-        beginSession();
+        activateCurrentSection();
 
-        // Clean-up
         return () => {
             didCancel = true;
-
-            if (activeSession) {
-                endSession({
-                    sessionId: activeSession.sessionId,
-                    sectionLogId: activeSession.sectionLogId,
-                    inactiveSecondsDelta: 0, // TODO: Pass in Actual Delta
-                });
-            }
-
-            setSessionInfo(null);
         };
     }, [sessionTarget]);
 
@@ -143,6 +131,30 @@ export function useSectionSessionTracking({
             window.clearInterval(intervalId);
         };
     }, [sessionInfo, heartbeatMs]);
+
+    /**
+     * End session only when the page/hook truly unmounts.
+     *
+     * This does NOT run on every sectionTarget change because the dependency
+     * array is empty.
+     */
+    useEffect(() => {
+        return () => {
+            const currentSession = sessionInfoRef.current;
+
+            if (!currentSession) {
+                return;
+            }
+
+            endSession({
+                sessionId: currentSession.sessionId,
+                sectionLogId: currentSession.sectionLogId,
+                inactiveSecondsDelta: 0,
+            }).catch(() => {
+                // Best-effort cleanup.
+            });
+        };
+    }, []);
 
     return {
         sessionInfo,

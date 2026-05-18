@@ -1,13 +1,13 @@
 import { apiFetch } from './api';
 import type {
-    StartSessionRequest,
-    StartSessionResponse,
+    ActivateSectionRequest,
+    ActivateSectionResponse,
     HeartbeatRequest,
     EndRequest,
 } from '../types/Api/Session';
 
-export async function startSession(request: StartSessionRequest) {
-    return apiFetch<StartSessionResponse>('/api/sessions/start', {
+export async function activateSession(request: ActivateSectionRequest) {
+    return apiFetch<ActivateSectionResponse>('/api/sessions/activate', {
         method: 'POST',
         body: JSON.stringify(request),
     });

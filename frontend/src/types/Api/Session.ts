@@ -1,11 +1,14 @@
 // TODO: Create Reponses
 
-export type StartSessionRequest = {
+export type ActivateSectionRequest = {
     courseId: number;
     chapterId: number;
     sectionId: number;
+
+    inactiveSecondsDelta?: number;
 };
-export type StartSessionResponse = {
+
+export type ActivateSectionResponse = {
     sessionId: number;
     sectionLogId: number;
 };
