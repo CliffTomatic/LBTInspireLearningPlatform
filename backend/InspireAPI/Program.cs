@@ -18,8 +18,16 @@ builder.Services.Configure<SessionTrackingSettings>(
     builder.Configuration.GetSection("SessionTracking"));
 
 // SQLite - Register Database to be seen by controllers.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? "Data Source=MockServer/MockData/pulse.db";
+var databaseFolder = Path.Combine(
+    builder.Environment.ContentRootPath,
+    "Data"
+);
+
+Directory.CreateDirectory(databaseFolder);
+
+var connectionString =
+    builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? $"Data Source={Path.Combine(databaseFolder, "pulse.db")}";
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(connectionString));
@@ -125,11 +133,16 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+// NEW SQLITE DB CODE
+using (var scope = app.Services.CreateScope())
 {
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    dbContext.Database.Migrate();
+}
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
 
 if (!app.Environment.IsDevelopment())
 {
