@@ -41,6 +41,7 @@ function CourseDetailsPage() {
         loadCourse();
     }, [courseSlug]);
 
+
     if (isLoading) {
         return (
             <main className="course-details-page">

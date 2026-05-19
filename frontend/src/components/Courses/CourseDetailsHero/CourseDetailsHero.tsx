@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom';
 import type { Course } from '../../../types/Course';
+
+import { useAuth } from '../../../context/useAuth';
+import { useToast } from '../../../context/Toast/useToast';
+
 import './CourseDetailsHero.css';
 
 type CourseDetailsHeroProps = {
@@ -7,8 +11,22 @@ type CourseDetailsHeroProps = {
 };
 
 export default function CourseDetailsHero({ course }: CourseDetailsHeroProps) {
+    const { user } = useAuth();
+    const { showError } = useToast();
+
+    // Prompt user to login before enrolling into a course.
     const handleEnrollClick = () => {
         console.log('Enroll clicked for course:', course.slug);
+
+        if (!user) {
+            showError(
+                'Please sign in or register an account before enrolling into a course.',
+            );
+
+            return;
+        }
+
+        console.log('Enroll user into course here');
     };
 
     return (
