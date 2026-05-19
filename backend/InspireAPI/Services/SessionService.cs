@@ -72,6 +72,21 @@ namespace InspireAPI.Services
 
             var now = DateTime.UtcNow;
 
+            var isEnrolled = await _db.UserCourseProgresses
+                .AnyAsync(progress =>
+                    progress.UserId == userId &&
+                    progress.CourseId == request.CourseId);
+
+            if (!isEnrolled)
+            {
+                return new ServiceResult<object>
+                {
+                    Success = false,
+                    Message = "User is not enrolled in this course.",
+                    ErrorType = ServiceErrorType.Forbidden
+                };
+            }
+
             var sessionIdleTimeout = now
                 .AddSeconds(-_trackingSettings.Value.IdleTimeoutSeconds);
 
@@ -280,6 +295,23 @@ namespace InspireAPI.Services
                     ErrorType = ServiceErrorType.NotFound
                 };
             }
+
+            var isEnrolled = await _db.UserCourseProgresses
+                .AnyAsync(progress =>
+                    progress.UserId == userId &&
+                    progress.CourseId == currSectionLog.CourseId
+                );
+
+            if (!isEnrolled)
+            {
+                return new ServiceResult<object>
+                {
+                    Success = false,
+                    Message = "User is not enrolled in this course.",
+                    ErrorType = ServiceErrorType.Forbidden
+                };
+            }
+
             // Calculate dynamic heartbeat interval
             var apiBufferSeconds = 2;
 
@@ -769,18 +801,7 @@ namespace InspireAPI.Services
 
             if (courseProgress == null)
             {
-                courseProgress = new UserCourseProgress
-                {
-                    UserId = userId,
-                    CourseId = courseId,
-                    StartedAt = now,
-                    LastAccessedAt = now,
-                    LastSectionId = sectionId,
-                    TotalActiveSeconds = 0,
-                    ProgressPercent = 0
-                };
-
-                _db.UserCourseProgresses.Add(courseProgress);
+                return;
             }
 
             var sectionProgress = await _db.UserSectionProgresses

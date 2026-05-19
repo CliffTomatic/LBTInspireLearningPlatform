@@ -69,6 +69,7 @@ namespace InspireAPI.Controllers
                 return result.ErrorType switch
                 {
                     ServiceErrorType.BadRequest => BadRequestMessage(result.Message),
+                    ServiceErrorType.Forbidden => ForbiddenMessage(result.Message),
                     _ => StatusCode(500, new { message = result.Message })
                 };
             }
@@ -151,6 +152,11 @@ namespace InspireAPI.Controllers
             string message = "Resource not found.")
         {
             return NotFound(new { message });
+        }
+        private IActionResult ForbiddenMessage(
+            string message = "Action is not allowed.")
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, new { message });
         }
 
         // Ended session, found but not able to process request

@@ -1,10 +1,14 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import type { Course } from '../../../types/Course';
 
 import { useAuth } from '../../../context/useAuth';
 import { useToast } from '../../../context/Toast/useToast';
 
 import './CourseDetailsHero.css';
+import {
+    enrollInCourse,
+    getCourseEnrollmentStatus,
+} from '../../../services/courseEnrollmentService';
 
 type CourseDetailsHeroProps = {
     course: Course;
@@ -12,11 +16,14 @@ type CourseDetailsHeroProps = {
 
 export default function CourseDetailsHero({ course }: CourseDetailsHeroProps) {
     const { user } = useAuth();
-    const { showError } = useToast();
+    const { showError, showSuccess } = useToast();
+    const navigate = useNavigate();
 
     // Prompt user to login before enrolling into a course.
-    const handleEnrollClick = () => {
-        console.log('Enroll clicked for course:', course.slug);
+    async function handleEnrollClick() {
+        if (!course) {
+            return;
+        }
 
         if (!user) {
             showError(
@@ -26,8 +33,26 @@ export default function CourseDetailsHero({ course }: CourseDetailsHeroProps) {
             return;
         }
 
-        console.log('Enroll user into course here');
-    };
+        // See if user is already enrolled
+        // Enroll user if not already enrolled.
+        try {
+            const tryToEnroll = await getCourseEnrollmentStatus(course.slug);
+            if (tryToEnroll?.isEnrolled) {
+                navigate(`/learn/${course.slug}`);
+                return;
+            }
+
+            // If not enrolled, enroll
+            const enrollUser = await enrollInCourse(course.slug);
+
+            if (enrollUser.isEnrolled) {
+                showSuccess('You are now enrolled in this course.');
+                navigate(`/learn/${course.slug}`);
+            }
+        } catch {
+            showError('Could not enroll in this course.');
+        }
+    }
 
     return (
         <>
@@ -52,13 +77,12 @@ export default function CourseDetailsHero({ course }: CourseDetailsHeroProps) {
                             <span>{course.chapters.length} chapters</span>
                         </div>
 
-                        <Link
+                        <button
                             className="course-details-hero__enroll-button"
                             onClick={handleEnrollClick}
-                            to={`/learn/${course.slug}`}
                         >
                             Enroll in Course
-                        </Link>
+                        </button>
                     </div>
 
                     <div className="course-details-hero__thumbnail-card">

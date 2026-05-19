@@ -2,6 +2,11 @@ using InspireAPI.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+using InspireAPI.Models.Progress;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using InspireAPI.Models.Auth;
+
 namespace InspireAPI.Controllers;
 
 // TODO: Move logic into service
@@ -97,5 +102,104 @@ public class CoursesController : ControllerBase
                         })
                 })
         });
+    }
+
+    [Authorize]
+    [HttpGet("{slug}/enrollment")]
+    public async Task<IActionResult> GetEnrollmentStatus(string slug)
+    {
+        var userId = GetUserId();
+
+        if (userId == null)
+        {
+            return Unauthorized(new { message = "Invalid or missing token." });
+        }
+
+        var course = await _db.Courses
+            .FirstOrDefaultAsync(c => c.Slug == slug && c.IsPublished);
+
+        if (course == null)
+        {
+            return NotFound(new { message = "Course not found." });
+        }
+
+        var isEnrolled = await _db.UserCourseProgresses
+            .AnyAsync(progress =>
+                progress.UserId == userId &&
+                progress.CourseId == course.Id);
+
+        return Ok(new
+        {
+            courseId = course.Id,
+            courseSlug = course.Slug,
+            isEnrolled
+        });
+    }
+
+    [Authorize]
+    [HttpPost("{slug}/enroll")]
+    public async Task<IActionResult> EnrollInCourse(string slug)
+    {
+        var userId = GetUserId();
+
+        if (userId == null)
+        {
+            return Unauthorized(new { message = "Invalid or missing token." });
+        }
+
+        var course = await _db.Courses
+            .FirstOrDefaultAsync(c => c.Slug == slug && c.IsPublished);
+
+        if (course == null)
+        {
+            return NotFound(new { message = "Course not found." });
+        }
+
+        var existingProgress = await _db.UserCourseProgresses
+            .FirstOrDefaultAsync(progress =>
+                progress.UserId == userId &&
+                progress.CourseId == course.Id);
+
+        if (existingProgress != null)
+        {
+            return Ok(new
+            {
+                message = "Already enrolled.",
+                courseId = course.Id,
+                courseSlug = course.Slug,
+                isEnrolled = true
+            });
+        }
+
+        var now = DateTime.UtcNow;
+
+        var courseProgress = new UserCourseProgress
+        {
+            UserId = userId,
+            CourseId = course.Id,
+            StartedAt = now,
+            LastAccessedAt = now,
+            LastSectionId = null,
+            TotalActiveSeconds = 0,
+            ProgressPercent = 0,
+            CompletedSectionCount = 0,
+            CompletedAt = null
+        };
+
+        _db.UserCourseProgresses.Add(courseProgress);
+        await _db.SaveChangesAsync();
+
+        return Ok(new UserEnrollmentStatusDto
+        {
+            Message = "Enrollment successful.",
+            CourseId = course.Id,
+            CourseSlug = course.Slug,
+            IsEnrolled = true
+        });
+    }
+
+    private string? GetUserId()
+    {
+        return User.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 }

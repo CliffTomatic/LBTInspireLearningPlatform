@@ -14,7 +14,7 @@ public class UserCourseProgress
 
     public DateTime? CompletedAt { get; set; }
 
-    public int LastSectionId { get; set; }
+    public int? LastSectionId { get; set; }
 
     public double TotalActiveSeconds { get; set; }
 

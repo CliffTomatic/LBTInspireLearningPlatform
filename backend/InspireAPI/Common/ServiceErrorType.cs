@@ -7,6 +7,7 @@ public enum ServiceErrorType
     Unauthorized,
     BadRequest,
     Conflict,
+    Forbidden,
     Gone,
     ServerError
 }

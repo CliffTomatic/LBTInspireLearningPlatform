@@ -17,3 +17,5 @@ export class ApiError extends Error {
         this.fieldErrors = error.fieldErrors ?? {};
     }
 }
+
+
