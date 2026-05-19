@@ -19,6 +19,7 @@ import './LearnPage.css';
 import { useAuth } from '../../context/useAuth';
 import { useToast } from '../../context/Toast/useToast';
 import { getCourseEnrollmentStatus } from '../../services/courseEnrollmentService';
+import LearnPageStatus from '../../components/Learn/LearnPageStatus/LearnPageStatus';
 
 function LearnPage() {
     const { courseSlug, sectionSlug } = useParams();
@@ -34,11 +35,14 @@ function LearnPage() {
     const [isCheckingAccess, setIsCheckingAccess] = useState(true);
     const [canAccessCourse, setCanAccessCourse] = useState(false);
 
-    const hasRedirectedRef = useRef(false);
+    // Prevent Toast from showing twice
+    const hasShownAccessErrorRef = useRef(false);
 
     // Load Course Data
     useEffect(() => {
-        async function loadCourse() {
+        let didCancel = false;
+
+        async function loadCourseAndCheckAccess() {
             if (!courseSlug) {
                 setErrorMessage('Missing course slug.');
                 setIsLoading(false);
@@ -47,84 +51,76 @@ function LearnPage() {
 
             try {
                 setIsLoading(true);
+                setIsCheckingAccess(true);
+                setCanAccessCourse(false);
+                setErrorMessage(null);
 
                 const course = await getCourseBySlug(courseSlug);
 
-                setSelectedCourse(course);
-                setErrorMessage(null);
-            } catch {
-                setSelectedCourse(null);
-                setErrorMessage('Course not found.');
-            } finally {
-                setIsLoading(false);
-            }
-        }
-
-        hasRedirectedRef.current = false;
-        loadCourse();
-    }, [courseSlug]);
-
-    useEffect(() => {
-        async function checkCourseAccess() {
-            if (isLoading || errorMessage || !selectedCourse) {
-                return;
-            }
-
-            const courseDetailsPath = `/courses/${selectedCourse.slug}`;
-
-            if (!user) {
-                if (!hasRedirectedRef.current) {
-                    hasRedirectedRef.current = true;
-
-                    showError(
-                        'Please sign in or register an account before accessing this course.',
-                    );
-
-                    navigate(courseDetailsPath, { replace: true });
+                // Error finding course
+                if (!course) {
+                    return;
                 }
 
-                return;
-            }
+                if (didCancel) return;
 
-            try {
-                setIsCheckingAccess(true);
-                setCanAccessCourse(false);
+                setSelectedCourse(course);
 
-                const enrollment = await getCourseEnrollmentStatus(
-                    selectedCourse.slug,
-                );
+                const courseDetailsPath = `/courses/${course.slug}`;
+
+                // User is not logged in
+                if (!user) {
+                    if (!hasShownAccessErrorRef.current) {
+                        hasShownAccessErrorRef.current = true;
+
+                        showError(
+                            'Please sign in or register an account before accessing this course.',
+                        );
+                    }
+
+                    navigate(courseDetailsPath, { replace: true });
+                    return;
+                }
+
+                const enrollment = await getCourseEnrollmentStatus(course.slug);
+
+                if (didCancel) return;
 
                 // User is not enrolled
                 if (!enrollment || !enrollment.isEnrolled) {
-                    if (!hasRedirectedRef.current) {
-                        hasRedirectedRef.current = true;
+                    if (!hasShownAccessErrorRef.current) {
+                        hasShownAccessErrorRef.current = true;
 
                         showError(
                             'Please enroll in this course before accessing the learn page.',
                         );
-
-                        navigate(courseDetailsPath, { replace: true });
                     }
 
+                    navigate(courseDetailsPath, { replace: true });
                     return;
                 }
 
                 setCanAccessCourse(true);
             } catch {
-                if (!hasRedirectedRef.current) {
-                    hasRedirectedRef.current = true;
-
-                    showError('Could not verify course access.');
-
-                    navigate(courseDetailsPath, { replace: true });
+                if (!didCancel) {
+                    setSelectedCourse(null);
+                    setCanAccessCourse(false);
+                    setErrorMessage('Course not found.');
                 }
             } finally {
-                setIsCheckingAccess(false);
+                if (!didCancel) {
+                    setIsLoading(false);
+                    setIsCheckingAccess(false);
+                }
             }
         }
 
-        checkCourseAccess();
-    }, [isLoading, errorMessage, selectedCourse, user, navigate, showError]);
+        loadCourseAndCheckAccess();
+
+        return () => {
+            didCancel = true;
+        };
+    }, [courseSlug, user, navigate, showError]);
 
     // Memos
     const allSections = useMemo(
@@ -186,17 +182,17 @@ function LearnPage() {
     // TODO: If user visits an invalid course, it stays on this page.
     // TODO: Problem ^ "isCheckingAccess"
     if (isLoading) {
-        return <section className="learn-page">Loading course...</section>;
+        return <LearnPageStatus title="Loading Course..." />;
     }
 
     if (!selectedCourse || errorMessage || isCheckingAccess) {
-        return <section className="learn-page">Course not found.</section>;
+        return <LearnPageStatus message="Course not found." />;
     }
 
     const firstSection = selectedCourse.chapters[0]?.sections[0];
 
     if (!firstSection) {
-        return <section className="learn-page">No sections found.</section>;
+        return <LearnPageStatus message="No sections found." />;
     }
 
     if (!sectionSlug) {
@@ -209,7 +205,7 @@ function LearnPage() {
     }
 
     if (!selectedSection) {
-        return <section className="learn-page">Section not found.</section>;
+        return <LearnPageStatus message="Section not found." />;
     }
 
     return (

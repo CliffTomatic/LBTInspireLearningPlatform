@@ -4,7 +4,14 @@
  *      "pops up briefly like toast."
  */
 
-import { useCallback, useMemo, useState, type ReactNode } from 'react';
+import {
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+    type ReactNode,
+} from 'react';
 
 import {
     ToastContext,
@@ -18,6 +25,95 @@ import './ToastProvider.css';
 type ToastProviderProps = {
     children: ReactNode;
 };
+
+type ToastItemProps = {
+    toast: Toast;
+    removeToast: (id: number) => void;
+};
+
+/**
+ * Individual toast notification.
+ *
+ * Hover behavior:
+ * - Toast starts with 8 seconds.
+ * - If the user hovers over the toast, the timer pauses.
+ * - When the user stops hovering, the timer resumes from the remaining time.
+ * - This prevents the toast from disappearing while the user is reading it.
+ */
+function ToastItem({ toast, removeToast }: ToastItemProps) {
+    const TOAST_DURATION_MS = 8000;
+
+    const [remainingMs, setRemainingMs] = useState(TOAST_DURATION_MS);
+    const [isHovered, setIsHovered] = useState(false);
+
+    const timeoutRef = useRef<number | null>(null);
+    const startedAtRef = useRef<number | null>(null);
+
+    useEffect(() => {
+        /**
+         * If the user is hovering, pause the countdown.
+         *
+         * We clear the current timeout and subtract the time
+         * that already passed from the remaining time.
+         */
+        if (isHovered) {
+            if (timeoutRef.current !== null) {
+                window.clearTimeout(timeoutRef.current);
+                timeoutRef.current = null;
+            }
+
+            if (startedAtRef.current !== null) {
+                const elapsedMs = Date.now() - startedAtRef.current;
+
+                setRemainingMs((currentRemainingMs) =>
+                    Math.max(currentRemainingMs - elapsedMs, 0),
+                );
+
+                startedAtRef.current = null;
+            }
+
+            return;
+        }
+
+        /**
+         * If the user is not hovering, start/resume the countdown.
+         *
+         * The timeout uses remainingMs instead of always restarting
+         * from 8 seconds.
+         */
+        startedAtRef.current = Date.now();
+
+        timeoutRef.current = window.setTimeout(() => {
+            removeToast(toast.id);
+        }, remainingMs);
+
+        return () => {
+            if (timeoutRef.current !== null) {
+                window.clearTimeout(timeoutRef.current);
+                timeoutRef.current = null;
+            }
+        };
+    }, [isHovered, remainingMs, removeToast, toast.id]);
+
+    return (
+        <div
+            className={`toast toast--${toast.type}`}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+        >
+            <p className="toast__message">{toast.message}</p>
+
+            <button
+                className="toast__close"
+                type="button"
+                onClick={() => removeToast(toast.id)}
+                aria-label="Close notification"
+            >
+                ×
+            </button>
+        </div>
+    );
+}
 
 export default function ToastProvider({ children }: ToastProviderProps) {
     const [toasts, setToasts] = useState<Toast[]>([]);
@@ -41,12 +137,8 @@ export default function ToastProvider({ children }: ToastProviderProps) {
             console.log('Toast Message:', message);
 
             setToasts((currentToasts) => [...currentToasts, newToast]);
-
-            window.setTimeout(() => {
-                removeToast(id);
-            }, 8000);
         },
-        [removeToast],
+        [],
     );
 
     const value = useMemo<ToastContextValue>(
@@ -65,21 +157,11 @@ export default function ToastProvider({ children }: ToastProviderProps) {
 
             <div className="toast-container">
                 {toasts.map((toast) => (
-                    <div
+                    <ToastItem
                         key={toast.id}
-                        className={`toast toast--${toast.type}`}
-                    >
-                        <p className="toast__message">{toast.message}</p>
-
-                        <button
-                            className="toast__close"
-                            type="button"
-                            onClick={() => removeToast(toast.id)}
-                            aria-label="Close notification"
-                        >
-                            ×
-                        </button>
-                    </div>
+                        toast={toast}
+                        removeToast={removeToast}
+                    />
                 ))}
             </div>
         </ToastContext.Provider>
