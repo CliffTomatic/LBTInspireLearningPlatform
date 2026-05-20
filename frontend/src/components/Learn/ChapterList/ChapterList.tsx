@@ -1,15 +1,20 @@
 // import type { LearnChapter } from '../../../types/Learn';
-import type { CourseChapter } from "../../../types/Course";
+import type { CourseChapter } from '../../../types/Course';
 
 import './ChapterList.css';
-import ChapterItem from "../ChapterItem/ChapterItem";
+import ChapterItem from '../ChapterItem/ChapterItem';
 
 type ChapterListProps = {
     chapters: CourseChapter[];
     courseSlug: string;
+    completedSectionIdSet: Set<number>;
 };
 
-function ChapterList({ chapters, courseSlug }: ChapterListProps) {
+function ChapterList({
+    chapters,
+    courseSlug,
+    completedSectionIdSet,
+}: ChapterListProps) {
     return (
         <div className="chapter-list">
             {/* Later: map real module/chapter JSON data here */}
@@ -18,6 +23,7 @@ function ChapterList({ chapters, courseSlug }: ChapterListProps) {
                     key={chapter.id}
                     chapter={chapter}
                     courseSlug={courseSlug}
+                    completedSectionIdSet={completedSectionIdSet}
                 />
             ))}
         </div>

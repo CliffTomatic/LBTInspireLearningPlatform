@@ -6,9 +6,10 @@ import './SectionCard.css';
 type SectionCardProps = {
     section: CourseSection;
     courseSlug: string;
+    isCompleted?: boolean;
 };
 
-function SectionCard({ section, courseSlug }: SectionCardProps) {
+function SectionCard({ section, courseSlug, isCompleted }: SectionCardProps) {
     return (
         <Link
             className="section-card"
@@ -19,12 +20,15 @@ function SectionCard({ section, courseSlug }: SectionCardProps) {
                 <span className="section-card__type">{section.type}</span>
             </div>
 
-            {/*{
-                TODO: Disable Card if learner has not completed the previous
-                 one yet.
-            } */}
-            <span className="section-card__status">
-                {section.isCompleted ? '✓' : ''}
+            <span
+                className={`section-card__status ${
+                    isCompleted ? 'section-card__status--completed' : ''
+                }`}
+                aria-label={
+                    isCompleted ? 'Completed section' : 'Incomplete section'
+                }
+            >
+                {isCompleted ? '✓' : ''}
             </span>
         </Link>
     );

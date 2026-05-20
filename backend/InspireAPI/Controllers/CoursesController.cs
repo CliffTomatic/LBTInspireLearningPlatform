@@ -6,6 +6,7 @@ using InspireAPI.Models.Progress;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using InspireAPI.Models.Auth;
+using InspireAPI.Models.Courses;
 
 namespace InspireAPI.Controllers;
 
@@ -105,6 +106,159 @@ public class CoursesController : ControllerBase
     }
 
     [Authorize]
+    [HttpGet("{slug}/progress")]
+    public async Task<IActionResult> GetCourseProgress(string slug)
+    {
+        var userId = GetUserId();
+
+        if (userId == null)
+        {
+            return Unauthorized(new { message = "Invalid or missing token." });
+        }
+
+        var course = await _db.Courses
+            .Include(course => course.Chapters)
+            .ThenInclude(chapter => chapter.Sections)
+            .FirstOrDefaultAsync(course =>
+                course.Slug == slug &&
+                course.IsPublished);
+
+        if (course == null)
+        {
+            return NotFound(new { message = "Course not found." });
+        }
+
+        var progressStatus = await BuildCourseProgressStatus(userId, course);
+
+        return Ok(progressStatus);
+    }
+
+    // Marks one section as completed and updates the user course progress
+    [Authorize]
+    [HttpPost("{slug}/sections/{sectionId:int}/complete")]
+    public async Task<IActionResult> CompleteSection(
+    string slug,
+    int sectionId)
+    {
+        var userId = GetUserId();
+
+        if (userId == null)
+        {
+            return Unauthorized(new { message = "Invalid or missing token." });
+        }
+
+        var course = await _db.Courses
+            .Include(course => course.Chapters)
+            .ThenInclude(chapter => chapter.Sections)
+            .FirstOrDefaultAsync(course =>
+                course.Slug == slug &&
+                course.IsPublished);
+
+        if (course == null)
+        {
+            return NotFound(new { message = "Course not found." });
+        }
+
+        var sectionExistsInCourse = course.Chapters
+            .SelectMany(chapter => chapter.Sections)
+            .Any(section => section.Id == sectionId);
+
+        if (!sectionExistsInCourse)
+        {
+            return NotFound(new
+            {
+                message = "Section not found in this course."
+            });
+        }
+
+        var courseProgress = await _db.UserCourseProgresses
+            .FirstOrDefaultAsync(progress =>
+                progress.UserId == userId &&
+                progress.CourseId == course.Id);
+
+        if (courseProgress == null)
+        {
+            return BadRequest(new
+            {
+                message = "You must enroll in this course before completing sections."
+            });
+        }
+
+        var now = DateTime.UtcNow;
+
+        var sectionProgress = await _db.UserSectionProgresses
+            .FirstOrDefaultAsync(progress =>
+                progress.UserId == userId &&
+                progress.CourseId == course.Id &&
+                progress.SectionId == sectionId);
+
+        if (sectionProgress == null)
+        {
+            sectionProgress = new UserSectionProgress
+            {
+                UserId = userId,
+                CourseId = course.Id,
+                SectionId = sectionId,
+                StartedAt = now,
+                LastAccessedAt = now,
+                CompletedAt = now,
+                LastPositionSeconds = 0,
+                ActiveSecondsWatched = 0,
+                IsCompleted = true
+            };
+
+            _db.UserSectionProgresses.Add(sectionProgress);
+        }
+        else
+        {
+            sectionProgress.LastAccessedAt = now;
+
+            if (!sectionProgress.IsCompleted)
+            {
+                sectionProgress.IsCompleted = true;
+                sectionProgress.CompletedAt = now;
+            }
+        }
+
+        var totalSections = course.Chapters
+            .SelectMany(chapter => chapter.Sections)
+            .Count();
+
+        var completedSectionCount = await _db.UserSectionProgresses
+            .CountAsync(progress =>
+                progress.UserId == userId &&
+                progress.CourseId == course.Id &&
+                progress.IsCompleted);
+
+        var progressPercent = totalSections == 0
+            ? 0
+            : (int)Math.Round(
+                completedSectionCount / (double)totalSections * 100);
+
+        courseProgress.LastAccessedAt = now;
+        courseProgress.LastSectionId = sectionId;
+        courseProgress.CompletedSectionCount = completedSectionCount;
+        courseProgress.ProgressPercent = progressPercent;
+
+        if (totalSections > 0 && completedSectionCount == totalSections)
+        {
+            courseProgress.CompletedAt ??= now;
+        }
+        else
+        {
+            courseProgress.CompletedAt = null;
+        }
+
+        await _db.SaveChangesAsync();
+
+        var progressStatus = await BuildCourseProgressStatus(userId, course);
+
+        progressStatus.Message = "Section completed.";
+
+        return Ok(progressStatus);
+    }
+
+    [Authorize]
     [HttpGet("{slug}/enrollment")]
     public async Task<IActionResult> GetEnrollmentStatus(string slug)
     {
@@ -201,5 +355,62 @@ public class CoursesController : ControllerBase
     private string? GetUserId()
     {
         return User.FindFirstValue(ClaimTypes.NameIdentifier);
+    }
+
+    // Helper Functions
+    private async Task<CourseProgressStatusDto> BuildCourseProgressStatus(
+    string userId,
+    Course course)
+    {
+        var totalSections = course.Chapters
+            .SelectMany(chapter => chapter.Sections)
+            .Count();
+
+        var courseProgress = await _db.UserCourseProgresses
+            .FirstOrDefaultAsync(progress =>
+                progress.UserId == userId &&
+                progress.CourseId == course.Id);
+
+        if (courseProgress == null)
+        {
+            return new CourseProgressStatusDto
+            {
+                Message = "Not enrolled.",
+                CourseId = course.Id,
+                CourseSlug = course.Slug,
+                IsEnrolled = false,
+                TotalSections = totalSections,
+                CompletedSectionCount = 0,
+                ProgressPercent = 0,
+                CompletedSectionIds = []
+            };
+        }
+
+        var completedSectionIds = await _db.UserSectionProgresses
+            .Where(progress =>
+                progress.UserId == userId &&
+                progress.CourseId == course.Id &&
+                progress.IsCompleted)
+            .Select(progress => progress.SectionId)
+            .ToListAsync();
+
+        var completedSectionCount = completedSectionIds.Count;
+
+        var progressPercent = totalSections == 0
+            ? 0
+            : (int)Math.Round(
+                completedSectionCount / (double)totalSections * 100);
+
+        return new CourseProgressStatusDto
+        {
+            Message = "Progress loaded.",
+            CourseId = course.Id,
+            CourseSlug = course.Slug,
+            IsEnrolled = true,
+            TotalSections = totalSections,
+            CompletedSectionCount = completedSectionCount,
+            ProgressPercent = progressPercent,
+            CompletedSectionIds = completedSectionIds
+        };
     }
 }

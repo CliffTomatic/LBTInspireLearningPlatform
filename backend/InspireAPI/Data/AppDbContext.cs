@@ -72,13 +72,13 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
             .HasForeignKey(block => block.CourseSectionId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // User Progress
+        // User Progress - prevents duplicate Progress Rows
         modelBuilder.Entity<UserCourseProgress>()
             .HasIndex(p => new { p.UserId, p.CourseId })
             .IsUnique();
 
         modelBuilder.Entity<UserSectionProgress>()
-            .HasIndex(p => new { p.UserId, p.SectionId })
+            .HasIndex(p => new { p.UserId, p.CourseId, p.SectionId })
             .IsUnique();
-    }
+        }
 }

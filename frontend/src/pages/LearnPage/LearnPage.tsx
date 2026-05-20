@@ -20,6 +20,7 @@ import { useAuth } from '../../context/useAuth';
 import { useToast } from '../../context/Toast/useToast';
 import { getCourseEnrollmentStatus } from '../../services/courseEnrollmentService';
 import LearnPageStatus from '../../components/Learn/LearnPageStatus/LearnPageStatus';
+import { completeSection, getCourseProgress } from '../../services/progressApi';
 
 function LearnPage() {
     const { courseSlug, sectionSlug } = useParams();
@@ -32,8 +33,15 @@ function LearnPage() {
     const { user } = useAuth();
     const { showError } = useToast();
 
+    // Check if user is authorized/enrolled to view the course
     const [isCheckingAccess, setIsCheckingAccess] = useState(true);
     const [canAccessCourse, setCanAccessCourse] = useState(false);
+
+    // User Progress
+    const [progressPercent, setProgressPercent] = useState(0);
+    const [completedSectionIds, setCompletedSectionIds] = useState<number[]>(
+        [],
+    );
 
     // Prevent Toast from showing twice
     const hasShownAccessErrorRef = useRef(false);
@@ -101,6 +109,9 @@ function LearnPage() {
                 }
 
                 setCanAccessCourse(true);
+
+                // Load course progress
+                await loadProgress(course);
             } catch {
                 if (!didCancel) {
                     setSelectedCourse(null);
@@ -115,7 +126,29 @@ function LearnPage() {
             }
         }
 
+        async function loadProgress(course: Course) {
+            try {
+                const progress = await getCourseProgress(course.slug);
+
+                if (!progress) {
+                    return;
+                }
+
+                setProgressPercent(progress.progressPercent);
+                setCompletedSectionIds(progress.completedSectionIds);
+            } catch (error) {
+                setErrorMessage('Problem Loading Course Progress');
+                if (error) {
+                    throw new Error('Problem Loading Course Progress.', {
+                        cause: error,
+                    });
+                }
+            }
+        }
+
+        // Load course, check authentication, check enrollment status.
         loadCourseAndCheckAccess();
+        // Personalize Course with User's progress
 
         return () => {
             didCancel = true;
@@ -137,6 +170,23 @@ function LearnPage() {
         () => getSectionBySlugFromSections(allSections, sectionSlug),
         [allSections, sectionSlug],
     );
+
+    const selectedSectionIndex = selectedSection
+        ? allSections.findIndex((section) => section.id === selectedSection.id)
+        : -1;
+
+    const previousSection =
+        selectedSectionIndex > 0 ? allSections[selectedSectionIndex - 1] : null;
+
+    const nextSection =
+        selectedSectionIndex >= 0 &&
+        selectedSectionIndex < allSections.length - 1
+            ? allSections[selectedSectionIndex + 1]
+            : null;
+
+    const completedSectionIdSet = useMemo(() => {
+        return new Set(completedSectionIds);
+    }, [completedSectionIds]);
 
     // Hook - StartSession/Heartbeat
     const sessionTarget = useMemo(() => {
@@ -185,8 +235,12 @@ function LearnPage() {
         return <LearnPageStatus title="Loading Course..." />;
     }
 
-    if (!selectedCourse || errorMessage || isCheckingAccess) {
+    if (!selectedCourse || isCheckingAccess) {
         return <LearnPageStatus message="Course not found." />;
+    }
+
+    if (errorMessage) {
+        return <LearnPageStatus message={errorMessage} />;
     }
 
     const firstSection = selectedCourse.chapters[0]?.sections[0];
@@ -214,21 +268,73 @@ function LearnPage() {
                 <div className="learn-page__layout">
                     <LearnSidebar
                         courseSlug={selectedCourse.slug}
-                        progressPercent={26}
+                        progressPercent={progressPercent}
                         courseTitle={selectedCourse.title}
                         chapters={selectedCourse.chapters}
+                        completedSectionIdSet={completedSectionIdSet}
                     />
 
                     <main className="learn-page__main">
                         <LearnContentPanel
                             course={selectedCourse}
                             section={selectedSection}
+                            hasNextSection={nextSection != null}
+                            hasPreviousSection={previousSection != null}
+                            onCompleteSection={handleCompleteSection}
+                            onNextSection={handleNextSection}
+                            onPreviousSection={handlePreviousSection}
+                            completedSectionIdSet={completedSectionIdSet}
                         />
                     </main>
                 </div>
             </div>
         </section>
     );
+
+    // Helper Functions
+    async function handleCompleteSection() {
+        try {
+            if (!selectedCourse || !selectedSection) {
+                return;
+            }
+
+            const progress = await completeSection(
+                selectedCourse.slug,
+                selectedSection.id,
+            );
+
+            if (!progress) {
+                return;
+            }
+
+            setProgressPercent(progress.progressPercent);
+            setCompletedSectionIds(progress.completedSectionIds);
+        } catch (error) {
+            setErrorMessage('Problem when trying to complete section');
+            if (error) {
+                throw new Error('Error when completing section.', {
+                    cause: error,
+                });
+            }
+        }
+    }
+
+    // Click Handlers
+    function handlePreviousSection() {
+        if (!selectedCourse || !previousSection) {
+            return;
+        }
+
+        navigate(`/learn/${selectedCourse.slug}/${previousSection.slug}`);
+    }
+
+    function handleNextSection() {
+        if (!selectedCourse || !nextSection) {
+            return;
+        }
+
+        navigate(`/learn/${selectedCourse.slug}/${nextSection.slug}`);
+    }
 }
 
 export default LearnPage;
