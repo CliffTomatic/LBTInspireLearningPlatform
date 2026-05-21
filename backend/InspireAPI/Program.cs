@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add all controllers
 builder.Services.AddControllers();
 
 // Settings
@@ -32,6 +33,9 @@ builder.Services.AddScoped<SessionService>();
 
 // Creates JWT tokens after login/register
 builder.Services.AddScoped<JwtTokenService>();
+
+// Admin Dashboard Controller Service
+builder.Services.AddScoped<AdminDashboardService>();
 
 // ASP.NET Identity
 builder.Services
