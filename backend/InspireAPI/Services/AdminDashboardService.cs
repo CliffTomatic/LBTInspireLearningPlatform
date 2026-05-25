@@ -1,186 +1,244 @@
+using InspireAPI.Data;
 using InspireAPI.Models.Admin;
+using Microsoft.EntityFrameworkCore;
 
 namespace InspireAPI.Services;
 
 public class AdminDashboardService
 {
-    private const int StaleAfterSeconds = 60;
+    private const int ActiveAfterMinutes = 10;
 
-    public AdminDashboardDto GetDashboard()
+    private readonly AppDbContext _db;
+
+    public AdminDashboardService(AppDbContext db)
+    {
+        _db = db;
+    }
+
+    public async Task<AdminDashboardDto> GetDashboardAsync()
     {
         var now = DateTime.UtcNow;
+        var activeCutoff = now.AddMinutes(-ActiveAfterMinutes);
 
-        var users = new List<AdminUserRowDto>
-        {
-            new(
-                UserId: "user-1001",
-                DisplayName: "Joshua I.",
-                Email: "joshua@example.com",
-                EnrolledCourses: 3,
-                CompletedCourses: 1,
-                AverageProgressPercent: 72,
-                TotalActiveSeconds: 9120,
-                LastSeenAt: now.AddMinutes(-4),
-                Status: "Active"
-            ),
-            new(
-                UserId: "user-1002",
-                DisplayName: "Maria Lopez",
-                Email: "maria@example.com",
-                EnrolledCourses: 2,
-                CompletedCourses: 0,
-                AverageProgressPercent: 38,
-                TotalActiveSeconds: 4210,
-                LastSeenAt: now.AddHours(-3),
-                Status: "Inactive"
-            ),
-            new(
-                UserId: "user-1003",
-                DisplayName: "David Chen",
-                Email: "david@example.com",
-                EnrolledCourses: 1,
-                CompletedCourses: 1,
-                AverageProgressPercent: 100,
-                TotalActiveSeconds: 3600,
-                LastSeenAt: now.AddDays(-1),
-                Status: "Inactive"
-            )
-        };
+        var users = await _db.Users
+            .AsNoTracking()
+            .Select(user => new
+            {
+                user.Id,
+                user.DisplayName,
+                user.UserName,
+                user.Email
+            })
+            .ToListAsync();
 
-        var courses = new List<AdminCourseRowDto>
-        {
-            new(
-                CourseId: 1,
-                CourseSlug: "wifi-basics",
-                CourseTitle: "WiFi Basics",
-                EnrolledUsers: 42,
-                CompletedUsers: 19,
-                AverageProgressPercent: 64,
-                TotalActiveSeconds: 28400,
-                ActiveSessions: 2
-            ),
-            new(
-                CourseId: 2,
-                CourseSlug: "youtube-basics",
-                CourseTitle: "YouTube Basics",
-                EnrolledUsers: 31,
-                CompletedUsers: 8,
-                AverageProgressPercent: 47,
-                TotalActiveSeconds: 18300,
-                ActiveSessions: 1
-            ),
-            new(
-                CourseId: 3,
-                CourseSlug: "data-privacy-basics",
-                CourseTitle: "Data Privacy Basics",
-                EnrolledUsers: 18,
-                CompletedUsers: 5,
-                AverageProgressPercent: 52,
-                TotalActiveSeconds: 9600,
-                ActiveSessions: 0
-            )
-        };
+        var courses = await _db.Courses
+            .AsNoTracking()
+            .Where(course => course.IsPublished)
+            .Select(course => new
+            {
+                course.Id,
+                course.Slug,
+                course.Title
+            })
+            .ToListAsync();
 
-        var sessions = new List<AdminSessionRowDto>
-        {
-            new(
-                SessionId: "session-9001",
-                UserId: "user-1001",
-                DisplayName: "Joshua I.",
-                CourseId: 1,
-                CourseTitle: "WiFi Basics",
-                SectionTitle: "What is WiFi?",
-                StartedAt: now.AddMinutes(-28),
-                LastHeartbeatAt: now.AddSeconds(-12),
-                EndedAt: null,
-                ActiveSeconds: 1215,
-                InactiveSeconds: 90,
-                Status: GetSessionStatus(
-                    endedAt: null,
-                    lastHeartbeatAt: now.AddSeconds(-12),
-                    now: now
-                )
-            ),
-            new(
-                SessionId: "session-9002",
-                UserId: "user-1002",
-                DisplayName: "Maria Lopez",
-                CourseId: 2,
-                CourseTitle: "YouTube Basics",
-                SectionTitle: "Searching for Videos",
-                StartedAt: now.AddHours(-2),
-                LastHeartbeatAt: now.AddMinutes(-74),
-                EndedAt: null,
-                ActiveSeconds: 740,
-                InactiveSeconds: 120,
-                Status: GetSessionStatus(
-                    endedAt: null,
-                    lastHeartbeatAt: now.AddMinutes(-74),
-                    now: now
-                )
-            ),
-            new(
-                SessionId: "session-9003",
-                UserId: "user-1003",
-                DisplayName: "David Chen",
-                CourseId: 3,
-                CourseTitle: "Data Privacy Basics",
-                SectionTitle: "Password Safety",
-                StartedAt: now.AddDays(-1).AddMinutes(-45),
-                LastHeartbeatAt: now.AddDays(-1),
-                EndedAt: now.AddDays(-1),
-                ActiveSeconds: 1800,
-                InactiveSeconds: 60,
-                Status: GetSessionStatus(
-                    endedAt: now.AddDays(-1),
-                    lastHeartbeatAt: now.AddDays(-1),
-                    now: now
-                )
-            )
-        };
+        var courseProgresses = await _db.UserCourseProgresses
+            .AsNoTracking()
+            .Select(progress => new
+            {
+                progress.UserId,
+                progress.CourseId,
+                progress.StartedAt,
+                progress.LastAccessedAt,
+                progress.TotalActiveSeconds,
+                progress.ProgressPercent,
+                progress.CompletedSectionCount,
+                progress.CompletedAt
+            })
+            .ToListAsync();
+
+        var userLookup = users.ToDictionary(user => user.Id);
+        var courseLookup = courses.ToDictionary(course => course.Id);
+
+        var adminUsers = users
+            .Select(user =>
+            {
+                var userProgresses = courseProgresses
+                    .Where(progress => progress.UserId == user.Id)
+                    .ToList();
+
+                var lastSeenAt = userProgresses.Count == 0
+                    ? null
+                    : userProgresses.Max(progress =>
+                        (DateTime?)progress.LastAccessedAt);
+
+                var isActive = lastSeenAt != null && lastSeenAt >= activeCutoff;
+
+                var averageProgress = userProgresses.Count == 0
+                    ? 0
+                    : (int)Math.Round(
+                        userProgresses.Average(progress =>
+                            progress.ProgressPercent));
+
+                return new AdminUserRowDto(
+                    UserId: user.Id,
+                    DisplayName: GetDisplayName(
+                        user.DisplayName,
+                        user.UserName,
+                        user.Email
+                    ),
+                    Email: user.Email ?? "",
+                    EnrolledCourses: userProgresses.Count,
+                    CompletedCourses: userProgresses.Count(progress =>
+                        progress.CompletedAt != null),
+                    AverageProgressPercent: averageProgress,
+                    TotalActiveSeconds: userProgresses.Sum(progress =>
+                        progress.TotalActiveSeconds),
+                    LastSeenAt: lastSeenAt,
+                    Status: isActive ? "Active" : "Inactive"
+                );
+            })
+            .OrderByDescending(user => user.LastSeenAt)
+            .ToList();
+
+        var adminCourses = courses
+            .Select(course =>
+            {
+                var progressRows = courseProgresses
+                    .Where(progress => progress.CourseId == course.Id)
+                    .ToList();
+
+                var averageProgress = progressRows.Count == 0
+                    ? 0
+                    : (int)Math.Round(
+                        progressRows.Average(progress =>
+                            progress.ProgressPercent));
+
+                var activeUsers = progressRows.Count(progress =>
+                    progress.CompletedAt == null &&
+                    progress.LastAccessedAt >= activeCutoff);
+
+                return new AdminCourseRowDto(
+                    CourseId: course.Id,
+                    CourseSlug: course.Slug,
+                    CourseTitle: course.Title,
+                    EnrolledUsers: progressRows.Count,
+                    CompletedUsers: progressRows.Count(progress =>
+                        progress.CompletedAt != null),
+                    AverageProgressPercent: averageProgress,
+                    TotalActiveSeconds: progressRows.Sum(progress =>
+                        progress.TotalActiveSeconds),
+                    ActiveSessions: activeUsers
+                );
+            })
+            .OrderBy(course => course.CourseTitle)
+            .ToList();
+
+        var recentSessions = courseProgresses
+            .OrderByDescending(progress => progress.LastAccessedAt)
+            .Take(50)
+            .Select(progress =>
+            {
+                userLookup.TryGetValue(progress.UserId, out var user);
+                courseLookup.TryGetValue(progress.CourseId, out var course);
+
+                return new AdminSessionRowDto(
+                    SessionId: $"{progress.UserId}-{progress.CourseId}",
+                    UserId: progress.UserId,
+                    DisplayName: user == null
+                        ? "Unknown User"
+                        : GetDisplayName(
+                            user.DisplayName,
+                            user.UserName,
+                            user.Email
+                        ),
+                    CourseId: progress.CourseId,
+                    CourseTitle: course?.Title ?? "Unknown Course",
+                    SectionTitle: "Course Progress",
+                    StartedAt: progress.StartedAt,
+                    LastHeartbeatAt: progress.LastAccessedAt,
+                    EndedAt: progress.CompletedAt,
+                    ActiveSeconds: progress.TotalActiveSeconds,
+                    InactiveSeconds: 0,
+                    Status: GetProgressStatus(
+                        progress.CompletedAt,
+                        progress.LastAccessedAt,
+                        activeCutoff
+                    )
+                );
+            })
+            .ToList();
+
+        var totalActiveSeconds = courseProgresses.Sum(progress =>
+            progress.TotalActiveSeconds);
+
+        var averageProgressPercent = courseProgresses.Count == 0
+            ? 0
+            : (int)Math.Round(
+                courseProgresses.Average(progress =>
+                    progress.ProgressPercent));
 
         var summary = new AdminSummaryDto(
             TotalUsers: users.Count,
             TotalCourses: courses.Count,
-            TotalEnrollments: courses.Sum(course => course.EnrolledUsers),
-            ActiveSessions: sessions.Count(session => session.Status == "Active"),
-            TotalSessions: sessions.Count,
-            CompletedCourses: users.Sum(user => user.CompletedCourses),
-            TotalActiveSeconds: sessions.Sum(session => session.ActiveSeconds),
-            TotalInactiveSeconds: sessions.Sum(session => session.InactiveSeconds),
-            AverageProgressPercent: users.Count == 0
-                ? 0
-                : (int)Math.Round(users.Average(user => user.AverageProgressPercent))
+            TotalEnrollments: courseProgresses.Count,
+            ActiveSessions: courseProgresses.Count(progress =>
+                progress.CompletedAt == null &&
+                progress.LastAccessedAt >= activeCutoff),
+            TotalSessions: courseProgresses.Count,
+            CompletedCourses: courseProgresses.Count(progress =>
+                progress.CompletedAt != null),
+            TotalActiveSeconds: totalActiveSeconds,
+            TotalInactiveSeconds: 0,
+            AverageProgressPercent: averageProgressPercent
         );
 
         return new AdminDashboardDto(
             Summary: summary,
-            Users: users,
-            Courses: courses,
-            RecentSessions: sessions
-                .OrderByDescending(session => session.LastHeartbeatAt)
-                .ToList()
+            Users: adminUsers,
+            Courses: adminCourses,
+            RecentSessions: recentSessions
         );
     }
 
-    private static string GetSessionStatus(
-        DateTime? endedAt,
-        DateTime lastHeartbeatAt,
-        DateTime now
-    )
+    private static string GetDisplayName(
+        string? displayName,
+        string? userName,
+        string? email)
     {
-        if (endedAt != null)
+        if (!string.IsNullOrWhiteSpace(displayName))
+        {
+            return displayName;
+        }
+
+        if (!string.IsNullOrWhiteSpace(userName))
+        {
+            return userName;
+        }
+
+        if (!string.IsNullOrWhiteSpace(email))
+        {
+            return email;
+        }
+
+        return "Unknown User";
+    }
+
+    private static string GetProgressStatus(
+        DateTime? completedAt,
+        DateTime lastAccessedAt,
+        DateTime activeCutoff)
+    {
+        if (completedAt != null)
         {
             return "Ended";
         }
 
-        var secondsSinceHeartbeat = (now - lastHeartbeatAt).TotalSeconds;
-
-        if (secondsSinceHeartbeat > StaleAfterSeconds)
+        if (lastAccessedAt >= activeCutoff)
         {
-            return "Stale";
+            return "Active";
         }
 
-        return "Active";
+        return "Inactive";
     }
 }

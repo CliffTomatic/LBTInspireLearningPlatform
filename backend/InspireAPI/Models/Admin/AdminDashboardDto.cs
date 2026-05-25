@@ -14,8 +14,8 @@ public sealed record AdminSummaryDto(
     int ActiveSessions,
     int TotalSessions,
     int CompletedCourses,
-    int TotalActiveSeconds,
-    int TotalInactiveSeconds,
+    double TotalActiveSeconds,
+    double TotalInactiveSeconds,
     int AverageProgressPercent
 );
 
@@ -26,7 +26,7 @@ public sealed record AdminUserRowDto(
     int EnrolledCourses,
     int CompletedCourses,
     int AverageProgressPercent,
-    int TotalActiveSeconds,
+    double TotalActiveSeconds,
     DateTime? LastSeenAt,
     string Status
 );
@@ -38,7 +38,7 @@ public sealed record AdminCourseRowDto(
     int EnrolledUsers,
     int CompletedUsers,
     int AverageProgressPercent,
-    int TotalActiveSeconds,
+    double TotalActiveSeconds,
     int ActiveSessions
 );
 
@@ -52,7 +52,7 @@ public sealed record AdminSessionRowDto(
     DateTime StartedAt,
     DateTime LastHeartbeatAt,
     DateTime? EndedAt,
-    int ActiveSeconds,
-    int InactiveSeconds,
+    double ActiveSeconds,
+    double InactiveSeconds,
     string Status
 );

@@ -16,9 +16,9 @@ public class AdminController : ControllerBase
     }
 
     [HttpGet("dashboard")]
-    public ActionResult<AdminDashboardDto> GetDashboard()
+    public async Task<ActionResult<AdminDashboardDto>> GetDashboard()
     {
-        var dashboard = _adminDashboardService.GetDashboard();
+        var dashboard = await _adminDashboardService.GetDashboardAsync();
 
         return Ok(dashboard);
     }

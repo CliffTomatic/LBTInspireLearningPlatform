@@ -6,6 +6,7 @@ import type {
     AdminCourseRow,
     AdminDashboardResponse,
     AdminSessionRow,
+    AdminSummary,
     AdminUserRow,
 } from '../../../types/Admin';
 
@@ -20,10 +21,25 @@ const tabs: { id: AdminTab; label: string }[] = [
     { id: 'sessions', label: 'Sessions' },
 ];
 
+const emptySummary: AdminSummary = {
+    totalUsers: 0,
+    totalCourses: 0,
+    totalEnrollments: 0,
+    activeSessions: 0,
+    totalSessions: 0,
+    completedCourses: 0,
+    totalActiveSeconds: 0,
+    totalInactiveSeconds: 0,
+    averageProgressPercent: 0,
+};
+
 export default function AdminAnalytics() {
-    const [dashboard, setDashboard] = useState<AdminDashboardResponse | null>(
-        null,
-    );
+    const [dashboard, setDashboard] = useState<AdminDashboardResponse>({
+        summary: emptySummary,
+        users: [],
+        courses: [],
+        recentSessions: [],
+    });
 
     const [activeTab, setActiveTab] = useState<AdminTab>('overview');
     const [searchTerm, setSearchTerm] = useState('');
@@ -41,21 +57,33 @@ export default function AdminAnalytics() {
                 setIsLoading(true);
                 setErrorMessage(null);
 
-                const data = await getAdminDashboard();
-                if (!data) {
-                    throw new Error(
-                        'Error fetching data from API, getAdminDashboard',
-                    );
-                    return;
-                }
+                const rawData = await getAdminDashboard();
+                const normalizedDashboard = normalizeDashboard(rawData);
 
                 if (!didCancel) {
-                    setDashboard(data);
-                    setSelectedSession(data.recentSessions[0] ?? null);
+                    setDashboard(normalizedDashboard);
+                    setSelectedSession(
+                        normalizedDashboard.recentSessions[0] ?? null,
+                    );
                 }
-            } catch {
+            } catch (error) {
                 if (!didCancel) {
-                    setErrorMessage('Could not load admin dashboard.');
+                    const message =
+                        error instanceof Error
+                            ? error.message
+                            : 'Could not load admin dashboard.';
+
+                    console.error('Admin dashboard failed to load:', error);
+
+                    setDashboard({
+                        summary: emptySummary,
+                        users: [],
+                        courses: [],
+                        recentSessions: [],
+                    });
+
+                    setSelectedSession(null);
+                    setErrorMessage(message);
                 }
             } finally {
                 if (!didCancel) {
@@ -74,34 +102,22 @@ export default function AdminAnalytics() {
     const normalizedSearch = searchTerm.trim().toLowerCase();
 
     const filteredUsers = useMemo(() => {
-        if (!dashboard) {
-            return [];
-        }
-
         return dashboard.users.filter((user) =>
             userMatchesSearch(user, normalizedSearch),
         );
-    }, [dashboard, normalizedSearch]);
+    }, [dashboard.users, normalizedSearch]);
 
     const filteredCourses = useMemo(() => {
-        if (!dashboard) {
-            return [];
-        }
-
         return dashboard.courses.filter((course) =>
             courseMatchesSearch(course, normalizedSearch),
         );
-    }, [dashboard, normalizedSearch]);
+    }, [dashboard.courses, normalizedSearch]);
 
     const filteredSessions = useMemo(() => {
-        if (!dashboard) {
-            return [];
-        }
-
         return dashboard.recentSessions.filter((session) =>
             sessionMatchesSearch(session, normalizedSearch),
         );
-    }, [dashboard, normalizedSearch]);
+    }, [dashboard.recentSessions, normalizedSearch]);
 
     if (isLoading) {
         return (
@@ -113,18 +129,14 @@ export default function AdminAnalytics() {
         );
     }
 
-    if (errorMessage || !dashboard) {
-        return (
-            <main className="admin-page">
-                <div className="admin-page__state-card admin-page__state-card--error">
-                    {errorMessage ?? 'Admin dashboard data is unavailable.'}
-                </div>
-            </main>
-        );
-    }
-
     return (
         <main className="admin-page">
+            {errorMessage && (
+                <div className="admin-page__error-banner">
+                    <strong>Dashboard warning:</strong> {errorMessage}
+                </div>
+            )}
+
             <section className="admin-page__header">
                 <div>
                     <p className="admin-page__eyebrow">Admin Dashboard</p>
@@ -149,6 +161,10 @@ export default function AdminAnalytics() {
                         value={dashboard.summary.totalUsers.toString()}
                     />
                     <SummaryCard
+                        label="Courses"
+                        value={dashboard.summary.totalCourses.toString()}
+                    />
+                    <SummaryCard
                         label="Enrollments"
                         value={dashboard.summary.totalEnrollments.toString()}
                     />
@@ -164,12 +180,6 @@ export default function AdminAnalytics() {
                         label="Active Watch Time"
                         value={formatSeconds(
                             dashboard.summary.totalActiveSeconds,
-                        )}
-                    />
-                    <SummaryCard
-                        label="Inactive Time"
-                        value={formatSeconds(
-                            dashboard.summary.totalInactiveSeconds,
                         )}
                     />
                 </section>
@@ -286,22 +296,33 @@ function OverviewTab({
                                 <th>Active</th>
                             </tr>
                         </thead>
+
                         <tbody>
-                            {courses.map((course) => (
-                                <tr key={course.courseId}>
-                                    <td>{course.courseTitle}</td>
-                                    <td>{course.enrolledUsers}</td>
-                                    <td>{course.completedUsers}</td>
-                                    <td>
-                                        <ProgressBar
-                                            value={
-                                                course.averageProgressPercent
-                                            }
-                                        />
+                            {courses.length === 0 ? (
+                                <tr>
+                                    <td colSpan={5}>
+                                        <p className="admin-empty-text">
+                                            No course data found.
+                                        </p>
                                     </td>
-                                    <td>{course.activeSessions}</td>
                                 </tr>
-                            ))}
+                            ) : (
+                                courses.map((course) => (
+                                    <tr key={course.courseId}>
+                                        <td>{course.courseTitle}</td>
+                                        <td>{course.enrolledUsers}</td>
+                                        <td>{course.completedUsers}</td>
+                                        <td>
+                                            <ProgressBar
+                                                value={
+                                                    course.averageProgressPercent
+                                                }
+                                            />
+                                        </td>
+                                        <td>{course.activeSessions}</td>
+                                    </tr>
+                                ))
+                            )}
                         </tbody>
                     </table>
                 </div>
@@ -357,26 +378,37 @@ function UsersTab({ users }: UsersTabProps) {
                             <th>Status</th>
                         </tr>
                     </thead>
+
                     <tbody>
-                        {users.map((user) => (
-                            <tr key={user.userId}>
-                                <td>{user.displayName}</td>
-                                <td>{user.email}</td>
-                                <td>{user.enrolledCourses}</td>
-                                <td>{user.completedCourses}</td>
-                                <td>
-                                    <ProgressBar
-                                        value={user.averageProgressPercent}
-                                    />
-                                </td>
-                                <td>
-                                    {formatSeconds(user.totalActiveSeconds)}
-                                </td>
-                                <td>
-                                    <StatusPill status={user.status} />
+                        {users.length === 0 ? (
+                            <tr>
+                                <td colSpan={7}>
+                                    <p className="admin-empty-text">
+                                        No users found.
+                                    </p>
                                 </td>
                             </tr>
-                        ))}
+                        ) : (
+                            users.map((user) => (
+                                <tr key={user.userId}>
+                                    <td>{user.displayName}</td>
+                                    <td>{user.email}</td>
+                                    <td>{user.enrolledCourses}</td>
+                                    <td>{user.completedCourses}</td>
+                                    <td>
+                                        <ProgressBar
+                                            value={user.averageProgressPercent}
+                                        />
+                                    </td>
+                                    <td>
+                                        {formatSeconds(user.totalActiveSeconds)}
+                                    </td>
+                                    <td>
+                                        <StatusPill status={user.status} />
+                                    </td>
+                                </tr>
+                            ))
+                        )}
                     </tbody>
                 </table>
             </div>
@@ -411,24 +443,39 @@ function CoursesTab({ courses }: CoursesTabProps) {
                             <th>Active Sessions</th>
                         </tr>
                     </thead>
+
                     <tbody>
-                        {courses.map((course) => (
-                            <tr key={course.courseId}>
-                                <td>{course.courseTitle}</td>
-                                <td>{course.courseSlug}</td>
-                                <td>{course.enrolledUsers}</td>
-                                <td>{course.completedUsers}</td>
-                                <td>
-                                    <ProgressBar
-                                        value={course.averageProgressPercent}
-                                    />
+                        {courses.length === 0 ? (
+                            <tr>
+                                <td colSpan={7}>
+                                    <p className="admin-empty-text">
+                                        No courses found.
+                                    </p>
                                 </td>
-                                <td>
-                                    {formatSeconds(course.totalActiveSeconds)}
-                                </td>
-                                <td>{course.activeSessions}</td>
                             </tr>
-                        ))}
+                        ) : (
+                            courses.map((course) => (
+                                <tr key={course.courseId}>
+                                    <td>{course.courseTitle}</td>
+                                    <td>{course.courseSlug}</td>
+                                    <td>{course.enrolledUsers}</td>
+                                    <td>{course.completedUsers}</td>
+                                    <td>
+                                        <ProgressBar
+                                            value={
+                                                course.averageProgressPercent
+                                            }
+                                        />
+                                    </td>
+                                    <td>
+                                        {formatSeconds(
+                                            course.totalActiveSeconds,
+                                        )}
+                                    </td>
+                                    <td>{course.activeSessions}</td>
+                                </tr>
+                            ))
+                        )}
                     </tbody>
                 </table>
             </div>
@@ -583,13 +630,15 @@ type ProgressBarProps = {
 };
 
 function ProgressBar({ value }: ProgressBarProps) {
+    const safeValue = clampNumber(value, 0, 100);
+
     return (
         <div className="admin-progress">
             <div
                 className="admin-progress__fill"
-                style={{ width: `${Math.min(Math.max(value, 0), 100)}%` }}
+                style={{ width: `${safeValue}%` }}
             />
-            <span>{value}%</span>
+            <span>{safeValue}%</span>
         </div>
     );
 }
@@ -599,11 +648,11 @@ type StatusPillProps = {
 };
 
 function StatusPill({ status }: StatusPillProps) {
-    const normalizedStatus = status.toLowerCase();
+    const normalizedStatus = status.trim().toLowerCase() || 'inactive';
 
     return (
         <span className={`admin-status admin-status--${normalizedStatus}`}>
-            {status}
+            {status || 'Inactive'}
         </span>
     );
 }
@@ -657,7 +706,7 @@ function getSearchPlaceholder(tab: AdminTab) {
 }
 
 function formatSeconds(totalSeconds: number) {
-    const safeSeconds = Math.max(totalSeconds, 0);
+    const safeSeconds = Math.max(Number(totalSeconds) || 0, 0);
 
     const hours = Math.floor(safeSeconds / 3600);
     const minutes = Math.floor((safeSeconds % 3600) / 60);
@@ -669,6 +718,290 @@ function formatSeconds(totalSeconds: number) {
     return `${minutes}m`;
 }
 
-function formatDateTime(value: string) {
-    return new Date(value).toLocaleString();
+function formatDateTime(value: string | null) {
+    if (!value) {
+        return 'N/A';
+    }
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+        return 'N/A';
+    }
+
+    return date.toLocaleString();
+}
+
+function normalizeDashboard(rawData: unknown): AdminDashboardResponse {
+    const root = asRecord(rawData);
+
+    const summary = normalizeSummary(
+        getRecordValue(root, 'summary', 'Summary'),
+    );
+
+    const users = getArrayValue(root, 'users', 'Users').map(normalizeUserRow);
+
+    const courses = getArrayValue(root, 'courses', 'Courses').map(
+        normalizeCourseRow,
+    );
+
+    const recentSessions = getArrayValue(
+        root,
+        'recentSessions',
+        'RecentSessions',
+    ).map(normalizeSessionRow);
+
+    return {
+        summary,
+        users,
+        courses,
+        recentSessions,
+    };
+}
+
+function normalizeSummary(rawSummary: unknown): AdminSummary {
+    const summary = asRecord(rawSummary);
+
+    return {
+        totalUsers: getNumberValue(summary, 'totalUsers', 'TotalUsers'),
+        totalCourses: getNumberValue(summary, 'totalCourses', 'TotalCourses'),
+        totalEnrollments: getNumberValue(
+            summary,
+            'totalEnrollments',
+            'TotalEnrollments',
+        ),
+        activeSessions: getNumberValue(
+            summary,
+            'activeSessions',
+            'ActiveSessions',
+        ),
+        totalSessions: getNumberValue(
+            summary,
+            'totalSessions',
+            'TotalSessions',
+        ),
+        completedCourses: getNumberValue(
+            summary,
+            'completedCourses',
+            'CompletedCourses',
+        ),
+        totalActiveSeconds: getNumberValue(
+            summary,
+            'totalActiveSeconds',
+            'TotalActiveSeconds',
+        ),
+        totalInactiveSeconds: getNumberValue(
+            summary,
+            'totalInactiveSeconds',
+            'TotalInactiveSeconds',
+        ),
+        averageProgressPercent: getNumberValue(
+            summary,
+            'averageProgressPercent',
+            'AverageProgressPercent',
+        ),
+    };
+}
+
+function normalizeUserRow(rawUser: unknown): AdminUserRow {
+    const user = asRecord(rawUser);
+
+    return {
+        userId: getStringValue(user, 'userId', 'UserId'),
+        displayName:
+            getStringValue(user, 'displayName', 'DisplayName') ||
+            'Unknown User',
+        email: getStringValue(user, 'email', 'Email'),
+        enrolledCourses: getNumberValue(
+            user,
+            'enrolledCourses',
+            'EnrolledCourses',
+        ),
+        completedCourses: getNumberValue(
+            user,
+            'completedCourses',
+            'CompletedCourses',
+        ),
+        averageProgressPercent: getNumberValue(
+            user,
+            'averageProgressPercent',
+            'AverageProgressPercent',
+        ),
+        totalActiveSeconds: getNumberValue(
+            user,
+            'totalActiveSeconds',
+            'TotalActiveSeconds',
+        ),
+        lastSeenAt:
+            getNullableStringValue(user, 'lastSeenAt', 'LastSeenAt') ?? null,
+        status: getStringValue(user, 'status', 'Status') || 'Inactive',
+    };
+}
+
+function normalizeCourseRow(rawCourse: unknown): AdminCourseRow {
+    const course = asRecord(rawCourse);
+
+    return {
+        courseId: getNumberValue(course, 'courseId', 'CourseId'),
+        courseSlug: getStringValue(course, 'courseSlug', 'CourseSlug'),
+        courseTitle:
+            getStringValue(course, 'courseTitle', 'CourseTitle') ||
+            'Untitled Course',
+        enrolledUsers: getNumberValue(course, 'enrolledUsers', 'EnrolledUsers'),
+        completedUsers: getNumberValue(
+            course,
+            'completedUsers',
+            'CompletedUsers',
+        ),
+        averageProgressPercent: getNumberValue(
+            course,
+            'averageProgressPercent',
+            'AverageProgressPercent',
+        ),
+        totalActiveSeconds: getNumberValue(
+            course,
+            'totalActiveSeconds',
+            'TotalActiveSeconds',
+        ),
+        activeSessions: getNumberValue(
+            course,
+            'activeSessions',
+            'ActiveSessions',
+        ),
+    };
+}
+
+function normalizeSessionRow(rawSession: unknown): AdminSessionRow {
+    const session = asRecord(rawSession);
+
+    return {
+        sessionId:
+            getStringValue(session, 'sessionId', 'SessionId') ||
+            crypto.randomUUID(),
+        userId: getStringValue(session, 'userId', 'UserId'),
+        displayName:
+            getStringValue(session, 'displayName', 'DisplayName') ||
+            'Unknown User',
+        courseId: getNumberValue(session, 'courseId', 'CourseId'),
+        courseTitle:
+            getStringValue(session, 'courseTitle', 'CourseTitle') ||
+            'Unknown Course',
+        sectionTitle:
+            getStringValue(session, 'sectionTitle', 'SectionTitle') ||
+            'Course Progress',
+        startedAt: getStringValue(session, 'startedAt', 'StartedAt'),
+        lastHeartbeatAt: getStringValue(
+            session,
+            'lastHeartbeatAt',
+            'LastHeartbeatAt',
+        ),
+        endedAt: getNullableStringValue(session, 'endedAt', 'EndedAt') ?? null,
+        activeSeconds: getNumberValue(
+            session,
+            'activeSeconds',
+            'ActiveSeconds',
+        ),
+        inactiveSeconds: getNumberValue(
+            session,
+            'inactiveSeconds',
+            'InactiveSeconds',
+        ),
+        status: getStringValue(session, 'status', 'Status') || 'Inactive',
+    };
+}
+
+function asRecord(value: unknown): Record<string, unknown> {
+    if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
+        return value as Record<string, unknown>;
+    }
+
+    return {};
+}
+
+function getRecordValue(
+    record: Record<string, unknown>,
+    camelKey: string,
+    pascalKey: string,
+) {
+    return record[camelKey] ?? record[pascalKey];
+}
+
+function getArrayValue(
+    record: Record<string, unknown>,
+    camelKey: string,
+    pascalKey: string,
+) {
+    const value = record[camelKey] ?? record[pascalKey];
+
+    if (Array.isArray(value)) {
+        return value;
+    }
+
+    return [];
+}
+
+function getStringValue(
+    record: Record<string, unknown>,
+    camelKey: string,
+    pascalKey: string,
+) {
+    const value = record[camelKey] ?? record[pascalKey];
+
+    if (typeof value === 'string') {
+        return value;
+    }
+
+    if (typeof value === 'number' || typeof value === 'boolean') {
+        return String(value);
+    }
+
+    return '';
+}
+
+function getNullableStringValue(
+    record: Record<string, unknown>,
+    camelKey: string,
+    pascalKey: string,
+) {
+    const value = record[camelKey] ?? record[pascalKey];
+
+    if (value === null || value === undefined) {
+        return null;
+    }
+
+    if (typeof value === 'string') {
+        return value;
+    }
+
+    return String(value);
+}
+
+function getNumberValue(
+    record: Record<string, unknown>,
+    camelKey: string,
+    pascalKey: string,
+) {
+    const value = record[camelKey] ?? record[pascalKey];
+
+    if (typeof value === 'number' && Number.isFinite(value)) {
+        return value;
+    }
+
+    if (typeof value === 'string') {
+        const parsed = Number(value);
+
+        if (Number.isFinite(parsed)) {
+            return parsed;
+        }
+    }
+
+    return 0;
+}
+
+function clampNumber(value: number, min: number, max: number) {
+    if (!Number.isFinite(value)) {
+        return min;
+    }
+
+    return Math.min(Math.max(Math.round(value), min), max);
 }
