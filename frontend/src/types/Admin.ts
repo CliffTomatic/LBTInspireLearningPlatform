@@ -1,6 +1,33 @@
+// Admin Analytics subtabs, not general sidebar tabs
+export const ANALYTICS_TABS = [
+    'overview',
+    'users',
+    'courses',
+    'sessions',
+] as const;
+export type AnalyticsTabs = (typeof ANALYTICS_TABS)[number];
+export const ANALYTICS_TAB_ITEMS: { id: AnalyticsTabs; label: string }[] = [
+    {
+        id: 'overview',
+        label: 'Overview',
+    },
+    {
+        id: 'users',
+        label: 'Users',
+    },
+    {
+        id: 'courses',
+        label: 'Courses',
+    },
+    {
+        id: 'sessions',
+        label: 'Sessions',
+    },
+];
+
 // Used for checking if slug is a real tab and as a slug for <Link>
-export const ADMIN_TABS = ['dashboard', 'analytics'] as const;
-export type AdminTab = (typeof ADMIN_TABS)[number];
+export const ADMIN_PAGE = ['dashboard', 'analytics'] as const;
+export type AdminPage = (typeof ADMIN_PAGE)[number];
 
 export type AdminDashboardResponse = {
     summary: AdminSummary;
