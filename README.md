@@ -4,7 +4,9 @@ This project is now being tracked on Azure DevOps and is only available to those
 
 This repository _will_ be updated when stable demo versions are ready to share.
 
-**Project Tech Stack:** React, Vite, Node, Recharts Typescript, ASP.NET, C#, EF Core, SQLite (for dev only), ASP.NET Identity.
+**Project Tech Stack:** React, TypeScript, Vite, React Router, Recharts, ASP.NET Core, C#, Entity Framework Core, SQLite for local development, and ASP.NET Core Identity.
+
+**Development Tooling:** Node.js, npm, .NET CLI, EF Core CLI, Git, ESLint, and Prettier.
 
 # Pulse Learning Platform
 
