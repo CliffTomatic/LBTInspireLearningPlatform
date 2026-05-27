@@ -1,31 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import './AdminSidebar.css';
-import type { AdminPage } from '../../../types/Admin';
-
-type SidebarItem = {
-    slug: AdminPage;
-    label: string;
-    description: string;
-    symbol: string;
-};
-
 // Sidebar cards that will be displayed
-const sidebarItems: SidebarItem[] = [
-    {
-        slug: 'dashboard',
-        label: 'Dashboard',
-        description: 'Main admin overview',
-        symbol: '▦',
-    },
-    {
-        slug: 'analytics',
-        label: 'Analytics',
-        description: 'Learners and progress',
-        symbol: '◉',
-    },
-];
+import { ADMIN_PAGE_ITEMS } from '../../../types/Admin';
+
+import './AdminSidebar.css';
 
 export default function AdminSidebar() {
     const location = useLocation();
@@ -82,7 +61,7 @@ export default function AdminSidebar() {
             </div>
 
             <nav className="admin-sidebar__nav" aria-label="Admin navigation">
-                {sidebarItems.map((item) => (
+                {ADMIN_PAGE_ITEMS.map((item) => (
                     <Link
                         className={
                             activeItem === item.slug

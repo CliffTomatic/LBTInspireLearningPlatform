@@ -8,7 +8,8 @@ import Profile from '../pages/Profile/Profile';
 import LearnPage from '../pages/LearnPage/LearnPage';
 import AdminLayout from './AdminLayout/AdminLayout';
 import AdminDashboard from '../pages/Admin/AdminDashboard/AdminDashboard';
-import AdminAnalytics from '../components/admin/Analytics/AdminAnalytics/AdminAnalytics';
+import AdminAnalytics from '../components/Admin/Analytics/AdminAnalytics/AdminAnalytics';
+import Playground from '../components/Admin/Playground/Playground';
 
 const router = createBrowserRouter([
     {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
             {
                 path: 'analytics',
                 element: <AdminAnalytics />,
+            },
+            {
+                path: 'playground',
+                element: <Playground />,
             },
         ],
     },

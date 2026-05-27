@@ -1,12 +1,29 @@
-// Admin Analytics subtabs, not general sidebar tabs
-export const ANALYTICS_TABS = [
-    'overview',
-    'users',
-    'courses',
-    'sessions',
+// Used for checking if slug is a real tab and as a slug for <Link>
+// TODO: Convert symbols to a href link from assets.
+export const ADMIN_PAGE_ITEMS = [
+    {
+        slug: 'dashboard',
+        label: 'Dashboard',
+        description: 'Main admin overview',
+        symbol: '▦',
+    },
+    {
+        slug: 'analytics',
+        label: 'Analytics',
+        description: 'Learners and progress',
+        symbol: '◉',
+    },
+    {
+        slug: 'playground',
+        label: 'Playground',
+        description: 'Test playground for dev purposes',
+        symbol: '',
+    },
 ] as const;
-export type AnalyticsTabs = (typeof ANALYTICS_TABS)[number];
-export const ANALYTICS_TAB_ITEMS: { id: AnalyticsTabs; label: string }[] = [
+export type AdminPage = (typeof ADMIN_PAGE_ITEMS)[number];
+
+// Admin Analytics subtabs, not general sidebar tabs
+export const ANALYTICS_TAB_ITEMS = [
     {
         id: 'overview',
         label: 'Overview',
@@ -23,11 +40,8 @@ export const ANALYTICS_TAB_ITEMS: { id: AnalyticsTabs; label: string }[] = [
         id: 'sessions',
         label: 'Sessions',
     },
-];
-
-// Used for checking if slug is a real tab and as a slug for <Link>
-export const ADMIN_PAGE = ['dashboard', 'analytics'] as const;
-export type AdminPage = (typeof ADMIN_PAGE)[number];
+] as const;
+export type AnalyticsTabs = (typeof ANALYTICS_TAB_ITEMS)[number]['id'];
 
 export type AdminDashboardResponse = {
     summary: AdminSummary;
