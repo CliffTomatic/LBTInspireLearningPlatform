@@ -7,13 +7,15 @@ type LearnSidebarProps = {
     courseSlug: string;
     progressPercent?: number;
     chapters: CourseChapter[];
+    completedSectionIdSet: Set<number>;
 };
 
 export default function LearnSidebar({
     courseTitle,
     courseSlug,
-    progressPercent = 55,
+    progressPercent,
     chapters,
+    completedSectionIdSet,
 }: LearnSidebarProps) {
     return (
         <aside className="learn-sidebar">
@@ -36,7 +38,11 @@ export default function LearnSidebar({
                 </div>
             </div>
 
-            <ChapterList chapters={chapters} courseSlug={courseSlug} />
+            <ChapterList
+                chapters={chapters}
+                courseSlug={courseSlug}
+                completedSectionIdSet={completedSectionIdSet}
+            />
         </aside>
     );
 }

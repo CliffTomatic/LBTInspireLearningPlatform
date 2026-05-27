@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add all controllers
 builder.Services.AddControllers();
 
 // Settings
@@ -40,6 +41,9 @@ builder.Services.AddScoped<SessionService>();
 
 // Creates JWT tokens after login/register
 builder.Services.AddScoped<JwtTokenService>();
+
+// Admin Dashboard Controller Service
+builder.Services.AddScoped<AdminDashboardService>();
 
 // ASP.NET Identity
 builder.Services
@@ -102,6 +106,17 @@ builder.Services
 
 builder.Services.AddAuthorization();
 
+// Allow preflight OPTION request from REACT URL
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ReactDev", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -133,20 +148,33 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
-// NEW SQLITE DB CODE
-using (var scope = app.Services.CreateScope())
+if (app.Environment.IsDevelopment())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
-    dbContext.Database.Migrate();
-}
-
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors("ReactDev");
+}
 
 if (!app.Environment.IsDevelopment())
 {
     app.UseHttpsRedirection();
+}
+
+// Seed Database
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    db.Database.EnsureCreated();
+
+    var userManager =
+        services.GetRequiredService<
+            UserManager<ApplicationUser>
+        >();
+
+    DbSeeder.SeedCourses(db);
+    await DbSeeder.SeedUsersAsync(userManager);
 }
 
 // Authentication must come before Authorization.

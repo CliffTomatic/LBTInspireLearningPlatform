@@ -1,16 +1,21 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 import './ChapterItem.css';
-import type { CourseChapter } from "../../../types/Course";
+import type { CourseChapter } from '../../../types/Course';
 // import type { LearnChapter } from "../../../types/Learn";
-import SectionCard from "../SectionCard/SectionCard";
+import SectionCard from '../SectionCard/SectionCard';
 
 type ChapterItemProps = {
     chapter: CourseChapter;
     courseSlug: string;
+    completedSectionIdSet: Set<number>;
 };
 
-function ChapterItem({ chapter, courseSlug }: ChapterItemProps) {
+function ChapterItem({
+    chapter,
+    courseSlug,
+    completedSectionIdSet,
+}: ChapterItemProps) {
     const [isOpen, setIsOpen] = useState(true);
 
     return (
@@ -21,7 +26,7 @@ function ChapterItem({ chapter, courseSlug }: ChapterItemProps) {
                 onClick={() => setIsOpen((current) => !current)}
             >
                 <span>{chapter.title}</span>
-                <span className="chapter-item__icon">{isOpen ? "−" : "+"}</span>
+                <span className="chapter-item__icon">{isOpen ? '−' : '+'}</span>
             </button>
 
             {isOpen && (
@@ -32,6 +37,7 @@ function ChapterItem({ chapter, courseSlug }: ChapterItemProps) {
                             key={section.id}
                             section={section}
                             courseSlug={courseSlug}
+                            isCompleted={completedSectionIdSet.has(section.id)}
                         />
                     ))}
                 </div>

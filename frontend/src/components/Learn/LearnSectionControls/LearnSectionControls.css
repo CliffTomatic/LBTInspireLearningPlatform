@@ -1,0 +1,110 @@
+.learn-section-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1.5rem;
+
+    border: 1px solid #e7e3f5;
+    border-radius: 18px;
+
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(39, 25, 72, 0.08);
+}
+
+.learn-section-controls__navigation {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.learn-section-controls__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 42px;
+    padding: 0.7rem 1rem;
+
+    border: none;
+    border-radius: 999px;
+
+    font-size: 0.92rem;
+    font-weight: 700;
+    line-height: 1;
+
+    cursor: pointer;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        background-color 0.15s ease,
+        color 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.learn-section-controls__button:hover:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.learn-section-controls__button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.learn-section-controls__button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+.learn-section-controls__button--secondary {
+    border: 1px solid #ded8f2;
+
+    color: #4c3a78;
+    background-color: #ffffff;
+}
+
+.learn-section-controls__button--secondary:hover:not(:disabled) {
+    border-color: #7c3aed;
+
+    color: #5b21b6;
+    background-color: #f5f0ff;
+
+    box-shadow: 0 8px 18px rgba(124, 58, 237, 0.12);
+}
+
+.learn-section-controls__button--complete {
+    color: #ffffff;
+    background: linear-gradient(135deg, #7c3aed, #5b21b6);
+
+    box-shadow: 0 10px 24px rgba(124, 58, 237, 0.25);
+}
+
+.learn-section-controls__button--complete:hover:not(:disabled) {
+    box-shadow: 0 14px 30px rgba(124, 58, 237, 0.32);
+}
+
+.learn-section-controls__button--completed {
+    color: #4c1d95;
+    background: #ede9fe;
+
+    box-shadow: none;
+}
+
+@media (max-width: 700px) {
+    .learn-section-controls {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .learn-section-controls__navigation {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+    }
+
+    .learn-section-controls__button {
+        width: 100%;
+    }
+}

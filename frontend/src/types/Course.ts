@@ -13,6 +13,16 @@ export interface Course {
     chapters: CourseChapter[];
 }
 
+export type CourseSummary = {
+    id: number;
+    slug: string;
+    title: string;
+    description: string;
+    thumbnailUrl: string;
+    level: Course['level'];
+    estimatedHours: number;
+};
+
 export type CourseChapter = {
     id: number;
     title: string;
@@ -23,18 +33,22 @@ export type EbookBlock =
     | {
           type: 'heading';
           text: string;
+          items?: never;
       }
     | {
           type: 'paragraph';
           text: string;
+          items?: never;
       }
     | {
           type: 'list';
+          text?: never;
           items: string[];
       }
     | {
           type: 'callout';
           text: string;
+          items?: never;
       };
 
 export type CourseSection = {
@@ -44,11 +58,10 @@ export type CourseSection = {
     slug: string;
 
     durationMinutes?: number;
-    isPreview?: boolean;
-    isCompleted?: boolean;
+    isPreview: boolean;
 
     videoUrl?: string;
     thumbnailUrl?: string;
 
-    ebookContent?: EbookBlock[];
+    ebookContent: EbookBlock[];
 };

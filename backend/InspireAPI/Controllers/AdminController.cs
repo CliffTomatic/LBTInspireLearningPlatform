@@ -1,53 +1,25 @@
+using InspireAPI.Models.Admin;
+using InspireAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using InspireAPI.Data;
 
-namespace InspireAPI.Controllers
+namespace InspireAPI.Controllers;
+
+[ApiController]
+[Route("api/admin")]
+public class AdminController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class AdminController : ControllerBase
+    private readonly AdminDashboardService _adminDashboardService;
+
+    public AdminController(AdminDashboardService adminDashboardService)
     {
-        private readonly AppDbContext _db;
+        _adminDashboardService = adminDashboardService;
+    }
 
-        public AdminController(AppDbContext db)
-        {
-            _db = db;
-        }
+    [HttpGet("dashboard")]
+    public async Task<ActionResult<AdminDashboardDto>> GetDashboard()
+    {
+        var dashboard = await _adminDashboardService.GetDashboardAsync();
 
-        [HttpGet("sessions")]
-        public async Task<IActionResult> GetSessions()
-        {
-            var sessions = await _db.Sessions
-                .OrderByDescending(s => s.StartedAt)
-                .Select(s => new
-                {
-                    sessionId = s.Id,
-                    // s.UserId,
-                    // s.UserName,
-                    // s.VideoId,
-                    // s.StartedAt,
-                    // s.EndedAt,
-                    // s.TotalWatchedSeconds,
-                    // s.LastKnownVideoTimeSeconds,
-                    s.IsActive
-                })
-                .ToListAsync();
-
-            return Ok(sessions);
-        }
-
-        [HttpGet("summary")]
-        public async Task<IActionResult> GetSummary()
-        {
-            var summary = new
-            {
-                totalSessions = await _db.Sessions.CountAsync(),
-                activeSessions = await _db.Sessions.CountAsync(s => s.IsActive),
-                // totalWatchSeconds = await _db.Sessions.SumAsync(s => s.TotalWatchedSeconds)
-            };
-
-            return Ok(summary);
-        }
+        return Ok(dashboard);
     }
 }

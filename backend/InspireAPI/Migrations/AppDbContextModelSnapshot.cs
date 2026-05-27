@@ -85,6 +85,228 @@ namespace InspireAPI.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("InspireAPI.Models.Courses.Course", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("EstimatedHours")
+                        .HasColumnType("REAL");
+
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Level")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ThumbnailUrl")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Slug")
+                        .IsUnique();
+
+                    b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("InspireAPI.Models.Courses.CourseChapter", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("CourseChapters");
+                });
+
+            modelBuilder.Entity("InspireAPI.Models.Courses.CourseSection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CourseChapterId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("DurationMinutes")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsPreview")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ThumbnailUrl")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("VideoUrl")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseChapterId");
+
+                    b.ToTable("CourseSections");
+                });
+
+            modelBuilder.Entity("InspireAPI.Models.Courses.EbookBlock", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CourseSectionId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ItemsJson")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseSectionId");
+
+                    b.ToTable("EbookBlocks");
+                });
+
+            modelBuilder.Entity("InspireAPI.Models.Progress.UserCourseProgress", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CompletedSectionCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("LastAccessedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("LastSectionId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProgressPercent")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("StartedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("TotalActiveSeconds")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId", "CourseId")
+                        .IsUnique();
+
+                    b.ToTable("UserCourseProgresses");
+                });
+
+            modelBuilder.Entity("InspireAPI.Models.Progress.UserSectionProgress", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("ActiveSecondsWatched")
+                        .HasColumnType("REAL");
+
+                    b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("LastAccessedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("LastPositionSeconds")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SectionId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("StartedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId", "CourseId", "SectionId")
+                        .IsUnique();
+
+                    b.ToTable("UserSectionProgresses");
+                });
+
             modelBuilder.Entity("InspireAPI.Models.SectionLog", b =>
                 {
                     b.Property<int>("Id")
@@ -293,6 +515,39 @@ namespace InspireAPI.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("InspireAPI.Models.Courses.CourseChapter", b =>
+                {
+                    b.HasOne("InspireAPI.Models.Courses.Course", "Course")
+                        .WithMany("Chapters")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("InspireAPI.Models.Courses.CourseSection", b =>
+                {
+                    b.HasOne("InspireAPI.Models.Courses.CourseChapter", "CourseChapter")
+                        .WithMany("Sections")
+                        .HasForeignKey("CourseChapterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CourseChapter");
+                });
+
+            modelBuilder.Entity("InspireAPI.Models.Courses.EbookBlock", b =>
+                {
+                    b.HasOne("InspireAPI.Models.Courses.CourseSection", "CourseSection")
+                        .WithMany("EbookBlocks")
+                        .HasForeignKey("CourseSectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CourseSection");
+                });
+
             modelBuilder.Entity("InspireAPI.Models.SectionLog", b =>
                 {
                     b.HasOne("InspireAPI.Models.Session", "Session")
@@ -353,6 +608,21 @@ namespace InspireAPI.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("InspireAPI.Models.Courses.Course", b =>
+                {
+                    b.Navigation("Chapters");
+                });
+
+            modelBuilder.Entity("InspireAPI.Models.Courses.CourseChapter", b =>
+                {
+                    b.Navigation("Sections");
+                });
+
+            modelBuilder.Entity("InspireAPI.Models.Courses.CourseSection", b =>
+                {
+                    b.Navigation("EbookBlocks");
                 });
 
             modelBuilder.Entity("InspireAPI.Models.Session", b =>
