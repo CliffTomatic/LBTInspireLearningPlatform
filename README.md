@@ -8,6 +8,10 @@ This repository _will_ be updated when stable demo versions are ready to share.
 
 **Development Tooling:** Node.js, npm, .NET CLI, EF Core CLI, Git, ESLint, and Prettier.
 
+## Running Locally
+
+Use [QUICKSTART.md](QUICKSTART.md) for the full setup and run instructions.
+
 # Pulse Learning Platform
 
 Pulse is a full-stack learning platform replacing the current LearnWorlds/WordPress course setup. It is being built for Learnbasictech, County of Los Angeles to deliver digital learning courses and track the grant-reporting metrics needed for program outcomes.
