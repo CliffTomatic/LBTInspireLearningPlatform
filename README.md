@@ -1,6 +1,14 @@
+# PLEASE NOTE: Public Portfolio Version.
+
+This project is now being tracked on Azure DevOps and is only available to those working on the project. If you would like to see the most up to date version of this project (Active User Tracking, polished frontend UX/UI, working backend API) please contact me at cdurbin@isd.lacounty.gov and schedule a time to meet with me.
+
+This repository _will_ be updated when stable demo versions are ready to share.
+
+**Project Tech Stack:** React, Vite, Node, Recharts Typescript, ASP.NET, C#, EF Core, SQLite (for dev only), ASP.NET Identity.
+
 # Pulse Learning Platform
 
-Pulse is a full-stack learning platform replacing the current LearnWorlds/WordPress course setup. It is being built for a County of Los Angeles company to deliver digital learning courses and track the grant-reporting metrics needed for program outcomes.
+Pulse is a full-stack learning platform replacing the current LearnWorlds/WordPress course setup. It is being built for Learnbasictech, County of Los Angeles to deliver digital learning courses and track the grant-reporting metrics needed for program outcomes.
 
 The platform currently focuses on course discovery, course details, video learning, ebook-style lesson content, session tracking, and early admin reporting.
 
@@ -117,7 +125,7 @@ README.md                 Project overview and roadmap
 
 ## Running Locally
 
-Use [QUICK_START.md](QUICK_START.md) for the full setup and run instructions.
+Use [QUICKSTART.md](QUICKSTART.md) for the full setup and run instructions.
 
 Use [CONTRIBUTING.md](CONTRIBUTING.md) for commit, push, and pull request best practices.
 
