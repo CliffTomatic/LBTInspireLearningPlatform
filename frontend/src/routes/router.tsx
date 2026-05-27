@@ -6,11 +6,11 @@ import CoursesPage from '../pages/CoursesPage';
 import CourseDetailsPage from '../pages/CourseDetailsPage/CourseDetailsPage';
 import Profile from '../pages/Profile/Profile';
 import LearnPage from '../pages/LearnPage/LearnPage';
+import AdminLayout from './AdminLayout/AdminLayout';
 import AboutUsPage from '../pages/AboutUsPage/AboutUsPage';
 import AdminDashboard from '../pages/Admin/AdminDashboard/AdminDashboard';
 import AdminAnalytics from '../components/Admin/Analytics/AdminAnalytics/AdminAnalytics';
 import Playground from '../components/Admin/Playground/Playground';
-import AdminLayout from './AdminLayout/AdminLayout';
 
 const router = createBrowserRouter([
     {

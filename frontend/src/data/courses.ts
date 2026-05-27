@@ -24,6 +24,7 @@ export const courses: Course[] = [
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 8,
                         isPreview: true,
+                        ebookContent: [],
                     },
                     {
                         id: 2,
@@ -34,6 +35,8 @@ export const courses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 10,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -95,6 +98,7 @@ export const courses: Course[] = [
                                 text: 'If something feels suspicious, do not click around to investigate. Close the page and go directly to the official website by typing the address yourself.',
                             },
                         ],
+                        isPreview: false,
                     },
                     {
                         id: 4,
@@ -105,6 +109,8 @@ export const courses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 10,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -133,6 +139,7 @@ export const courses: Course[] = [
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 7,
                         isPreview: true,
+                        ebookContent: [],
                     },
                     {
                         id: 2,
@@ -143,6 +150,8 @@ export const courses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 9,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -159,6 +168,8 @@ export const courses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 8,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                     {
                         id: 4,
@@ -169,6 +180,8 @@ export const courses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 8,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -197,6 +210,7 @@ export const courses: Course[] = [
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 6,
                         isPreview: true,
+                        ebookContent: [],
                     },
                     {
                         id: 2,
@@ -207,6 +221,8 @@ export const courses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 9,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -223,6 +239,8 @@ export const courses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 10,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                     {
                         id: 4,
@@ -233,6 +251,8 @@ export const courses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 12,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -261,6 +281,7 @@ export const courses: Course[] = [
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 8,
                         isPreview: true,
+                        ebookContent: [],
                     },
                     {
                         id: 2,
@@ -271,6 +292,8 @@ export const courses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 10,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -300,6 +323,7 @@ export const courses: Course[] = [
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 10,
                         isPreview: true,
+                        ebookContent: [],
                     },
                     {
                         id: 2,
@@ -310,6 +334,8 @@ export const courses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 12,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -326,6 +352,8 @@ export const courses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 14,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                     {
                         id: 4,
@@ -336,6 +364,8 @@ export const courses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 9,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -365,6 +395,7 @@ export const courses: Course[] = [
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 9,
                         isPreview: true,
+                        ebookContent: [],
                     },
                     {
                         id: 2,
@@ -375,6 +406,8 @@ export const courses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 11,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -391,6 +424,8 @@ export const courses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 13,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                     {
                         id: 4,
@@ -401,6 +436,8 @@ export const courses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 10,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -430,6 +467,7 @@ export const courses: Course[] = [
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 8,
                         isPreview: true,
+                        ebookContent: [],
                     },
                     {
                         id: 2,
@@ -440,6 +478,8 @@ export const courses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 10,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -471,6 +511,7 @@ export const testBegCourses: Course[] = [
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 8,
                         isPreview: true,
+                        ebookContent: [],
                     },
                     {
                         id: 2,
@@ -481,6 +522,8 @@ export const testBegCourses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 10,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -497,6 +540,8 @@ export const testBegCourses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 12,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                     {
                         id: 4,
@@ -507,6 +552,8 @@ export const testBegCourses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 10,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -535,6 +582,7 @@ export const testBegCourses: Course[] = [
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 7,
                         isPreview: true,
+                        ebookContent: [],
                     },
                     {
                         id: 2,
@@ -545,6 +593,8 @@ export const testBegCourses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 9,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -561,6 +611,8 @@ export const testBegCourses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 8,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                     {
                         id: 4,
@@ -571,6 +623,8 @@ export const testBegCourses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 8,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -599,6 +653,7 @@ export const testBegCourses: Course[] = [
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 6,
                         isPreview: true,
+                        ebookContent: [],
                     },
                     {
                         id: 2,
@@ -609,6 +664,8 @@ export const testBegCourses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 9,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -625,6 +682,8 @@ export const testBegCourses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 10,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                     {
                         id: 4,
@@ -635,6 +694,8 @@ export const testBegCourses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 12,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -663,6 +724,7 @@ export const testBegCourses: Course[] = [
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 8,
                         isPreview: true,
+                        ebookContent: [],
                     },
                     {
                         id: 2,
@@ -673,6 +735,8 @@ export const testBegCourses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 10,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -705,6 +769,7 @@ export const testAdvCourses: Course[] = [
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 10,
                         isPreview: true,
+                        ebookContent: [],
                     },
                     {
                         id: 2,
@@ -715,6 +780,8 @@ export const testAdvCourses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 12,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -731,6 +798,8 @@ export const testAdvCourses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 14,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                     {
                         id: 4,
@@ -741,6 +810,8 @@ export const testAdvCourses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 9,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -770,6 +841,7 @@ export const testAdvCourses: Course[] = [
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 9,
                         isPreview: true,
+                        ebookContent: [],
                     },
                     {
                         id: 2,
@@ -780,6 +852,8 @@ export const testAdvCourses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 11,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -796,6 +870,8 @@ export const testAdvCourses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 13,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                     {
                         id: 4,
@@ -806,6 +882,8 @@ export const testAdvCourses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 10,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },
@@ -835,6 +913,7 @@ export const testAdvCourses: Course[] = [
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 8,
                         isPreview: true,
+                        ebookContent: [],
                     },
                     {
                         id: 2,
@@ -845,6 +924,8 @@ export const testAdvCourses: Course[] = [
                         thumbnailUrl:
                             '/assets/thumbnails/Video_1_Thumbnail.png',
                         durationMinutes: 10,
+                        isPreview: false,
+                        ebookContent: [],
                     },
                 ],
             },

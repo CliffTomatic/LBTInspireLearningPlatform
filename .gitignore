@@ -29,6 +29,8 @@ build/
 # Environment / secrets
 .env
 .env.*
+!.env.example
+!.env.development.example
 secrets.json
 
 # Azure / publish

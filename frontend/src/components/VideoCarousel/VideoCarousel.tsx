@@ -1,5 +1,5 @@
-import VideoCard from "../VideoCard/VideoCard";
-import "./VideoCarousel.css";
+import VideoCard from '../VideoCard/VideoCard';
+import './VideoCarousel.css';
 
 // Mock data, to be removed when assets are added.
 type Video = {
@@ -11,15 +11,15 @@ type Video = {
 const videos: Video[] = [
     {
         id: 1,
-        title: "Test Video One",
-        description: "Description of Video One",
-        thumbnailURL: "../public/assets/thumbnails/Video_1_Thumbnail.png",
+        title: 'Test Video One',
+        description: 'Description of Video One',
+        thumbnailURL: '../assets/thumbnails/Video_1_Thumbnail.png',
     },
     {
         id: 2,
-        title: "Test Video Two",
-        description: "Description of Video Two",
-        thumbnailURL: "../public/assets/thumbnails/Video_1_Thumbnail.png",
+        title: 'Test Video Two',
+        description: 'Description of Video Two',
+        thumbnailURL: '../assets/thumbnails/Video_1_Thumbnail.png',
     },
 ];
 

@@ -8,14 +8,14 @@ Install these before working on the project:
 
 - Git 2.x
 - .NET SDK 10.0.x
-  - This repo targets `net10.0`.
-  - Verified locally with .NET SDK `10.0.203`.
+    - This repo targets `net10.0`.
+    - Verified locally with .NET SDK `10.0.203`.
 - Node.js `22.14.0` or newer in the Node 22 line
-  - Vite 8 requires `^20.19.0 || >=22.12.0`.
-  - Verified locally with Node `v22.14.0` and npm `10.9.2`.
+    - Vite 8 requires `^20.19.0 || >=22.12.0`.
+    - Verified locally with Node `v22.14.0` and npm `10.9.2`.
 - A code editor
-  - VS Code is fine for both frontend and backend.
-  - Visual Studio also works well for the ASP.NET backend.
+    - VS Code is fine for both frontend and backend.
+    - Visual Studio also works well for the ASP.NET backend.
 - A modern browser such as Edge or Chrome.
 
 Optional but useful:
@@ -51,17 +51,17 @@ Frontend:
 
 This checkout has both GitHub and Azure DevOps remotes configured. Ask the project lead which remote the team should use as the source of truth.
 
-Current remotes in this local repo:
-
-```text
-github: https://github.com/CliffTomatic/LBTInspireLearningPlatform.git
-origin: Azure DevOps DTD Platform Integration Team repo
-```
-
 Typical GitHub clone:
 
 ```powershell
 git clone https://github.com/CliffTomatic/LBTInspireLearningPlatform.git
+cd LBTInspireLearningPlatform
+```
+
+Typical Azure DevOps clone:
+
+```powershell
+git clone https://dtdWebDesign@dev.azure.com/dtdWebDesign/DTD%20Platform%20Integration%20Team/_git/DTD%20Platform%20Integration%20Team
 cd LBTInspireLearningPlatform
 ```
 
@@ -81,6 +81,33 @@ npm.cmd install
 ```
 
 Use `npm.cmd` in PowerShell if `npm` fails with a script execution policy error.
+
+## Frontend Environment Setup
+
+The React/Vite frontend requires a local `.env` file.
+
+From the `frontend` folder:
+
+```bash
+copy .env.example .env
+```
+
+## Backend Local Secrets
+
+JWT secrets are not stored in `appsettings.json`.
+
+For local development, initialize .NET User Secrets from the backend project folder:
+
+```bash
+cd backend\InspireAPI
+dotnet user-secrets init
+```
+
+Set the local JWT key:
+
+```bash
+dotnet user-secrets set "Jwt:Key" "replace-with-a-long-random-64-digit-local-development-key"
+```
 
 ## Run The Backend
 
@@ -114,7 +141,7 @@ Open a second terminal from the repo root:
 
 ```powershell
 cd frontend
-npm.cmd run dev
+npm run dev
 ```
 
 Vite usually starts at:
@@ -181,4 +208,3 @@ npm.cmd run build
 Keep frontend changes with backend work when they are required to consume backend APIs, replace mocks, or align with backend contracts. Put unrelated UI cleanup or visual polish in a separate frontend-focused branch.
 
 Use [CONTRIBUTING.md](CONTRIBUTING.md) for more details about commit, push, and pull request best practices.
-

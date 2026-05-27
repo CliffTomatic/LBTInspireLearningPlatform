@@ -13,7 +13,7 @@
             rgba(0, 0, 0, 0.6),
             rgba(0, 0, 0, 0.4)
         ),
-        url('public/assets/images/LearnBasicTech_Homepage.png');
+        url('/assets/images/LearnBasicTech_Homepage.png');
     background-size: cover;
     background-position: center;
 }

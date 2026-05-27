@@ -13,7 +13,7 @@ export default function CoursesPage() {
     useEffect(() => {
         async function loadCourses() {
             const data = await getCourses();
-            setCourses(data);
+            setCourses(data ?? []);
         }
 
         loadCourses();
